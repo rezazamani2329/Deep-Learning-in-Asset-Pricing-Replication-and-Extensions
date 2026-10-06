@@ -1,6 +1,6 @@
-# Deep Learning in Asset Pricing: Replication and Extensions
+# Asset Pricing with Deep Learning: Replication, Extensions and Uncertainty
 
-An academic study of how economic pricing restrictions, macroeconomic sequence models, and adversarial learning shape portfolio performance. We reproduce the original framework, compare our results with the authors, and extend the analysis to **LSTM versus Transformer, rolling windows, economic regimes, and combinations**.
+An academic study of how economic pricing restrictions, macroeconomic sequence models, and adversarial learning shape portfolio performance. We reproduce the original framework, compare our results with the authors, and extend the analysis to **LSTM versus Transformer, rolling windows, economic regimes, portfolio combinations, and bootstrap uncertainty**. The completed extension evidence comes from a reduced training schedule. Codes 09–012 reuse saved returns without retraining.
 
 ## Team and course
 
@@ -14,17 +14,18 @@ An academic study of how economic pricing restrictions, macroeconomic sequence m
 
 **Group 7, UC Berkeley, Master of Financial Engineering.**
 
-## Three presentations, one research project
+## Presentations and research draft
 
-This README brings together the questions, methods, evidence, and limitations from all three presentations.
+This README combines the original-paper presentation, our replication, the Codes 08–11 deck, and the updated Codes 08–012 presentation. The earlier files remain available for comparison.
 
 | Presentation | Coverage | Files |
 |---|---|---|
 | 1. Original paper | Economic motivation, SDF, LSTM/FFN/adversarial architecture, published findings, critical assessment, and suggested improvements | [PowerPoint](presentation/01_Original_Paper.pptx) |
 | 2. Our replication | Data reconstruction, benchmark methods, Codes 01–07, paper comparisons, rankings, validation checks, and implementation challenges | [PowerPoint](presentation/02_Our_Replication.pptx) |
 | 3. Replication and extensions | Paper recap followed by Codes 08–11: architecture, seeds, rolling performance, regimes, risk, and combinations | [PowerPoint](presentation/03_Combined_Replication_and_Extensions_08_11.pptx), [PDF](presentation/03_Combined_Replication_and_Extensions_08_11.pdf) |
+| 4. Updated research presentation | Original paper, replication, Codes 08–012, bootstrap methods, rolling uncertainty, local-model comparisons, and original Code 012 figures | [PowerPoint](presentation/04_Asset_Pricing_Replication_Extensions_and_Uncertainty.pptx), [PDF](presentation/04_Asset_Pricing_Replication_Extensions_and_Uncertainty.pdf) |
 
-The third deck contains 30 slides: 10 summarize previous work and 20 cover the extensions. The research draft is available as [LaTeX source](paper/asset_pricing_extensions_draft.tex).
+The third deck contains 30 slides: 10 summarize previous work and 20 cover the extensions. The updated fourth deck contains 39 slides and retains the team names and Professor Ali Kakhbod. Its title is **Asset Pricing with Deep Learning: Replication, Extensions and Uncertainty**. The research draft is available as [LaTeX source](paper/asset_pricing_extensions_draft.tex).
 
 ## Purpose and research questions
 
@@ -37,7 +38,8 @@ The original question is whether a model trained to satisfy asset-pricing restri
 | Does one full-test Sharpe conceal changes over time? | Evaluate fixed saved models over complete 36- and 60-month windows | Code 09, rolling Sharpe, volatility, correlations, and drawdowns |
 | Where do models perform differently? | Partition test months by business cycle and lagged market volatility | Code 10, conditional return/risk and Sharpe |
 | How do architecture, rolling windows, and regimes interact? | Group rolling windows by their ending-month regime and compare all portfolios | Code 11, endpoint-regime tables |
-| Does combining the architectures help? | Average saved LSTM and Transformer portfolio returns with fixed 50/50 weights | Code 11, split, regime, and rolling blend comparisons |
+| Does combining the architectures help? | Average saved LSTM and Transformer portfolio returns with fixed equal weights | Code 11, split, regime, and rolling combination comparisons |
+| How precisely do we estimate the Sharpe differences? | Paired circular block bootstrap, multiple interval methods, dependence sensitivity and simultaneous pair comparisons | Code 012, full-test and rolling uncertainty, with additional comparisons among all seven local portfolios |
 
 ## Original paper: economic foundation
 
@@ -73,7 +75,7 @@ Training proceeds through an unconditional SDF stage, an instrument-learning sta
 
 The original presentation emphasizes the economic objective, nonlinear cross-sectional interactions, learned macro states, and adversarial test instruments. It also raises questions about tradability, transaction costs, missing-characteristic filters, model interpretation, and uncertainty around performance differences.
 
-Our rolling and regime analyses address the concern that a 25-year aggregate test statistic can conceal variation. Transformer is an additional architecture experiment. Transaction-cost adjustment, expanding-window refitting, imputation robustness, economic-state interpretation, and formal uncertainty estimates remain future work.
+Our rolling and regime analyses address the concern that a 25-year aggregate test statistic can conceal variation. Transformer is an additional architecture experiment. Code 012 adds approximate return-sample uncertainty for fixed saved portfolios. Transaction-cost adjustment, expanding-window refitting, imputation robustness, economic-state interpretation, and training uncertainty remain future work.
 
 ## Data and replication methodology
 
@@ -97,7 +99,7 @@ Data checks align all 600 calendar months, resolve two-digit macro dates, use tr
 | GAN with LSTM | Economic pricing-moment model with macro encoders and adversarial instruments |
 | Fama–French tangency portfolios | External benchmark checks independent of neural-network implementation |
 
-The historical replication and the later matched extension implementation are distinct experiments. The extension audit aligns bounded instruments, observation-count weighting, macro dropout, optimizer passes, checkpoint criteria, raw-weight ensemble construction, and the Sharpe convention more closely with the author implementation. These changes mean Code 07 versus new LSTM is not a controlled architecture comparison.
+The historical replication and the later matched extension implementation are distinct experiments. The extension audit aligns bounded instruments, observation-count weighting, macro dropout, optimizer passes, checkpoint criteria, raw-weight ensemble construction, and the Sharpe convention more closely with the author implementation. These changes mean Code 07 versus extension LSTM is not a controlled architecture comparison.
 
 ## Replication results versus published results
 
@@ -127,7 +129,7 @@ The leading signals correspond to short-term reversal, standard unexplained volu
 
 The extension replaces **both** LSTM macro encoders with causal Transformer encoders. The economic output dimensions, pricing objective, input panel, calendars, seeds, and common training budget remain aligned between the two new architectures.
 
-| Setting | New LSTM | New Transformer |
+| Setting | Extension LSTM | New Transformer |
 |---|---|---|
 | Temporal representation | Recurrent hidden state | Causal self-attention |
 | Macro inputs | 178 | 178 |
@@ -153,18 +155,18 @@ All 18 new members completed under the reduced budget. A full-schedule experimen
 | Portfolio | Train | Validation | Test |
 | --- | --- | --- | --- |
 | Paper GAN | 2.680 | 1.430 | 0.750 |
-| Code 07 GAN | 2.224 | 1.185 | 0.612 |
-| New LSTM | 1.308 | 0.750 | 0.459 |
+| Our replicated GAN | 2.224 | 1.185 | 0.612 |
+| Extension LSTM | 1.308 | 0.750 | 0.459 |
 | Transformer | 1.049 | 0.589 | 0.304 |
-| 50/50 blend | 1.414 | 0.915 | 0.463 |
+| Equal-weight combination | 1.414 | 0.915 | 0.463 |
 
 ![Monthly Sharpe across all three samples](results/readme/figures/split_sharpe.png)
 
-The paper row is its rounded published GAN benchmark. Rolling and regime figures below use the separately saved authors’ monthly GAN factor series, which reproduces the published test Sharpe to rounding. New LSTM outperforms Transformer in all three samples at the shared reduced budget. The historical Code 07 GAN also exceeds both new ensembles, but its different implementation/training procedure prevents attributing that gap to architecture alone.
+The paper row is its rounded published GAN benchmark. Rolling and regime figures below use the separately saved authors’ monthly GAN factor series, which reproduces the published test Sharpe to rounding. Extension LSTM outperforms Transformer in all three samples at the shared reduced budget. The historical Our replicated GAN also exceeds both new ensembles, but its different implementation/training procedure prevents attributing that gap to architecture alone.
 
 ### Return and risk explain the gap
 
-The new LSTM has mean monthly test return of approximately **0.51%**, annualized volatility of **3.87%**, and maximum drawdown of **−11.14%**. Transformer has approximately **0.42%**, **4.82%**, and **−15.35%**. Its lower Sharpe combines a lower mean return with greater volatility. These are gross saved-factor results, without transaction costs.
+The extension LSTM has mean monthly test return of approximately **0.51%**, annualized volatility of **3.87%**, and maximum drawdown of **−11.14%**. Transformer has approximately **0.42%**, **4.82%**, and **−15.35%**. Its lower Sharpe combines a lower mean return with greater volatility. These are gross saved-factor results, without transaction costs.
 
 ![Saved model wealth and drawdowns](results/consolidated_comparison/figures/wealth_and_drawdown.png)
 
@@ -178,17 +180,17 @@ Rolling Sharpe is **annualized**. The table averages the Sharpe values of overla
 
 | Portfolio | 36-month mean | 60-month mean |
 | --- | --- | --- |
-| Authors’ GAN | 3.638 | 3.199 |
-| Code 07 GAN | 2.890 | 2.504 |
-| New LSTM | 1.992 | 1.795 |
+| Original-paper GAN | 3.638 | 3.199 |
+| Our replicated GAN | 2.890 | 2.504 |
+| Extension LSTM | 1.992 | 1.795 |
 | Transformer | 1.467 | 1.228 |
-| 50/50 blend | 2.166 | 1.871 |
+| Equal-weight combination | 2.166 | 1.871 |
 
 ![Authors, replication, and extensions over rolling windows](results/readme/figures/rolling_sharpe.png)
 
 Source: [rolling series](results/consolidated_comparison/tables/official_extended_rolling_series.csv), [summary](results/consolidated_comparison/tables/official_extended_rolling_summary.csv).
 
-Transformer exceeds new LSTM in **36.6%** of complete 36-month windows and **19.9%** of complete 60-month windows. LSTM has a higher mean in both. The 36-month Transformer median is slightly higher, showing that the mean and median answer different distributional questions.
+Transformer exceeds extension LSTM in **36.6%** of complete 36-month windows and **19.9%** of complete 60-month windows. LSTM has a higher mean in both. The 36-month Transformer median is slightly higher, showing that the mean and median answer different distributional questions.
 
 ## Code 10: economic regimes
 
@@ -203,17 +205,17 @@ Conditional Sharpe uses only the returns in the labeled months, with population 
 
 | Portfolio | Expansion | Recession | High volatility | Low volatility |
 | --- | --- | --- | --- | --- |
-| Authors’ GAN | 0.842 | 0.324 | 0.598 | 1.003 |
-| Code 07 GAN | 0.637 | 0.455 | 0.480 | 0.841 |
-| New LSTM | 0.483 | 0.264 | 0.417 | 0.549 |
+| Original-paper GAN | 0.842 | 0.324 | 0.598 | 1.003 |
+| Our replicated GAN | 0.637 | 0.455 | 0.480 | 0.841 |
+| Extension LSTM | 0.483 | 0.264 | 0.417 | 0.549 |
 | Transformer | 0.369 | -0.071 | 0.177 | 0.531 |
-| 50/50 blend | 0.517 | 0.076 | 0.345 | 0.684 |
+| Equal-weight combination | 0.517 | 0.076 | 0.345 | 0.684 |
 
 ![Conditional Sharpe across economic regimes](results/readme/figures/regime_sharpe.png)
 
 Source: [direct author and local regime comparison](results/consolidated_comparison/tables/official_extended_regime_comparison.csv).
 
-New LSTM exceeds Transformer within each partition. Transformer has negative recession Sharpe in this sample. Code 07 exceeds the authors’ GAN in recession months despite a lower full-test Sharpe. That finding rests on only 26 months and is descriptive. NBER labels are retrospective and do not define a real-time trading signal.
+Extension LSTM exceeds Transformer within each partition. Transformer has negative recession Sharpe in this sample. Code 07 exceeds the authors’ GAN in recession months despite a lower full-test Sharpe. That finding rests on only 26 months and is descriptive. NBER labels are retrospective and do not define a real-time trading signal.
 
 ## Code 11: combinations and consolidated evidence
 
@@ -223,9 +225,9 @@ A conditional recession Sharpe uses only recession returns. A rolling window cla
 
 ![Rolling windows classified by endpoint regime](results/readme/figures/rolling_endpoint_regimes.png)
 
-For 36-month recession-ending windows, Transformer’s mean annualized rolling Sharpe is **1.409**, slightly above new LSTM’s **1.383**. At 60 months, LSTM leads **1.893 versus 1.775**. This does not contradict the recession-only result because the underlying return samples differ. [Complete endpoint-regime table](results/consolidated_comparison/tables/official_extended_endpoint_regimes.csv).
+For 36-month recession-ending windows, Transformer’s mean annualized rolling Sharpe is **1.409**, slightly above extension LSTM’s **1.383**. At 60 months, LSTM leads **1.893 versus 1.775**. This does not contradict the recession-only result because the underlying return samples differ. [Complete endpoint-regime table](results/consolidated_comparison/tables/official_extended_endpoint_regimes.csv).
 
-### Fixed 50/50 architecture blend
+### Fixed equal-weight architecture combination
 
 The blend averages the saved LSTM and Transformer **portfolio returns** with constant 50/50 weights. This differs from averaging raw stock weights within each architecture’s nine-seed ensemble. It is an illustrative diversification exercise created after examining test outcomes, with no additional gross-exposure normalization or validation of a new trading rule.
 
@@ -234,6 +236,100 @@ Its monthly Sharpe is **1.414 / 0.915 / 0.463** in training / validation / test.
 ![Correlation of the six local model factors](results/consolidated_comparison/figures/correlations.png)
 
 This correlation figure covers the six local models. The separate [five-portfolio correlation CSV](results/consolidated_comparison/tables/official_extended_correlations.csv) includes the authors’ GAN and fixed blend.
+
+
+## Code 012: uncertainty, rolling comparisons, and all local portfolios
+
+[Executed notebook](notebooks/012_bootstrap_sharpe_uncertainty.ipynb) · [Python version](notebooks/012_bootstrap_sharpe_uncertainty.py) · [Interpretation guide](results/bootstrap_uncertainty/interpretation_guide.md) · [Results and answers](results/bootstrap_uncertainty/results_and_answers.md)
+
+### Purpose and process
+
+Code 012 asks whether the observed Sharpe gaps remain distinguishable from zero once we account for variation in the saved return sample. It retains the original-paper benchmark and adds an additional comparison among our own models. **Rolling windows and regimes are evaluation methods, and uncertainty is an assessment of precision. They are not separate trained models.**
+
+1. Align the five benchmark and extension portfolios on the same 300 test months.
+2. Draw identical contiguous return blocks for every portfolio, preserving pairing and local dependence within blocks.
+3. Estimate model Sharpe intervals and all ten paired Sharpe differences using 10,000 draws. Compare 6-, 12- and 24-month blocks, with 12 months as the primary full-test choice.
+4. Report basic and percentile pointwise intervals, plus simultaneous intervals based on the maximum absolute centered bootstrap error across the ten pairs. Keep method disagreements visible.
+5. Repeat paired uncertainty calculations within every complete 36- and 60-month rolling window, using 2,000 draws and six-month blocks. Tables also contain within-window simultaneous intervals and selected endpoint sensitivity checks.
+6. Add Part 11 for seven local portfolios, recalibrating the simultaneous comparison family to all 21 local pairs. Compare full-test performance, rolling performance, and regime point estimates.
+
+The statistic uses population standard deviation (`ddof=0`). Multiplication by `sqrt(12)` changes monthly Sharpe to annualized monthly Sharpe and leaves interval zero-crossing conclusions unchanged. The notebook includes an independent-month bootstrap as a dependence diagnostic, rather than an alternative chosen to favor a model.
+
+### Full-test model uncertainty
+
+The following are **monthly Sharpe ratios and pointwise 95% basic intervals**, using 12-month blocks. The first row uses the saved author-factor series. These are our bootstrap intervals, not uncertainty estimates published in the original paper.
+
+| Portfolio | Monthly test Sharpe | 95% basic interval |
+|---|---:|---|
+| Original-paper GAN | 0.750 | [0.442, 0.973] |
+| Our replicated GAN | 0.612 | [0.380, 0.783] |
+| Extension LSTM | 0.459 | [0.244, 0.626] |
+| Transformer | 0.304 | [0.146, 0.439] |
+| Equal-weight LSTM–Transformer combination | 0.463 | [0.265, 0.612] |
+
+![Full-test model Sharpe confidence intervals](results/bootstrap_uncertainty/figures/model_sharpe_intervals.png)
+
+### Paired differences: the main answers
+
+Model-interval overlap does not determine uncertainty in the paired difference. The table below calculates **A minus B inside each paired bootstrap draw**. Simultaneous intervals use the five-portfolio, ten-pair family.
+
+| A minus B | Observed monthly difference | 95% basic interval | 95% simultaneous interval |
+|---|---:|---|---|
+| Original-paper GAN minus Our replicated GAN | 0.138 | [-0.037, 0.256] | [-0.148, 0.425] |
+| Extension LSTM minus Transformer | 0.155 | [-0.049, 0.365] | [-0.132, 0.441] |
+| Extension LSTM minus Equal-weight LSTM–Transformer combination | -0.004 | [-0.132, 0.119] | [-0.290, 0.283] |
+
+![Paired Sharpe differences and bootstrap intervals](results/bootstrap_uncertainty/figures/paired_difference_intervals.png)
+
+- **LSTM versus Transformer:** The observed monthly gap is 0.155, but its basic and simultaneous intervals contain zero at all three block lengths. The current bootstrap analysis leaves the direction unresolved under those methods.
+- **Combination versus LSTM:** The observed improvement is about 0.004 monthly Sharpe. The paired intervals contain zero. This does not establish equivalence or a reliable improvement.
+- **Paper versus replication:** Basic and simultaneous intervals contain zero, while percentile intervals favor the original-paper factor. Report that method sensitivity rather than selecting the favorable interval.
+- **Inference scope:** Intervals condition on saved models and this history. They do not incorporate retraining uncertainty, correct prior test inspection, or establish how a strategy will perform in a new market sample.
+
+Complete tables: [all paired intervals](results/bootstrap_uncertainty/tables/paired_sharpe_difference_intervals.csv), [interval-method conclusions](results/bootstrap_uncertainty/tables/interval_method_comparison.csv), [block-choice robustness](results/bootstrap_uncertainty/tables/comparison_robustness.csv), [IID-versus-block diagnostic](results/bootstrap_uncertainty/tables/iid_vs_block_diagnostic.csv).
+
+### Uncertainty within rolling windows
+
+| Window | Complete overlapping windows | LSTM point estimate higher | Basic interval favors LSTM | Basic interval favors Transformer | Unresolved |
+|---|---:|---:|---:|---:|---:|
+| 36 months | 265 | 168 | 39 | 0 | 226 |
+| 60 months | 241 | 193 | 45 | 0 | 196 |
+
+These counts describe overlapping windows, rather than independent tests. Pointwise rolling bands do not adjust across all dates. The simultaneous tables adjust the ten pairs within each window, not the complete timeline.
+
+![Rolling paired differences with uncertainty](results/bootstrap_uncertainty/figures/rolling_difference_uncertainty.png)
+
+[Rolling answers](results/bootstrap_uncertainty/rolling_results_and_answers.md) · [Rolling counts](results/bootstrap_uncertainty/tables/rolling_comparison_counts.csv) · [Rolling paired intervals](results/bootstrap_uncertainty/tables/rolling_paired_difference_intervals.csv)
+
+### Additional comparisons among our seven local portfolios
+
+Part 11 complements the paper comparisons in Parts 1–10. It includes linear, Elastic Net, feedforward, replicated GAN, extension LSTM, Transformer, and their equal-weight combination. Only the new LSTM and Transformer share the matched architecture experiment. Historical replication models provide context under different implementation and training procedures.
+
+| Local portfolio | Monthly test Sharpe | Annualized monthly Sharpe |
+|---|---:|---:|
+| Our replicated GAN | 0.612 | 2.120 |
+| Feedforward replication | 0.570 | 1.973 |
+| Equal-weight LSTM–Transformer combination | 0.463 | 1.604 |
+| Extension LSTM | 0.459 | 1.591 |
+| Elastic Net replication | 0.412 | 1.426 |
+| Linear replication | 0.406 | 1.408 |
+| Transformer | 0.304 | 1.055 |
+
+![Local model comparison across business-cycle and volatility regimes](results/bootstrap_uncertainty/local_only/figures/local_regime_comparison.png)
+
+The local analysis includes all 21 paired differences, with its simultaneous intervals recalibrated for that family. It also saves rolling comparisons for all seven portfolios. **Regime Sharpe values are point estimates without regime-specific confidence intervals.** The recession group contains 26 months.
+
+[Local results and answers](results/bootstrap_uncertainty/local_only/results_and_answers.md) · [Local model intervals](results/bootstrap_uncertainty/local_only/tables/model_intervals.csv) · [All 21 local pairs](results/bootstrap_uncertainty/local_only/tables/paired_intervals.csv) · [Local rolling summary](results/bootstrap_uncertainty/local_only/tables/rolling_summary.csv) · [Regime comparison](results/bootstrap_uncertainty/local_only/tables/regime_comparison.csv)
+
+### Notebook presentation and saved figures
+
+Code 012 includes process notes at the top, explanations and questions throughout, and final results in bullet points. Tables, answers, and all 11 figures appear as full-height notebook content after their calculation cells, avoiding internal output scrolling. Calculation outputs remain saved but hidden to prevent duplicate presentation.
+
+All seven main figures and four additional local-comparison figures have named **PNG and PDF** versions. The [figure index](results/bootstrap_uncertainty/figures/README.md) links to each file. To refresh the inline results after executing the notebook again:
+
+```bash
+python scripts/expand_012_results.py
+```
 
 ## Answers and contribution
 
@@ -245,14 +341,16 @@ This correlation figure covers the six local models. The separate [five-portfoli
 | Do regimes matter? | Yes, returns and risk differ across economic partitions | Descriptive conditional comparisons, particularly sensitive in recession |
 | Can rankings reverse in combined scenarios? | Yes, for 36-month recession-ending windows | Endpoint-window classification answers a different question from recession-only returns |
 | Does the blend help? | Slightly in full test, more in some rolling/regime comparisons | Diversification illustration, not an independently validated strategy |
+| Is the LSTM–Transformer gap precisely estimated? | Its paired basic and simultaneous intervals contain zero | A positive observed gap with unresolved direction under the current bootstrap methods |
+| Do rolling point rankings imply reliable advantages? | Most windows remain unresolved | Pointwise uncertainty and overlapping-window dependence limit that interpretation |
 
-**What we add to the original paper:** a matched reduced-budget comparison of two macro sequence architectures, time-varying evaluation of fixed factors, conditional economic-state comparisons, and a combined analysis linking architecture to rolling windows and regimes. The fixed blend adds a simple diversification comparison. These extensions complement the replication rather than replace its economic objective.
+**What we add to the original paper:** a matched reduced-budget comparison of two macro sequence architectures, time-varying evaluation of fixed factors, conditional economic-state comparisons, and a combined analysis linking architecture to rolling windows and regimes. The fixed blend adds a simple diversification comparison. Code 012 adds paired return-sample uncertainty, sensitivity to dependence and interval method, rolling uncertainty, and a separately calibrated comparison family covering all seven local portfolios. These extensions complement the replication rather than replace its economic objective.
 
 ## Limitations and next experiments
 
-The findings do not establish universal Transformer inferiority or statistical significance. The new models use reduced training, windows overlap, recession samples are small, and test results have been examined repeatedly. No net-of-cost performance, independent holdout validation, or real-time macro-vintage assessment is complete.
+The findings do not establish universal Transformer inferiority. Code 012 quantifies approximate return-sample uncertainty, and the LSTM–Transformer difference remains unresolved under the reported basic and simultaneous intervals. The new models use reduced training, windows overlap, recession samples are small, and test results have been examined repeatedly. No net-of-cost performance, independent holdout validation, or real-time macro-vintage assessment is complete.
 
-The next matched experiment would train both architectures with nine seeds under the full audited schedule, benchmark GPU runtime, and refresh Codes 09–11 using those factors. Further robustness work includes transaction costs, expanding-window refits, block-bootstrap uncertainty, imputation alternatives, and interpretation of hidden economic states. These are proposed experiments, not current results.
+The next matched experiment would train both architectures with nine seeds under the full audited schedule, benchmark GPU runtime, and refresh Codes 09–012 using those factors. Further robustness work includes transaction costs, expanding-window refits, training uncertainty, imputation alternatives, and interpretation of hidden economic states. These are proposed experiments, not current results.
 
 ## Notebook guide and reproducibility
 
@@ -269,6 +367,7 @@ The next matched experiment would train both architectures with nine seeds under
 | 09 | [Reduced-schedule rolling evaluation](notebooks/09_reduced_schedule_oos.ipynb) | Complete rolling windows |
 | 10 | [Regime analysis](notebooks/10_regime_analysis.ipynb) | Conditional economic comparisons |
 | 11 | [Consolidated results](notebooks/11_consolidated_results_comparison.ipynb) | Results, combinations, and interpretation |
+| 012 | [Sharpe uncertainty](notebooks/012_bootstrap_sharpe_uncertainty.ipynb) | Full-test and rolling bootstrap intervals, all local portfolios, and results interpretation |
 
 Earlier exploratory Transformer/rolling notebooks and full-schedule preparation notebooks remain available. The full-schedule notebook retains an interrupted-run output for provenance. Use the reduced-schedule path for the completed extension evidence. Direct author-factor comparison CSVs support the paper and combined presentation alongside notebook outputs.
 
@@ -278,39 +377,37 @@ From the repository root:
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-jupyter notebook notebooks/11_consolidated_results_comparison.ipynb
+jupyter notebook notebooks/012_bootstrap_sharpe_uncertainty.ipynb
 ```
 
-Run Code 08 before Codes 09, 10, and 11 when rebuilding the extension pipeline. Code 08 trains models; later codes load saved returns and diagnostics. Matching `.py` scripts are available for Codes 07–11. Raw data and model checkpoints are excluded from Git and must be supplied locally to reproduce training. Saved CSVs and figures allow inspection of reported results without retraining.
+Run Code 08 before Codes 09, 10, and 11 when rebuilding the extension pipeline. Code 08 trains models; later codes load saved returns and diagnostics. Code 012 loads the saved benchmark, consolidated, rolling, and regime files. It performs bootstrap calculations without model training. Matching `.py` scripts are available for Codes 07–012. Raw data and model checkpoints are excluded from Git and must be supplied locally to reproduce training. Saved CSVs and figures allow inspection of reported results without retraining.
 
 | Directory | Contents |
 |---|---|
 | `notebooks/` | Data, model, replication, and extension notebooks |
 | `src/models/` | Transformer and matched adversarial implementations |
-| `scripts/` | Pipeline completion helpers |
+| `scripts/` | Pipeline completion helpers, notebook-figure export, and Code 012 inline-result refresh |
 | `results/paper_matched_reduced_schedule/` | Completed matched architecture experiment and seed diagnostics |
 | `results/rolling_oos_reduced_schedule/` | Rolling evaluations and benchmark comparisons |
 | `results/regime_analysis/` | Labels, sample sizes, conditional metrics, and figures |
 | `results/consolidated_comparison/` | Consolidated results, direct author factors, blend, and endpoint regimes |
-| `results/readme/figures/` | Figures used in this research overview |
+| `results/bootstrap_uncertainty/` | Full-test and rolling intervals, interpretation guides, seven main figures, and the additional seven-portfolio analysis |
+| `results/notebook_figures/` | Figure archive exported from all saved notebooks, including historical variants |
+| `results/readme/figures/` | Earlier overview figures used in this README |
 | `paper/` | LaTeX research draft |
-| `presentation/` | Three PowerPoint decks and final review PDF |
+| `presentation/` | Four presentations, including the new Codes 08–012 deck, and available review PDFs |
+| `slides/` | Earlier working revisions of the Codes 08–11 presentation |
 
 This is an independent academic replication and extension project. It is not the official implementation of the original authors.
 
+## Figure archive from every notebook
 
-## Code 012: Bootstrap uncertainty and rolling comparisons
+The [notebook figure archive](results/notebook_figures/README.md) exports saved PNG outputs from all 16 notebooks, including earlier exploratory variants, without rerunning training. The current inventory contains 66 figures, including 11 from Code 012. Historical variants retain their original labels and results. Zero figures in an inventory row means no embedded PNG was saved, rather than a completed or regenerated experiment.
 
-[Code 012 notebook](notebooks/012_bootstrap_sharpe_uncertainty.ipynb) extends the saved-return analysis without retraining. It compares full-test Sharpe intervals, all ten paired differences, interval methods, block lengths, and 36-/60-month rolling uncertainty. The full-test primary LSTM-minus-Transformer basic interval includes zero. Rolling intervals are pointwise; within-window simultaneous intervals do not adjust for the complete timeline. Overlapping-window counts are descriptive.
-
-Readable labels distinguish **Original-paper GAN**, **Our replicated GAN**, **Extension LSTM**, **Transformer**, and **Equal-weight LSTM–Transformer combination**. [Interpretation guide](results/bootstrap_uncertainty/interpretation_guide.md), [rolling answers](results/bootstrap_uncertainty/rolling_results_and_answers.md), and [seven named PNG/PDF figures](results/bootstrap_uncertainty/figures/README.md) are saved separately.
-
-## Figures from all notebooks
-
-The [notebook figure archive](results/notebook_figures/README.md) saves embedded PNG outputs from every notebook by notebook name and cell, including earlier exploratory variants. This preserves existing figures without rerunning training. Experiments with no saved figure output are listed explicitly. To refresh the archive after saving notebook outputs:
+After saving notebook outputs, refresh the archive with:
 
 ```bash
 python scripts/export_notebook_figures.py
 ```
 
-Code 012 also adds a comparison among all seven local portfolios: linear, Elastic Net, feedforward, replicated GAN, extension LSTM, Transformer, and their equal-weight combination. The original-paper benchmark comparisons remain in Parts 1–10. Part 11 adds overall and rolling bootstrap uncertainty, rolling performance, and regime point estimates; see the [additional results](results/bootstrap_uncertainty/local_only/results_and_answers.md) and [figure index](results/bootstrap_uncertainty/figures/README.md). No models are retrained.
+The archive [manifest](results/notebook_figures/manifest.json) records source notebooks, cell numbers, context, and image hashes. Training data and model checkpoints remain excluded from Git.

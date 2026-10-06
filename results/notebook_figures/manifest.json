@@ -1,91 +1,91 @@
 [
   {
     "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
-    "cell_number": 12,
+    "cell_number": 19,
     "figure_in_cell": 1,
     "section": "Part 4 — Figures and block-length sensitivity",
-    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-012-figure-01-part-4-figures-and-block-length-sensitivity.png",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-019-figure-01-part-4-figures-and-block-length-sensitivity.png",
     "sha256": "b0642cbbfe396ec461beda58072c822131bb4a1f373c4b72c3ed7c62b3b969c3"
   },
   {
     "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
-    "cell_number": 12,
+    "cell_number": 19,
     "figure_in_cell": 2,
     "section": "Part 4 — Figures and block-length sensitivity",
-    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-012-figure-02-part-4-figures-and-block-length-sensitivity.png",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-019-figure-02-part-4-figures-and-block-length-sensitivity.png",
     "sha256": "c8b633e9fee79c88a858fc7fa3685b2de2413f5e691f8f53cbb6fc879dba319e"
   },
   {
     "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
-    "cell_number": 12,
+    "cell_number": 19,
     "figure_in_cell": 3,
     "section": "Part 4 — Figures and block-length sensitivity",
-    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-012-figure-03-part-4-figures-and-block-length-sensitivity.png",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-019-figure-03-part-4-figures-and-block-length-sensitivity.png",
     "sha256": "ff95bbbe6d850384cd42e96ccea2ead4419641c7192bca2ba08a64264c2a286e"
   },
   {
     "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
-    "cell_number": 18,
+    "cell_number": 29,
     "figure_in_cell": 1,
     "section": "Part 6 — Compare all interval methods and all ten model pairs",
-    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-018-figure-01-part-6-compare-all-interval-methods-and-all-ten-model-pairs.png",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-029-figure-01-part-6-compare-all-interval-methods-and-all-ten-model-pairs.png",
     "sha256": "9655a4fd552a60b0727fabb71a759aaa51192a0f29981ef423ae5150caf927ad"
   },
   {
     "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
-    "cell_number": 21,
+    "cell_number": 38,
     "figure_in_cell": 1,
     "section": "Part 7 — Dependence diagnostic: independent months versus blocks",
-    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-021-figure-01-part-7-dependence-diagnostic-independent-months-versus-blocks.png",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-038-figure-01-part-7-dependence-diagnostic-independent-months-versus-blocks.png",
     "sha256": "6b64138d449e1d07bf3c1716e423deae970e8a268b50058ac988155db1314c76"
   },
   {
     "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
-    "cell_number": 32,
+    "cell_number": 60,
     "figure_in_cell": 1,
     "section": "Rolling figures and interpretation",
-    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-032-figure-01-rolling-figures-and-interpretation.png",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-060-figure-01-rolling-figures-and-interpretation.png",
     "sha256": "2a6e9030266be7f3f540c994b13cd72a5d02a7a2ee7eba70f0fb5f2015deb3bc"
   },
   {
     "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
-    "cell_number": 32,
+    "cell_number": 60,
     "figure_in_cell": 2,
     "section": "Rolling figures and interpretation",
-    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-032-figure-02-rolling-figures-and-interpretation.png",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-060-figure-02-rolling-figures-and-interpretation.png",
     "sha256": "4699999af20c4f70c8bbe87d19a55ccb58a6ad849c16727936ce88a46c45ccd8"
   },
   {
     "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
-    "cell_number": 35,
+    "cell_number": 68,
     "figure_in_cell": 1,
     "section": "Part 11 — Additional comparison among our replicated and extension models",
-    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-035-figure-01-part-11-additional-comparison-among-our-replicated-and-extension-.png",
-    "sha256": "26cc4620d3e3a052ee57f997e7496a4c76c5334170d4e7f33a827e8d8743e8bd"
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-068-figure-01-part-11-additional-comparison-among-our-replicated-and-extension-.png",
+    "sha256": "b65098f07444c61d846320bfb3cb24550fff1ab7752f2f166433dd3b4071ded6"
   },
   {
     "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
-    "cell_number": 35,
+    "cell_number": 68,
     "figure_in_cell": 2,
     "section": "Part 11 — Additional comparison among our replicated and extension models",
-    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-035-figure-02-part-11-additional-comparison-among-our-replicated-and-extension-.png",
-    "sha256": "7704b0a1d2a1a571e0d77981ed6970a1d29c456b1baf8c5cb07472f954a47fd3"
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-068-figure-02-part-11-additional-comparison-among-our-replicated-and-extension-.png",
+    "sha256": "eb06392c3ba77b2fe1628f907e8953b97c32306bba9996d239507bed54449c92"
   },
   {
     "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
-    "cell_number": 35,
+    "cell_number": 68,
     "figure_in_cell": 3,
     "section": "Part 11 — Additional comparison among our replicated and extension models",
-    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-035-figure-03-part-11-additional-comparison-among-our-replicated-and-extension-.png",
-    "sha256": "ba741b84d05534b7c6caf2d23e94c17126ce1070170846a6977ae4456fa24de1"
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-068-figure-03-part-11-additional-comparison-among-our-replicated-and-extension-.png",
+    "sha256": "6afe230d3ee060ce4ece56b862c10e1f3c59c6a9d8ae62ad2257e36f57a8be8b"
   },
   {
     "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
-    "cell_number": 35,
+    "cell_number": 68,
     "figure_in_cell": 4,
     "section": "Part 11 — Additional comparison among our replicated and extension models",
-    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-035-figure-04-part-11-additional-comparison-among-our-replicated-and-extension-.png",
-    "sha256": "4219bba1159d4fe1ca90d00784845c9a9cde0dfda3db8b4cd0a8fa336f44bba6"
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-068-figure-04-part-11-additional-comparison-among-our-replicated-and-extension-.png",
+    "sha256": "68344e6599ce0fef15fa5f1bf41448b747072e464f0b2486f0ecae7155b82b54"
   },
   {
     "notebook": "notebooks/02_exploratory_analysis.ipynb",

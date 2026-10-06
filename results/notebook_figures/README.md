@@ -31,17 +31,17 @@ Zero means no embedded PNG figure was present in the saved notebook, not that a 
 
 | Notebook | Cell | Context | PNG |
 |---|---:|---|---|
-| 012_bootstrap_sharpe_uncertainty | 12 | Part 4 — Figures and block-length sensitivity | [Figure](012_bootstrap_sharpe_uncertainty/cell-012-figure-01-part-4-figures-and-block-length-sensitivity.png) |
-| 012_bootstrap_sharpe_uncertainty | 12 | Part 4 — Figures and block-length sensitivity | [Figure](012_bootstrap_sharpe_uncertainty/cell-012-figure-02-part-4-figures-and-block-length-sensitivity.png) |
-| 012_bootstrap_sharpe_uncertainty | 12 | Part 4 — Figures and block-length sensitivity | [Figure](012_bootstrap_sharpe_uncertainty/cell-012-figure-03-part-4-figures-and-block-length-sensitivity.png) |
-| 012_bootstrap_sharpe_uncertainty | 18 | Part 6 — Compare all interval methods and all ten model pairs | [Figure](012_bootstrap_sharpe_uncertainty/cell-018-figure-01-part-6-compare-all-interval-methods-and-all-ten-model-pairs.png) |
-| 012_bootstrap_sharpe_uncertainty | 21 | Part 7 — Dependence diagnostic: independent months versus blocks | [Figure](012_bootstrap_sharpe_uncertainty/cell-021-figure-01-part-7-dependence-diagnostic-independent-months-versus-blocks.png) |
-| 012_bootstrap_sharpe_uncertainty | 32 | Rolling figures and interpretation | [Figure](012_bootstrap_sharpe_uncertainty/cell-032-figure-01-rolling-figures-and-interpretation.png) |
-| 012_bootstrap_sharpe_uncertainty | 32 | Rolling figures and interpretation | [Figure](012_bootstrap_sharpe_uncertainty/cell-032-figure-02-rolling-figures-and-interpretation.png) |
-| 012_bootstrap_sharpe_uncertainty | 35 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-035-figure-01-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
-| 012_bootstrap_sharpe_uncertainty | 35 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-035-figure-02-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
-| 012_bootstrap_sharpe_uncertainty | 35 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-035-figure-03-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
-| 012_bootstrap_sharpe_uncertainty | 35 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-035-figure-04-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
+| 012_bootstrap_sharpe_uncertainty | 19 | Part 4 — Figures and block-length sensitivity | [Figure](012_bootstrap_sharpe_uncertainty/cell-019-figure-01-part-4-figures-and-block-length-sensitivity.png) |
+| 012_bootstrap_sharpe_uncertainty | 19 | Part 4 — Figures and block-length sensitivity | [Figure](012_bootstrap_sharpe_uncertainty/cell-019-figure-02-part-4-figures-and-block-length-sensitivity.png) |
+| 012_bootstrap_sharpe_uncertainty | 19 | Part 4 — Figures and block-length sensitivity | [Figure](012_bootstrap_sharpe_uncertainty/cell-019-figure-03-part-4-figures-and-block-length-sensitivity.png) |
+| 012_bootstrap_sharpe_uncertainty | 29 | Part 6 — Compare all interval methods and all ten model pairs | [Figure](012_bootstrap_sharpe_uncertainty/cell-029-figure-01-part-6-compare-all-interval-methods-and-all-ten-model-pairs.png) |
+| 012_bootstrap_sharpe_uncertainty | 38 | Part 7 — Dependence diagnostic: independent months versus blocks | [Figure](012_bootstrap_sharpe_uncertainty/cell-038-figure-01-part-7-dependence-diagnostic-independent-months-versus-blocks.png) |
+| 012_bootstrap_sharpe_uncertainty | 60 | Rolling figures and interpretation | [Figure](012_bootstrap_sharpe_uncertainty/cell-060-figure-01-rolling-figures-and-interpretation.png) |
+| 012_bootstrap_sharpe_uncertainty | 60 | Rolling figures and interpretation | [Figure](012_bootstrap_sharpe_uncertainty/cell-060-figure-02-rolling-figures-and-interpretation.png) |
+| 012_bootstrap_sharpe_uncertainty | 68 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-068-figure-01-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
+| 012_bootstrap_sharpe_uncertainty | 68 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-068-figure-02-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
+| 012_bootstrap_sharpe_uncertainty | 68 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-068-figure-03-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
+| 012_bootstrap_sharpe_uncertainty | 68 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-068-figure-04-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
 | 02_exploratory_analysis | 14 | 6. Cross-Sectional Number of Stock Observations Through Time | [Figure](02_exploratory_analysis/cell-014-figure-01-6-cross-sectional-number-of-stock-observations-through-time.png) |
 | 02_exploratory_analysis | 18 | 7. Monthly Stock Return Distribution | [Figure](02_exploratory_analysis/cell-018-figure-01-7-monthly-stock-return-distribution.png) |
 | 02_exploratory_analysis | 33 | 10. Selected Firm-Characteristic Distributions | [Figure](02_exploratory_analysis/cell-033-figure-01-10-selected-firm-characteristic-distributions.png) |
