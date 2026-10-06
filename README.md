@@ -2,17 +2,7 @@
 
 An academic study of how economic pricing restrictions, macroeconomic sequence models, and adversarial learning shape portfolio performance. We reproduce the original framework, compare our results with the authors, and extend the analysis to **LSTM versus Transformer, rolling windows, economic regimes, portfolio combinations, and bootstrap uncertainty**. The completed extension evidence comes from a reduced training schedule. Codes 09–012 reuse saved returns without retraining.
 
-## Team and course
 
-| Role | Name |
-|---|---|
-| Team member | Reza Zamani |
-| Team member | Hrafnhildur Lif Jonsdottir |
-| Team member | Paraj Goyal |
-| Team member | Elouan Bahri |
-| Professor | Ali Kakhbod |
-
-**Group 7, UC Berkeley, Master of Financial Engineering.**
 
 ## Presentations and research draft
 
