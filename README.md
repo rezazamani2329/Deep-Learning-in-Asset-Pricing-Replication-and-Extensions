@@ -24,9 +24,10 @@ This README combines the original-paper presentation, our replication, the Codes
 | 2. Our replication | Data reconstruction, benchmark methods, Codes 01–07, paper comparisons, rankings, validation checks, and implementation challenges | [PowerPoint](presentation/02_Our_Replication.pptx) |
 | 3. Replication and extensions | Paper recap followed by Codes 08–11: architecture, seeds, rolling performance, regimes, risk, and combinations | [PowerPoint](presentation/03_Combined_Replication_and_Extensions_08_11.pptx), [PDF](presentation/03_Combined_Replication_and_Extensions_08_11.pdf) |
 | 4. Updated research presentation | Original paper, replication, Codes 08–012, bootstrap methods, rolling uncertainty, local-model comparisons, and original Code 012 figures | [PowerPoint](presentation/04_Asset_Pricing_Replication_Extensions_and_Uncertainty.pptx), [PDF](presentation/04_Asset_Pricing_Replication_Extensions_and_Uncertainty.pdf) |
-| 5. Sectioned presentation (latest) | Eight numbered parts, two main-paper slides, two replication slides, four extension sections, combined comparisons, and summary | [PowerPoint](presentation/05_Asset_Pricing_Replication_and_Extensions.pptx), [PDF](presentation/05_Asset_Pricing_Replication_and_Extensions.pdf) |
+| 5. Detailed sectioned presentation | Eight numbered parts, two main-paper slides, two replication slides, four extension sections, combined comparisons, and summary | [PowerPoint](presentation/05_Asset_Pricing_Replication_and_Extensions.pptx), [PDF](presentation/05_Asset_Pricing_Replication_and_Extensions.pdf) |
+| 6. 15-minute presentation (latest) | 20 slides covering all eight parts, key Code 012 figures, combined results, and speaker notes timed for 15 minutes | [PowerPoint](presentation/06_Deep_Learning_Asset_Pricing_15_Minutes.pptx), [PDF](presentation/06_Deep_Learning_Asset_Pricing_15_Minutes.pdf) |
 
-The third deck contains 30 slides: 10 summarize previous work and 20 cover the extensions. The updated fourth deck contains 39 slides and retains the team names and Professor Ali Kakhbod. The latest fifth deck is titled **Asset Pricing with Deep Learning: Replication and Extensions**. It contains 38 slides organized as follows:
+The third deck contains 30 slides: 10 summarize previous work and 20 cover the extensions. The updated fourth deck contains 39 slides and retains the team names and Professor Ali Kakhbod. The detailed fifth deck is titled **Asset Pricing with Deep Learning: Replication and Extensions**. It contains 38 slides organized as follows:
 
 | Part | Topic | Slides |
 |---|---|---|
@@ -39,7 +40,9 @@ The third deck contains 30 slides: 10 summarize previous work and 20 cover the e
 | 7 | Combination and combined results | 31–37 |
 | 8 | Summary | 38 |
 
-The extension sections begin with their own title slides, and slide titles and footers identify the current part. The research draft is available as [LaTeX source](paper/asset_pricing_extensions_draft.tex).
+The new 20-slide talk is titled **Deep Learning in Asset Pricing: Replication and Model Comparisons**. It retains two main-paper slides and two replication slides. Sections cover Transformer (7–8), rolling windows (9–11), regimes (12–13), uncertainty (14–16), combination (17–19), and summary (20). Suggested times in the PowerPoint speaker notes total 15 minutes. The previous detailed PowerPoint and PDF remain unchanged in `presentation/`.
+
+In the detailed fifth deck, the extension sections begin with their own title slides, and slide titles and footers identify the current part. The research draft is available as [LaTeX source](paper/asset_pricing_extensions_draft.tex).
 
 ## Purpose and research questions
 
@@ -409,7 +412,7 @@ Run Code 08 before Codes 09, 10, and 11 when rebuilding the extension pipeline. 
 | `results/notebook_figures/` | Figure archive exported from all saved notebooks, including historical variants |
 | `results/readme/figures/` | Earlier overview figures used in this README |
 | `paper/` | LaTeX research draft |
-| `presentation/` | Five presentations, including the latest sectioned Codes 08–012 deck, and available review PDFs |
+| `presentation/` | Six presentations, including the 20-slide talk and detailed Codes 08–012 decks, and available review PDFs |
 | `slides/` | Earlier working revisions of the Codes 08–11 presentation |
 
 This is an independent academic replication and extension project. It is not the official implementation of the original authors.
