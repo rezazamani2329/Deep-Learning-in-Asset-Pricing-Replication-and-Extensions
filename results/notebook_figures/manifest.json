@@ -1,0 +1,498 @@
+[
+  {
+    "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
+    "cell_number": 12,
+    "figure_in_cell": 1,
+    "section": "Part 4 — Figures and block-length sensitivity",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-012-figure-01-part-4-figures-and-block-length-sensitivity.png",
+    "sha256": "b0642cbbfe396ec461beda58072c822131bb4a1f373c4b72c3ed7c62b3b969c3"
+  },
+  {
+    "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
+    "cell_number": 12,
+    "figure_in_cell": 2,
+    "section": "Part 4 — Figures and block-length sensitivity",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-012-figure-02-part-4-figures-and-block-length-sensitivity.png",
+    "sha256": "c8b633e9fee79c88a858fc7fa3685b2de2413f5e691f8f53cbb6fc879dba319e"
+  },
+  {
+    "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
+    "cell_number": 12,
+    "figure_in_cell": 3,
+    "section": "Part 4 — Figures and block-length sensitivity",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-012-figure-03-part-4-figures-and-block-length-sensitivity.png",
+    "sha256": "ff95bbbe6d850384cd42e96ccea2ead4419641c7192bca2ba08a64264c2a286e"
+  },
+  {
+    "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
+    "cell_number": 18,
+    "figure_in_cell": 1,
+    "section": "Part 6 — Compare all interval methods and all ten model pairs",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-018-figure-01-part-6-compare-all-interval-methods-and-all-ten-model-pairs.png",
+    "sha256": "9655a4fd552a60b0727fabb71a759aaa51192a0f29981ef423ae5150caf927ad"
+  },
+  {
+    "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
+    "cell_number": 21,
+    "figure_in_cell": 1,
+    "section": "Part 7 — Dependence diagnostic: independent months versus blocks",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-021-figure-01-part-7-dependence-diagnostic-independent-months-versus-blocks.png",
+    "sha256": "6b64138d449e1d07bf3c1716e423deae970e8a268b50058ac988155db1314c76"
+  },
+  {
+    "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
+    "cell_number": 32,
+    "figure_in_cell": 1,
+    "section": "Rolling figures and interpretation",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-032-figure-01-rolling-figures-and-interpretation.png",
+    "sha256": "2a6e9030266be7f3f540c994b13cd72a5d02a7a2ee7eba70f0fb5f2015deb3bc"
+  },
+  {
+    "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
+    "cell_number": 32,
+    "figure_in_cell": 2,
+    "section": "Rolling figures and interpretation",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-032-figure-02-rolling-figures-and-interpretation.png",
+    "sha256": "4699999af20c4f70c8bbe87d19a55ccb58a6ad849c16727936ce88a46c45ccd8"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 14,
+    "figure_in_cell": 1,
+    "section": "6. Cross-Sectional Number of Stock Observations Through Time",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-014-figure-01-6-cross-sectional-number-of-stock-observations-through-time.png",
+    "sha256": "4e45767150ab6a030e9b1f4d0dff52320af865acdf9ed3c90dd09242140a297e"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 18,
+    "figure_in_cell": 1,
+    "section": "7. Monthly Stock Return Distribution",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-018-figure-01-7-monthly-stock-return-distribution.png",
+    "sha256": "a86ab7524e896412b35a24dfe1f3ed5909a58434033e56aaadf82f89167e3ff1"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 33,
+    "figure_in_cell": 1,
+    "section": "10. Selected Firm-Characteristic Distributions",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-033-figure-01-10-selected-firm-characteristic-distributions.png",
+    "sha256": "6e42e790f8431bf92727becf6922f69e99ec6379e78aa958f9ba0ee85801076c"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 33,
+    "figure_in_cell": 2,
+    "section": "10. Selected Firm-Characteristic Distributions",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-033-figure-02-10-selected-firm-characteristic-distributions.png",
+    "sha256": "421b002d7ed4bed9dfa36f9c6dd121998116f058d725bf75fba6832c87885be4"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 33,
+    "figure_in_cell": 3,
+    "section": "10. Selected Firm-Characteristic Distributions",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-033-figure-03-10-selected-firm-characteristic-distributions.png",
+    "sha256": "ecdd4d4af866a3219d5a3c049a4f3dda52fc88cd128e3ac295e71e0dc21bf05e"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 33,
+    "figure_in_cell": 4,
+    "section": "10. Selected Firm-Characteristic Distributions",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-033-figure-04-10-selected-firm-characteristic-distributions.png",
+    "sha256": "911f2aab33ee0208d94344964dccb61de73992fa6c580889ee2e93eae12bde73"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 33,
+    "figure_in_cell": 5,
+    "section": "10. Selected Firm-Characteristic Distributions",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-033-figure-05-10-selected-firm-characteristic-distributions.png",
+    "sha256": "20406dc55b3d1f29c1c23fc5f1c3b12b4aacfaaba94bf7c2feb963f9101c1279"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 33,
+    "figure_in_cell": 6,
+    "section": "10. Selected Firm-Characteristic Distributions",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-033-figure-06-10-selected-firm-characteristic-distributions.png",
+    "sha256": "15d18935a027a1de8a19663c3c06763af54d08aeb69d89b633a73fbb1de9ab3f"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 58,
+    "figure_in_cell": 1,
+    "section": "16. Selected Macroeconomic Time Series",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-058-figure-01-16-selected-macroeconomic-time-series.png",
+    "sha256": "c8c1fe1db9e750f0b71e9502d7fb9bd44f831bb0e7ea86c44865191b1a478ad7"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 58,
+    "figure_in_cell": 2,
+    "section": "16. Selected Macroeconomic Time Series",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-058-figure-02-16-selected-macroeconomic-time-series.png",
+    "sha256": "d7eca313c6397634ad3affc07241b655a48ac0b8c7d58c7e0f28498d8ecfcf51"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 58,
+    "figure_in_cell": 3,
+    "section": "16. Selected Macroeconomic Time Series",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-058-figure-03-16-selected-macroeconomic-time-series.png",
+    "sha256": "b009330f2fa5b6196c8f4979fad8315ab85ca0f58a6f58045f26dbd4f02ccf5d"
+  },
+  {
+    "notebook": "notebooks/02_exploratory_analysis.ipynb",
+    "cell_number": 58,
+    "figure_in_cell": 4,
+    "section": "16. Selected Macroeconomic Time Series",
+    "file": "results/notebook_figures/02_exploratory_analysis/cell-058-figure-04-16-selected-macroeconomic-time-series.png",
+    "sha256": "27cf1e33724d9ba8be3a565e07208e0cc2c9e07c3de458ec2d547fafe448888e"
+  },
+  {
+    "notebook": "notebooks/03_linear_baseline.ipynb",
+    "cell_number": 48,
+    "figure_in_cell": 1,
+    "section": "14. Plot the Linear SDF Factor",
+    "file": "results/notebook_figures/03_linear_baseline/cell-048-figure-01-14-plot-the-linear-sdf-factor.png",
+    "sha256": "0596f6743a5a7911f3799499f9cd7c9a511e95015eb607b94146eea3b1278bcc"
+  },
+  {
+    "notebook": "notebooks/03_linear_baseline.ipynb",
+    "cell_number": 84,
+    "figure_in_cell": 1,
+    "section": "18. Characteristic Importance",
+    "file": "results/notebook_figures/03_linear_baseline/cell-084-figure-01-18-characteristic-importance.png",
+    "sha256": "c888984e2065c8b61e3cd146f80eab70d754ffe13b725d2316eabfe03e4d7d28"
+  },
+  {
+    "notebook": "notebooks/04_feedforward_sdf.ipynb",
+    "cell_number": 30,
+    "figure_in_cell": 1,
+    "section": "14. Training Curves",
+    "file": "results/notebook_figures/04_feedforward_sdf/cell-030-figure-01-14-training-curves.png",
+    "sha256": "a265cadb9fb3179efa1cd3e6907374dfda7d0d20f7059c972f99a124d099df4d"
+  },
+  {
+    "notebook": "notebooks/04_feedforward_sdf.ipynb",
+    "cell_number": 49,
+    "figure_in_cell": 1,
+    "section": "21. Plot the FFN SDF Factor",
+    "file": "results/notebook_figures/04_feedforward_sdf/cell-049-figure-01-21-plot-the-ffn-sdf-factor.png",
+    "sha256": "b067347e5565aa29d58bc10a90c4db407f6b02b64cdd920a0c787256fe3739f4"
+  },
+  {
+    "notebook": "notebooks/04_feedforward_sdf.ipynb",
+    "cell_number": 57,
+    "figure_in_cell": 1,
+    "section": "22. Characteristic Importance from Average Absolute Gradients",
+    "file": "results/notebook_figures/04_feedforward_sdf/cell-057-figure-01-22-characteristic-importance-from-average-absolute-gradients.png",
+    "sha256": "fe1a75111a2a26320c225b4f648f41cfbd5229c0db3d3aa50114fce0ba52042b"
+  },
+  {
+    "notebook": "notebooks/05_lstm_macro_state.ipynb",
+    "cell_number": 44,
+    "figure_in_cell": 1,
+    "section": "19. Plot a small diagnostic subset of standardized macro inputs",
+    "file": "results/notebook_figures/05_lstm_macro_state/cell-044-figure-01-19-plot-a-small-diagnostic-subset-of-standardized-macro-inputs.png",
+    "sha256": "f5327199a1870d782fec3827cdd72492cdf6479468ccab286510c05daf4cb6f3"
+  },
+  {
+    "notebook": "notebooks/06_GAN.ipynb",
+    "cell_number": 81,
+    "figure_in_cell": 1,
+    "section": "Interpretation",
+    "file": "results/notebook_figures/06_GAN/cell-081-figure-01-interpretation.png",
+    "sha256": "f347f46f4cde457ba893d8381e11c0e5693765be2202db2305ae2579dc70230b"
+  },
+  {
+    "notebook": "notebooks/07_results_replication.ipynb",
+    "cell_number": 31,
+    "figure_in_cell": 1,
+    "section": "Part 9 — Visual Sharpe Comparison",
+    "file": "results/notebook_figures/07_results_replication/cell-031-figure-01-part-9-visual-sharpe-comparison.png",
+    "sha256": "dde089305ac7d221d34769ad832a22bfba73800bbea794fbafc3758a4e503ee2"
+  },
+  {
+    "notebook": "notebooks/07_results_replication.ipynb",
+    "cell_number": 31,
+    "figure_in_cell": 2,
+    "section": "Part 9 — Visual Sharpe Comparison",
+    "file": "results/notebook_figures/07_results_replication/cell-031-figure-02-part-9-visual-sharpe-comparison.png",
+    "sha256": "cab4f00a83dff1cdc7d9cfcbe96dfd9a0a61553474412399d7f63bf87a436ca5"
+  },
+  {
+    "notebook": "notebooks/07_results_replication.ipynb",
+    "cell_number": 31,
+    "figure_in_cell": 3,
+    "section": "Part 9 — Visual Sharpe Comparison",
+    "file": "results/notebook_figures/07_results_replication/cell-031-figure-03-part-9-visual-sharpe-comparison.png",
+    "sha256": "b502661279ef589110d484cfa783d145c5655d545596709efb8f1ba067786445"
+  },
+  {
+    "notebook": "notebooks/07_results_replication.ipynb",
+    "cell_number": 58,
+    "figure_in_cell": 1,
+    "section": "Part 17 — Cumulative Standardized SDF Factor Returns",
+    "file": "results/notebook_figures/07_results_replication/cell-058-figure-01-part-17-cumulative-standardized-sdf-factor-returns.png",
+    "sha256": "fb75939a8265119267dcf428b4c656bdb7f8c6d3c3661ed50eff75e192c0ac13"
+  },
+  {
+    "notebook": "notebooks/07_results_replication.ipynb",
+    "cell_number": 58,
+    "figure_in_cell": 2,
+    "section": "Part 17 — Cumulative Standardized SDF Factor Returns",
+    "file": "results/notebook_figures/07_results_replication/cell-058-figure-02-part-17-cumulative-standardized-sdf-factor-returns.png",
+    "sha256": "d1ddb82e99079b63f5c7131fc294ff2f3fb7a9d795a8c996eed04e8e84ac1940"
+  },
+  {
+    "notebook": "notebooks/07_results_replication.ipynb",
+    "cell_number": 58,
+    "figure_in_cell": 3,
+    "section": "Part 17 — Cumulative Standardized SDF Factor Returns",
+    "file": "results/notebook_figures/07_results_replication/cell-058-figure-03-part-17-cumulative-standardized-sdf-factor-returns.png",
+    "sha256": "c4a7bb909121896c1bb03e2e3fda675a21bdc40b716b060ad56fd6dde9ce6c80"
+  },
+  {
+    "notebook": "notebooks/08_reduced_schedule_comparison.ipynb",
+    "cell_number": 14,
+    "figure_in_cell": 1,
+    "section": "6 — Training and test-period figures",
+    "file": "results/notebook_figures/08_reduced_schedule_comparison/cell-014-figure-01-6-training-and-test-period-figures.png",
+    "sha256": "06093b7c772790d0735efa7ec9ecb011d5c7c0fe1f659696bc76c3a6f66fad6c"
+  },
+  {
+    "notebook": "notebooks/08_reduced_schedule_comparison.ipynb",
+    "cell_number": 14,
+    "figure_in_cell": 2,
+    "section": "6 — Training and test-period figures",
+    "file": "results/notebook_figures/08_reduced_schedule_comparison/cell-014-figure-02-6-training-and-test-period-figures.png",
+    "sha256": "ecc49c061c7da7861527a20699380f032ba7d2841c7378dd17946ae6557681a4"
+  },
+  {
+    "notebook": "notebooks/08_reduced_schedule_comparison.ipynb",
+    "cell_number": 19,
+    "figure_in_cell": 1,
+    "section": "Additional comparisons and interpretation",
+    "file": "results/notebook_figures/08_reduced_schedule_comparison/cell-019-figure-01-additional-comparisons-and-interpretation.png",
+    "sha256": "0ed4b8cd7abcaea2db9e1c77eb8e0c00801449a3e2526d0dc75c1a710e3f2527"
+  },
+  {
+    "notebook": "notebooks/08_transformer_sdf.ipynb",
+    "cell_number": 13,
+    "figure_in_cell": 1,
+    "section": "6 — Training and test-period figures",
+    "file": "results/notebook_figures/08_transformer_sdf/cell-013-figure-01-6-training-and-test-period-figures.png",
+    "sha256": "a621e12a2c06dccddc246e381b7edb3855277301665f7340705baeed48d56adb"
+  },
+  {
+    "notebook": "notebooks/08_transformer_sdf.ipynb",
+    "cell_number": 13,
+    "figure_in_cell": 2,
+    "section": "6 — Training and test-period figures",
+    "file": "results/notebook_figures/08_transformer_sdf/cell-013-figure-02-6-training-and-test-period-figures.png",
+    "sha256": "7dfec035c5c44c580b20384adf704ed099a45e3c08d4dd95ef3889d68c424f08"
+  },
+  {
+    "notebook": "notebooks/09_reduced_schedule_oos.ipynb",
+    "cell_number": 12,
+    "figure_in_cell": 1,
+    "section": "5 — Rolling Sharpe and volatility comparisons",
+    "file": "results/notebook_figures/09_reduced_schedule_oos/cell-012-figure-01-5-rolling-sharpe-and-volatility-comparisons.png",
+    "sha256": "ca63d13dab99c205c5b9f5c6684c720c3e49ddf570160ae0f18b921bd692e5a8"
+  },
+  {
+    "notebook": "notebooks/09_reduced_schedule_oos.ipynb",
+    "cell_number": 14,
+    "figure_in_cell": 1,
+    "section": "6 — Cumulative performance and downside risk",
+    "file": "results/notebook_figures/09_reduced_schedule_oos/cell-014-figure-01-6-cumulative-performance-and-downside-risk.png",
+    "sha256": "862028c296ccc5f92612c39571191c452ab216c5d7e42843b49a995fcf544372"
+  },
+  {
+    "notebook": "notebooks/09_reduced_schedule_oos.ipynb",
+    "cell_number": 14,
+    "figure_in_cell": 2,
+    "section": "6 — Cumulative performance and downside risk",
+    "file": "results/notebook_figures/09_reduced_schedule_oos/cell-014-figure-02-6-cumulative-performance-and-downside-risk.png",
+    "sha256": "d90caabe0c661b97462ff2a730108ca57a12be9289432c646207492b026fe60b"
+  },
+  {
+    "notebook": "notebooks/09_reduced_schedule_oos.ipynb",
+    "cell_number": 16,
+    "figure_in_cell": 1,
+    "section": "7 — Rolling factor correlations",
+    "file": "results/notebook_figures/09_reduced_schedule_oos/cell-016-figure-01-7-rolling-factor-correlations.png",
+    "sha256": "f24f734f8b0cde38391a8f1326bdf3d5edbec228cf429ee2a2ddc3af4eacb53f"
+  },
+  {
+    "notebook": "notebooks/09_reduced_schedule_oos.ipynb",
+    "cell_number": 20,
+    "figure_in_cell": 1,
+    "section": "9 — Verify and compare Sharpe ratios for all six models",
+    "file": "results/notebook_figures/09_reduced_schedule_oos/cell-020-figure-01-9-verify-and-compare-sharpe-ratios-for-all-six-models.png",
+    "sha256": "4e627414485514db177852581d66466c94c0ce0d5127fd14c9b1ef33bf2e8ae0"
+  },
+  {
+    "notebook": "notebooks/09_reduced_schedule_oos.ipynb",
+    "cell_number": 22,
+    "figure_in_cell": 1,
+    "section": "Training, validation, and test scenarios",
+    "file": "results/notebook_figures/09_reduced_schedule_oos/cell-022-figure-01-training-validation-and-test-scenarios.png",
+    "sha256": "426ba276a19f54431a5f6ffc1fe067490461ed612afec9d8ebf479c6f6f2a6f1"
+  },
+  {
+    "notebook": "notebooks/09_reduced_schedule_oos.ipynb",
+    "cell_number": 24,
+    "figure_in_cell": 1,
+    "section": "10 — Rolling Sharpe for all six models",
+    "file": "results/notebook_figures/09_reduced_schedule_oos/cell-024-figure-01-10-rolling-sharpe-for-all-six-models.png",
+    "sha256": "8e964493f3929c4fe6684859cd29951131da22ccd7a78de941717bf319f52901"
+  },
+  {
+    "notebook": "notebooks/09_reduced_schedule_oos.ipynb",
+    "cell_number": 29,
+    "figure_in_cell": 1,
+    "section": "Additional comparisons and interpretation",
+    "file": "results/notebook_figures/09_reduced_schedule_oos/cell-029-figure-01-additional-comparisons-and-interpretation.png",
+    "sha256": "7ca7a5b969cfaf35239623ed083608442076090140a5f5dcac28e31e76ce4786"
+  },
+  {
+    "notebook": "notebooks/09_rolling_oos.ipynb",
+    "cell_number": 11,
+    "figure_in_cell": 1,
+    "section": "5 — Rolling Sharpe and volatility comparisons",
+    "file": "results/notebook_figures/09_rolling_oos/cell-011-figure-01-5-rolling-sharpe-and-volatility-comparisons.png",
+    "sha256": "82fa9c915e32760f74e13c3119639c123f848087b838c4499940f83e296b9662"
+  },
+  {
+    "notebook": "notebooks/09_rolling_oos.ipynb",
+    "cell_number": 13,
+    "figure_in_cell": 1,
+    "section": "6 — Cumulative performance and downside risk",
+    "file": "results/notebook_figures/09_rolling_oos/cell-013-figure-01-6-cumulative-performance-and-downside-risk.png",
+    "sha256": "ddff63890e8269420f667700dba4aae7960c527488bf02ede07a27dd191cfe28"
+  },
+  {
+    "notebook": "notebooks/09_rolling_oos.ipynb",
+    "cell_number": 13,
+    "figure_in_cell": 2,
+    "section": "6 — Cumulative performance and downside risk",
+    "file": "results/notebook_figures/09_rolling_oos/cell-013-figure-02-6-cumulative-performance-and-downside-risk.png",
+    "sha256": "715d5ebfa1d4e29cf0c3ff69aa9a0d5579f24825bd89e72cc9c07ad7edb9366c"
+  },
+  {
+    "notebook": "notebooks/09_rolling_oos.ipynb",
+    "cell_number": 15,
+    "figure_in_cell": 1,
+    "section": "7 — Rolling factor correlations",
+    "file": "results/notebook_figures/09_rolling_oos/cell-015-figure-01-7-rolling-factor-correlations.png",
+    "sha256": "415879ccb306b66fe97ddef438562f894b2d2764adeb80c6817c6296582b1153"
+  },
+  {
+    "notebook": "notebooks/09_rolling_oos.ipynb",
+    "cell_number": 19,
+    "figure_in_cell": 1,
+    "section": "9 — Verify and compare Sharpe ratios for all six models",
+    "file": "results/notebook_figures/09_rolling_oos/cell-019-figure-01-9-verify-and-compare-sharpe-ratios-for-all-six-models.png",
+    "sha256": "ec92eb30c48633fc6780baef4152ff61181776ef949d1a054fd1a6f143b9e926"
+  },
+  {
+    "notebook": "notebooks/09_rolling_oos.ipynb",
+    "cell_number": 21,
+    "figure_in_cell": 1,
+    "section": "10 — Rolling Sharpe for all six models",
+    "file": "results/notebook_figures/09_rolling_oos/cell-021-figure-01-10-rolling-sharpe-for-all-six-models.png",
+    "sha256": "f00bed7202c517b7f50878b0133035cf263b15f21021b2c9847636687eddd8e1"
+  },
+  {
+    "notebook": "notebooks/10_regime_analysis.ipynb",
+    "cell_number": 10,
+    "figure_in_cell": 1,
+    "section": "4 — Figures: regime Sharpe and recession-shaded factor paths",
+    "file": "results/notebook_figures/10_regime_analysis/cell-010-figure-01-4-figures-regime-sharpe-and-recession-shaded-factor-paths.png",
+    "sha256": "30627d853bc423fdf86e248c652786a88a593e8436e1fa47d7221cd304142357"
+  },
+  {
+    "notebook": "notebooks/10_regime_analysis.ipynb",
+    "cell_number": 10,
+    "figure_in_cell": 2,
+    "section": "4 — Figures: regime Sharpe and recession-shaded factor paths",
+    "file": "results/notebook_figures/10_regime_analysis/cell-010-figure-02-4-figures-regime-sharpe-and-recession-shaded-factor-paths.png",
+    "sha256": "06aa6b8e0bd2aef5b2b8d1b3dadc9c796c86dcbea0f8376952a0d133e3fe08b1"
+  },
+  {
+    "notebook": "notebooks/10_regime_analysis.ipynb",
+    "cell_number": 10,
+    "figure_in_cell": 3,
+    "section": "4 — Figures: regime Sharpe and recession-shaded factor paths",
+    "file": "results/notebook_figures/10_regime_analysis/cell-010-figure-03-4-figures-regime-sharpe-and-recession-shaded-factor-paths.png",
+    "sha256": "2ec03535b8e8ea859f30e307ee49f705a5dcfb0c883edd0ed8ebd9a3d358fa17"
+  },
+  {
+    "notebook": "notebooks/10_regime_analysis.ipynb",
+    "cell_number": 15,
+    "figure_in_cell": 1,
+    "section": "Additional comparisons and interpretation",
+    "file": "results/notebook_figures/10_regime_analysis/cell-015-figure-01-additional-comparisons-and-interpretation.png",
+    "sha256": "60a3f4ed28af4d7d78e4a9903db8bad755a85d3d07ed972d1d4fcaef57d58523"
+  },
+  {
+    "notebook": "notebooks/11_consolidated_results_comparison.ipynb",
+    "cell_number": 2,
+    "figure_in_cell": 1,
+    "section": "11 — Consolidated results and original-paper comparison",
+    "file": "results/notebook_figures/11_consolidated_results_comparison/cell-002-figure-01-11-consolidated-results-and-original-paper-comparison.png",
+    "sha256": "fd7b77e7913cd485330ea2514ff4286f9d5a3e6efd7ef5ebaefa537d8cea21c2"
+  },
+  {
+    "notebook": "notebooks/11_consolidated_results_comparison.ipynb",
+    "cell_number": 2,
+    "figure_in_cell": 2,
+    "section": "11 — Consolidated results and original-paper comparison",
+    "file": "results/notebook_figures/11_consolidated_results_comparison/cell-002-figure-02-11-consolidated-results-and-original-paper-comparison.png",
+    "sha256": "b472c552bf570ec9081d21890f81bbf9e5ad5082ba266f862000e29a8e9b5584"
+  },
+  {
+    "notebook": "notebooks/11_consolidated_results_comparison.ipynb",
+    "cell_number": 2,
+    "figure_in_cell": 3,
+    "section": "11 — Consolidated results and original-paper comparison",
+    "file": "results/notebook_figures/11_consolidated_results_comparison/cell-002-figure-03-11-consolidated-results-and-original-paper-comparison.png",
+    "sha256": "4435d13e68b86f01be402ea4d27ab2a3f302100b4d1184c370e12bb27e1606ce"
+  },
+  {
+    "notebook": "notebooks/11_consolidated_results_comparison.ipynb",
+    "cell_number": 5,
+    "figure_in_cell": 1,
+    "section": "Consolidated diagnostic from 08_reduced_schedule_comparison",
+    "file": "results/notebook_figures/11_consolidated_results_comparison/cell-005-figure-01-consolidated-diagnostic-from-08-reduced-schedule-comparison.png",
+    "sha256": "0ed4b8cd7abcaea2db9e1c77eb8e0c00801449a3e2526d0dc75c1a710e3f2527"
+  },
+  {
+    "notebook": "notebooks/11_consolidated_results_comparison.ipynb",
+    "cell_number": 7,
+    "figure_in_cell": 1,
+    "section": "Consolidated diagnostic from 09_reduced_schedule_oos",
+    "file": "results/notebook_figures/11_consolidated_results_comparison/cell-007-figure-01-consolidated-diagnostic-from-09-reduced-schedule-oos.png",
+    "sha256": "7ca7a5b969cfaf35239623ed083608442076090140a5f5dcac28e31e76ce4786"
+  },
+  {
+    "notebook": "notebooks/11_consolidated_results_comparison.ipynb",
+    "cell_number": 9,
+    "figure_in_cell": 1,
+    "section": "Consolidated diagnostic from 10_regime_analysis",
+    "file": "results/notebook_figures/11_consolidated_results_comparison/cell-009-figure-01-consolidated-diagnostic-from-10-regime-analysis.png",
+    "sha256": "60a3f4ed28af4d7d78e4a9903db8bad755a85d3d07ed972d1d4fcaef57d58523"
+  },
+  {
+    "notebook": "notebooks/11_consolidated_results_comparison.ipynb",
+    "cell_number": 13,
+    "figure_in_cell": 1,
+    "section": "5. Architecture × rolling window × economic regime",
+    "file": "results/notebook_figures/11_consolidated_results_comparison/cell-013-figure-01-5-architecture-rolling-window-economic-regime.png",
+    "sha256": "40209b207d2d70516fe0f4c36000bae22ca43c4f8af6d9e1ca5d74ce464a6f86"
+  }
+]

@@ -297,3 +297,18 @@ Run Code 08 before Codes 09, 10, and 11 when rebuilding the extension pipeline. 
 | `presentation/` | Three PowerPoint decks and final review PDF |
 
 This is an independent academic replication and extension project. It is not the official implementation of the original authors.
+
+
+## Code 012: Bootstrap uncertainty and rolling comparisons
+
+[Code 012 notebook](notebooks/012_bootstrap_sharpe_uncertainty.ipynb) extends the saved-return analysis without retraining. It compares full-test Sharpe intervals, all ten paired differences, interval methods, block lengths, and 36-/60-month rolling uncertainty. The full-test primary LSTM-minus-Transformer basic interval includes zero. Rolling intervals are pointwise; within-window simultaneous intervals do not adjust for the complete timeline. Overlapping-window counts are descriptive.
+
+Readable labels distinguish **Original-paper GAN**, **Our replicated GAN**, **Extension LSTM**, **Transformer**, and **Equal-weight LSTM–Transformer combination**. [Interpretation guide](results/bootstrap_uncertainty/interpretation_guide.md), [rolling answers](results/bootstrap_uncertainty/rolling_results_and_answers.md), and [seven named PNG/PDF figures](results/bootstrap_uncertainty/figures/README.md) are saved separately.
+
+## Figures from all notebooks
+
+The [notebook figure archive](results/notebook_figures/README.md) saves embedded PNG outputs from every notebook by notebook name and cell, including earlier exploratory variants. This preserves existing figures without rerunning training. Experiments with no saved figure output are listed explicitly. To refresh the archive after saving notebook outputs:
+
+```bash
+python scripts/export_notebook_figures.py
+```

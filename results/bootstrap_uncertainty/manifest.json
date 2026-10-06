@@ -1,0 +1,70 @@
+{
+  "config": {
+    "replicates": 10000,
+    "block_lengths": [
+      6,
+      12,
+      24
+    ],
+    "primary_block": 12,
+    "random_seed": 20261006,
+    "confidence": 0.95,
+    "sharpe_ddof": 0,
+    "batch_size": 128
+  },
+  "source": "results/consolidated_comparison/tables/official_extended_test_returns.csv",
+  "source_sha256": "90851cfbb08c76b436604bedc0fec77c73cf01b9de20775a21f9bb30276c704d",
+  "models": [
+    "Original-paper GAN",
+    "Our replicated GAN",
+    "Extension LSTM",
+    "Transformer",
+    "Equal-weight LSTM\u2013Transformer combination"
+  ],
+  "period": [
+    "1992-01",
+    "2016-12"
+  ],
+  "months": 300,
+  "method": "paired circular block bootstrap; basic/percentile pointwise; max-absolute-centered simultaneous",
+  "model_training_performed": false,
+  "python": "3.14.6",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
+  "additional_diagnostics": {
+    "iid_block_length": 1,
+    "iid_replicates": 10000,
+    "iid_seed_components": [
+      20261006,
+      1
+    ],
+    "comparisons": [
+      "interval methods",
+      "block-length robustness",
+      "IID versus blocks",
+      "monthly versus annualized",
+      "precision sensitivity"
+    ]
+  },
+  "rolling_analysis": {
+    "window_months": [
+      36,
+      60
+    ],
+    "primary_block_months": 6,
+    "replicates": 2000,
+    "selected_endpoint_sensitivity_blocks": [
+      3,
+      12
+    ],
+    "sensitivity_endpoints": "December only",
+    "seed": 20261006
+  },
+  "display_name_mapping": {
+    "Official GAN": "Original-paper GAN",
+    "GAN\u2013LSTM original": "Our replicated GAN",
+    "GAN\u2013LSTM reduced schedule": "Extension LSTM",
+    "GAN\u2013Transformer reduced schedule": "Transformer",
+    "50/50 blend": "Equal-weight LSTM\u2013Transformer combination"
+  }
+}

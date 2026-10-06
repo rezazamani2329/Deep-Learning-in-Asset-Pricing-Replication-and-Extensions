@@ -1,0 +1,21 @@
+window_months,model_a,model_b,overlapping_windows,observed_a_higher,basic_a_higher,basic_b_higher,basic_unresolved,simultaneous_unresolved
+36,Extension LSTM,Equal-weight LSTM–Transformer combination,265,128,5,26,234,265
+36,Extension LSTM,Transformer,265,168,39,0,226,259
+36,Original-paper GAN,Equal-weight LSTM–Transformer combination,265,220,93,0,172,194
+36,Original-paper GAN,Extension LSTM,265,206,83,1,181,206
+36,Original-paper GAN,Our replicated GAN,265,208,63,0,202,255
+36,Original-paper GAN,Transformer,265,258,129,0,136,162
+36,Our replicated GAN,Equal-weight LSTM–Transformer combination,265,184,54,20,191,244
+36,Our replicated GAN,Extension LSTM,265,215,65,2,198,263
+36,Our replicated GAN,Transformer,265,225,58,6,201,217
+36,Transformer,Equal-weight LSTM–Transformer combination,265,11,0,73,192,265
+60,Extension LSTM,Equal-weight LSTM–Transformer combination,241,115,0,17,224,241
+60,Extension LSTM,Transformer,241,193,45,0,196,240
+60,Original-paper GAN,Equal-weight LSTM–Transformer combination,241,209,84,0,157,168
+60,Original-paper GAN,Extension LSTM,241,198,97,0,144,164
+60,Original-paper GAN,Our replicated GAN,241,185,50,0,191,241
+60,Original-paper GAN,Transformer,241,235,100,0,141,163
+60,Our replicated GAN,Equal-weight LSTM–Transformer combination,241,179,34,7,200,210
+60,Our replicated GAN,Extension LSTM,241,200,39,0,202,221
+60,Our replicated GAN,Transformer,241,211,49,5,187,203
+60,Transformer,Equal-weight LSTM–Transformer combination,241,0,0,66,175,241

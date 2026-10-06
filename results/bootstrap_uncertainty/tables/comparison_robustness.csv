@@ -1,0 +1,11 @@
+model_a,model_b,basic_excludes_zero_choices,percentile_excludes_zero_choices,simultaneous_excludes_zero_choices,interval_method_disagreements,block_choices
+Extension LSTM,Equal-weight LSTM–Transformer combination,0,0,0,0,3
+Extension LSTM,Transformer,0,0,0,0,3
+Original-paper GAN,Equal-weight LSTM–Transformer combination,3,3,2,0,3
+Original-paper GAN,Extension LSTM,1,3,2,2,3
+Original-paper GAN,Our replicated GAN,0,3,0,3,3
+Original-paper GAN,Transformer,3,3,3,0,3
+Our replicated GAN,Equal-weight LSTM–Transformer combination,2,1,0,1,3
+Our replicated GAN,Extension LSTM,0,0,0,0,3
+Our replicated GAN,Transformer,3,3,3,0,3
+Transformer,Equal-weight LSTM–Transformer combination,3,3,0,0,3
