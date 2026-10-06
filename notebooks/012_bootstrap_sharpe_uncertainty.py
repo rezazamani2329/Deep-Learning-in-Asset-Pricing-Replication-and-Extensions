@@ -655,6 +655,174 @@ manifest['display_name_mapping']=dict(zip(SOURCE_NAMES,NAMES))
 # | 7 | Rolling paired Sharpe differences with uncertainty | [PNG](../results/bootstrap_uncertainty/figures/rolling_difference_uncertainty.png) | [PDF](../results/bootstrap_uncertainty/figures/rolling_difference_uncertainty.pdf) |
 
 # %% [markdown]
+# ## Part 11 — Additional comparison among our replicated and extension models
+#
+# **Relationship to earlier sections:** Parts 1–10 retain the original-paper benchmark and all existing comparisons. This additional section isolates comparisons among our own portfolios; it does not replace those benchmark results.
+#
+# **Purpose:** Bring together overall performance, rolling windows, regimes, and uncertainty for all seven local portfolios. Linear, Elastic Net, feedforward, and GAN are our historical replications; extension LSTM and Transformer are the matched reduced-schedule models; their equal-weight combination averages returns.
+#
+# **Questions:** Which local models have higher observed Sharpe? Does that ranking vary over time or economic conditions? Which paired differences remain unresolved? Is a historical replication comparison controlled for training differences?
+#
+# **Method:** Use the six saved local factor series and construct the fixed combination. Recompute paired full-test uncertainty with 10,000 draws and three block lengths. Recalibrate simultaneous intervals for 21 local pairs. Compute rolling uncertainty in every complete 36-/60-month window with 2,000 draws and six-month blocks. Reuse existing regime labels for conditional point estimates.
+#
+# **How to interpret:** Overall and regime tables report monthly Sharpe; rolling statistics are annualized. A mean rolling Sharpe is not the full-test Sharpe. Compare paired intervals directly against zero. Regime estimates have no confidence intervals in this section; full-test or rolling intervals must not be presented as regime inference. The models were fixed before resampling; no new models are trained.
+
+# %%
+# Local-only analysis uses saved returns; no model training and no original-paper series.
+from pathlib import Path
+from itertools import combinations
+import json
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from IPython.display import display, Markdown
+LOCAL_ROOT=Path.cwd()
+if not (LOCAL_ROOT/'results').exists(): LOCAL_ROOT=LOCAL_ROOT.parent
+LOCAL_OUT=LOCAL_ROOT/'results/bootstrap_uncertainty/local_only'
+for directory in ['tables','figures']: (LOCAL_OUT/directory).mkdir(parents=True,exist_ok=True)
+local=pd.read_csv(LOCAL_ROOT/'results/rolling_oos_reduced_schedule/factors/all_model_test_factor_returns.csv',parse_dates=['date']).set_index('date')
+assert local.index.equals(pd.date_range('1992-01-01','2016-12-01',freq='MS'))
+local.columns=['Linear replication','Elastic Net replication','Feedforward replication','Our replicated GAN','Extension LSTM','Transformer']
+local['Equal-weight LSTM–Transformer combination']=.5*(local['Extension LSTM']+local['Transformer'])
+LX=local.to_numpy();LN=list(local.columns);LP=list(combinations(range(7),2));SQ=np.sqrt(12)
+assert LX.shape==(300,7) and np.isfinite(LX).all()
+def local_sr(x,axis=0):
+    sd=x.std(axis=axis,ddof=0)
+    assert (sd>1e-12).all()
+    return x.mean(axis=axis)/sd
+def local_boot(x,length,count,seed):
+    rng=np.random.default_rng(seed);n=len(x);out=np.empty((count,x.shape[1]))
+    for a in range(0,count,128):
+        b=min(a+128,count)
+        starts=rng.integers(n,size=(b-a,int(np.ceil(n/length))))
+        ix=((starts[:,:,None]+np.arange(length))%n).reshape(b-a,-1)[:,:n]
+        out[a:b]=local_sr(x[ix],axis=1)
+    return out
+observed=local_sr(LX)
+wealth=(1+local).cumprod();dd=wealth/wealth.cummax().clip(lower=1)-1
+risk=pd.DataFrame({'model':LN,'monthly_sharpe':observed,'annualized_sharpe':observed*SQ,
+    'mean_monthly_return':LX.mean(0),'annualized_volatility':LX.std(0)*SQ,
+    'maximum_drawdown':dd.min().values})
+risk['test_rank']=risk.monthly_sharpe.rank(ascending=False,method='min').astype(int)
+risk.to_csv(LOCAL_OUT/'tables/overall_performance.csv',index=False)
+display(Markdown('### Local-only overall test performance — all seven portfolios'))
+display(risk.sort_values('test_rank'))
+local_model_rows=[];local_pair_rows=[]
+for length in [6,12,24]:
+    bs=local_boot(LX,length,10000,np.random.SeedSequence([20261006,777,length]))
+    lo,hi=np.quantile(bs,[.025,.975],axis=0)
+    for j,name in enumerate(LN):local_model_rows.append(dict(block_months=length,model=name,monthly_sharpe=observed[j],basic_lower=2*observed[j]-hi[j],basic_upper=2*observed[j]-lo[j]))
+    delta=np.array([observed[i]-observed[j] for i,j in LP])
+    bd=np.column_stack([bs[:,i]-bs[:,j] for i,j in LP])
+    qlo,qhi=np.quantile(bd,[.025,.975],axis=0)
+    critical=np.quantile(np.max(np.abs(bd-delta),axis=1),.95)
+    for k,(i,j) in enumerate(LP):
+        low,high=2*delta[k]-qhi[k],2*delta[k]-qlo[k]
+        sl,sh=delta[k]-critical,delta[k]+critical
+        local_pair_rows.append(dict(block_months=length,model_a=LN[i],model_b=LN[j],monthly_difference=delta[k],
+            basic_lower=low,basic_upper=high,simultaneous_lower=sl,simultaneous_upper=sh,
+            basic_direction='A higher' if low>0 else 'B higher' if high<0 else 'Unresolved',
+            simultaneous_direction='A higher' if sl>0 else 'B higher' if sh<0 else 'Unresolved'))
+lm=pd.DataFrame(local_model_rows);lp=pd.DataFrame(local_pair_rows)
+lm.to_csv(LOCAL_OUT/'tables/model_intervals.csv',index=False);lp.to_csv(LOCAL_OUT/'tables/paired_intervals.csv',index=False)
+display(Markdown('### Local-only uncertainty: primary 12-month blocks, 21 paired differences'))
+display(lp[lp.block_months==12])
+# Local rolling uncertainty: shared resampling within every complete window.
+rolling_rows=[];rolling_summary=[]
+for window in [36,60]:
+    raw=local.rolling(window,min_periods=window).mean()/local.rolling(window,min_periods=window).std(ddof=0)*SQ
+    for name in LN:rolling_summary.append(dict(window_months=window,model=name,windows=301-window,
+        mean_annualized_rolling_sharpe=raw[name].mean(),median_annualized_rolling_sharpe=raw[name].median()))
+    for endpoint in range(window-1,300):
+        sample=LX[endpoint-window+1:endpoint+1];point=local_sr(sample)
+        bs=local_boot(sample,6,2000,np.random.SeedSequence([20261006,777,window,endpoint]))
+        delta=np.array([point[i]-point[j] for i,j in LP]);bd=np.column_stack([bs[:,i]-bs[:,j] for i,j in LP])
+        lo,hi=np.quantile(bd,[.025,.975],axis=0)
+        critical=np.quantile(np.max(np.abs(bd-delta),axis=1),.95)
+        for k,(i,j) in enumerate(LP):
+            rolling_rows.append(dict(date=local.index[endpoint],window_months=window,model_a=LN[i],model_b=LN[j],
+                annualized_difference=delta[k]*SQ,basic_lower=(2*delta[k]-hi[k])*SQ,basic_upper=(2*delta[k]-lo[k])*SQ,
+                simultaneous_lower=(delta[k]-critical)*SQ,simultaneous_upper=(delta[k]+critical)*SQ))
+    print('Local-only rolling comparisons complete:',window)
+lr=pd.DataFrame(rolling_rows);ls=pd.DataFrame(rolling_summary)
+lr.to_csv(LOCAL_OUT/'tables/rolling_paired_intervals.csv',index=False);ls.to_csv(LOCAL_OUT/'tables/rolling_summary.csv',index=False)
+display(Markdown('### Mean annualized rolling Sharpe — not the full-test Sharpe'))
+display(ls.pivot(index='model',columns='window_months',values='mean_annualized_rolling_sharpe'))
+labels=pd.read_csv(LOCAL_ROOT/'results/regime_analysis/tables/monthly_regime_labels.csv',parse_dates=['date']).set_index('date')
+assert labels.index.equals(local.index)
+regime_rows=[]
+for family,column in [('Business cycle','business_cycle'),('Market volatility','volatility_regime')]:
+    for state in labels[column].unique():
+        mask=labels[column]==state
+        values=local_sr(LX[mask])
+        for j,name in enumerate(LN):regime_rows.append(dict(family=family,regime=state,model=name,months=int(mask.sum()),monthly_sharpe=values[j]))
+lg=pd.DataFrame(regime_rows);lg.to_csv(LOCAL_OUT/'tables/regime_comparison.csv',index=False)
+display(Markdown('### Conditional regime Sharpe — monthly units, point estimates only'))
+display(lg.pivot(index='model',columns='regime',values='monthly_sharpe'))
+short=['Linear','Elastic Net','Feedforward','Replicated GAN','Extension LSTM','Transformer','Equal-weight combination']
+colors=['#64748B','#7C3AED','#D97706','#003262','#2563EB','#B7790B','#16816B']
+fig,ax=plt.subplots(figsize=(12,5));q=lm[lm.block_months==12].reset_index(drop=True)
+for j,r in q.iterrows():
+    ax.hlines(j,r.basic_lower,r.basic_upper,color=colors[j],lw=3);ax.plot(r.monthly_sharpe,j,'o',color=colors[j])
+ax.set_yticks(range(7),short);ax.invert_yaxis();ax.set_xlabel('Monthly test Sharpe');ax.set_title('Local models only: 95% basic intervals, 12-month blocks');ax.grid(axis='x',alpha=.2)
+fig.tight_layout()
+for ext in ['png','pdf']:fig.savefig(LOCAL_OUT/f'figures/local_overall_uncertainty.{ext}',dpi=170)
+plt.show()
+fig,axs=plt.subplots(2,1,figsize=(13,9),sharex=True)
+for ax,w in zip(axs,[36,60]):
+    sr=local.rolling(w).mean()/local.rolling(w).std(ddof=0)*SQ
+    for name,label,c in zip(LN,short,colors):ax.plot(sr.index,sr[name],label=label,color=c,lw=1.2)
+    ax.set_title(f'Local models: {w}-month rolling Sharpe');ax.set_ylabel('Annualized rolling Sharpe');ax.grid(alpha=.2)
+axs[0].legend(ncol=4,fontsize=9);fig.tight_layout()
+for ext in ['png','pdf']:fig.savefig(LOCAL_OUT/f'figures/local_rolling_comparison.{ext}',dpi=170)
+plt.show()
+fig,axs=plt.subplots(1,2,figsize=(14,5))
+for ax,states in zip(axs,[['Expansion','Recession'],['High volatility','Low volatility']]):
+    for j,(name,label,c) in enumerate(zip(LN,short,colors)):
+        vals=[lg[(lg.model==name)&(lg.regime==state)].monthly_sharpe.iloc[0] for state in states]
+        ax.bar(np.arange(2)+(j-3)*.11,vals,.11,color=c,label=label)
+    ax.set_xticks(range(2),states);ax.set_ylabel('Monthly conditional Sharpe');ax.axhline(0,color='black',lw=.6);ax.grid(axis='y',alpha=.2)
+handles,legend_labels=axs[0].get_legend_handles_labels();fig.legend(handles,legend_labels,loc='lower center',ncol=4,fontsize=9)
+fig.suptitle('Local models only: business-cycle and volatility comparisons');fig.tight_layout(rect=[0,.12,1,.94])
+for ext in ['png','pdf']:fig.savefig(LOCAL_OUT/f'figures/local_regime_comparison.{ext}',dpi=170)
+plt.show()
+fig,axs=plt.subplots(2,2,figsize=(14,9),sharex=True)
+for row,(a,b) in enumerate([('Our replicated GAN','Extension LSTM'),('Extension LSTM','Transformer')]):
+    for col,w in enumerate([36,60]):
+        q=lr[(lr.model_a==a)&(lr.model_b==b)&(lr.window_months==w)].sort_values('date');ax=axs[row,col]
+        ax.plot(q.date,q.annualized_difference,color='#003262');ax.fill_between(q.date,q.basic_lower,q.basic_upper,alpha=.2,color='#2563EB')
+        ax.axhline(0,color='black',ls='--',lw=.8);ax.set_title(f'{a} minus {b}\n{w}-month windows',fontsize=10);ax.set_ylabel('Annualized Sharpe difference');ax.grid(alpha=.2)
+fig.suptitle('Local-only paired rolling uncertainty: pointwise basic intervals');fig.tight_layout(rect=[0,0,1,.95])
+for ext in ['png','pdf']:fig.savefig(LOCAL_OUT/f'figures/local_rolling_uncertainty.{ext}',dpi=170)
+plt.show()
+answer=['## Local-only comparison: results and interpretation','',
+    '- **Scope:** Seven local portfolios, including linear, Elastic Net, feedforward, our replicated GAN, extension LSTM, Transformer, and their equal-weight combination. No original-paper factor enters this section.',
+    '- **Overall monthly test Sharpe ranking:** '+', '.join(f'{r.model} {r.monthly_sharpe:.3f}' for r in risk.sort_values('test_rank').itertuples())+'.',
+    '- **Matched architecture question:** Only extension LSTM and Transformer share the new reduced training setup. Historical replication models provide contextual comparisons.',
+    '- **Uncertainty:** The simultaneous full-test intervals are recalibrated for all 21 local pairs, rather than filtering the earlier ten-pair family. Basic intervals and six-/twelve-/twenty-four-month sensitivity are saved.',
+    '- **Rolling:** All 265 three-year and 241 five-year windows have paired uncertainty estimates using six-month blocks and 2,000 draws. Pointwise bands are not simultaneous across time.',
+    '- **Regimes:** Conditional monthly Sharpes use the established business-cycle and lagged-volatility labels. These are point estimates: this section does not provide regime-specific confidence intervals. Recession has only 26 months.',
+    '- **Meaning:** Rolling and regimes describe when and where each fixed model performs differently; uncertainty describes precision. They are analyses, not additional trained models.',
+    '- **Limits:** No retraining, transaction-cost adjustment, independent new holdout, or correction for prior research choices.']
+text='\n'.join(answer);(LOCAL_OUT/'results_and_answers.md').write_text(text);display(Markdown(text))
+(LOCAL_OUT/'manifest.json').write_text(json.dumps({'models':LN,'original_paper_included':False,'full_test_replicates':10000,
+    'full_test_blocks':[6,12,24],'rolling_replicates':2000,'rolling_block':6,'local_pair_family':21,
+    'regime_uncertainty_computed':False,'training_performed':False,'seed':20261006},indent=2))
+
+
+# %% [markdown]
+# ## Additional comparison figures
+#
+# The original-paper figures above remain available. These four additional figures compare our replicated and extension portfolios. Regime bars are point estimates, without regime-specific confidence intervals.
+#
+# | Name | PNG | PDF |
+# |---|---|---|
+# | Overall Sharpe and uncertainty among our seven portfolios | [PNG](../results/bootstrap_uncertainty/local_only/figures/local_overall_uncertainty.png) | [PDF](../results/bootstrap_uncertainty/local_only/figures/local_overall_uncertainty.pdf) |
+# | Three-year and five-year rolling Sharpe among our portfolios | [PNG](../results/bootstrap_uncertainty/local_only/figures/local_rolling_comparison.png) | [PDF](../results/bootstrap_uncertainty/local_only/figures/local_rolling_comparison.pdf) |
+# | Business-cycle and volatility regime comparisons | [PNG](../results/bootstrap_uncertainty/local_only/figures/local_regime_comparison.png) | [PDF](../results/bootstrap_uncertainty/local_only/figures/local_regime_comparison.pdf) |
+# | Rolling paired differences with uncertainty | [PNG](../results/bootstrap_uncertainty/local_only/figures/local_rolling_uncertainty.png) | [PDF](../results/bootstrap_uncertainty/local_only/figures/local_rolling_uncertainty.pdf) |
+
+# %% [markdown]
 # ## Final results — bullet-point summary
 #
 # - **No retraining:** All analyses reuse the same 300 test months, January 1992–December 2016.
@@ -684,3 +852,16 @@ manifest['display_name_mapping']=dict(zip(SOURCE_NAMES,NAMES))
 # - Larger or smaller point estimates should be interpreted with their window-specific intervals. Short windows have limited information; apparent performance changes need not be precisely estimated.
 # - Three-, six-, and twelve-month block comparisons at December endpoints assess local sensitivity. They do not select a model or define a trading signal.
 # - Labels now distinguish the original-paper GAN, our replicated GAN, the extension architectures, and the equal-weight LSTM–Transformer combination.
+#
+# ### Additional results among our models
+#
+# - **Scope:** Seven local portfolios, including linear, Elastic Net, feedforward, our replicated GAN, extension LSTM, Transformer, and their equal-weight combination. No original-paper factor enters this section.
+# - **Overall monthly test Sharpe ranking:** Our replicated GAN 0.612, Feedforward replication 0.570, Equal-weight LSTM–Transformer combination 0.463, Extension LSTM 0.459, Elastic Net replication 0.412, Linear replication 0.406, Transformer 0.304.
+# - **Matched architecture question:** Only extension LSTM and Transformer share the new reduced training setup. Historical replication models provide contextual comparisons.
+# - **Uncertainty:** The simultaneous full-test intervals are recalibrated for all 21 local pairs, rather than filtering the earlier ten-pair family. Basic intervals and six-/twelve-/twenty-four-month sensitivity are saved.
+# - **Rolling:** All 265 three-year and 241 five-year windows have paired uncertainty estimates using six-month blocks and 2,000 draws. Pointwise bands are not simultaneous across time.
+# - **Regimes:** Conditional monthly Sharpes use the established business-cycle and lagged-volatility labels. These are point estimates: this section does not provide regime-specific confidence intervals. Recession has only 26 months.
+# - **Meaning:** Rolling and regimes describe when and where each fixed model performs differently; uncertainty describes precision. They are analyses, not additional trained models.
+# - **Limits:** No retraining, transaction-cost adjustment, independent new holdout, or correction for prior research choices.
+#
+# - **Original-paper benchmark retained:** Parts 1–10 continue to compare our results with the original-paper portfolio. Part 11 adds a complementary within-project comparison.

@@ -312,3 +312,5 @@ The [notebook figure archive](results/notebook_figures/README.md) saves embedded
 ```bash
 python scripts/export_notebook_figures.py
 ```
+
+Code 012 also adds a comparison among all seven local portfolios: linear, Elastic Net, feedforward, replicated GAN, extension LSTM, Transformer, and their equal-weight combination. The original-paper benchmark comparisons remain in Parts 1–10. Part 11 adds overall and rolling bootstrap uncertainty, rolling performance, and regime point estimates; see the [additional results](results/bootstrap_uncertainty/local_only/results_and_answers.md) and [figure index](results/bootstrap_uncertainty/figures/README.md). No models are retrained.

@@ -56,6 +56,38 @@
     "sha256": "4699999af20c4f70c8bbe87d19a55ccb58a6ad849c16727936ce88a46c45ccd8"
   },
   {
+    "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
+    "cell_number": 35,
+    "figure_in_cell": 1,
+    "section": "Part 11 — Additional comparison among our replicated and extension models",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-035-figure-01-part-11-additional-comparison-among-our-replicated-and-extension-.png",
+    "sha256": "26cc4620d3e3a052ee57f997e7496a4c76c5334170d4e7f33a827e8d8743e8bd"
+  },
+  {
+    "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
+    "cell_number": 35,
+    "figure_in_cell": 2,
+    "section": "Part 11 — Additional comparison among our replicated and extension models",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-035-figure-02-part-11-additional-comparison-among-our-replicated-and-extension-.png",
+    "sha256": "7704b0a1d2a1a571e0d77981ed6970a1d29c456b1baf8c5cb07472f954a47fd3"
+  },
+  {
+    "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
+    "cell_number": 35,
+    "figure_in_cell": 3,
+    "section": "Part 11 — Additional comparison among our replicated and extension models",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-035-figure-03-part-11-additional-comparison-among-our-replicated-and-extension-.png",
+    "sha256": "ba741b84d05534b7c6caf2d23e94c17126ce1070170846a6977ae4456fa24de1"
+  },
+  {
+    "notebook": "notebooks/012_bootstrap_sharpe_uncertainty.ipynb",
+    "cell_number": 35,
+    "figure_in_cell": 4,
+    "section": "Part 11 — Additional comparison among our replicated and extension models",
+    "file": "results/notebook_figures/012_bootstrap_sharpe_uncertainty/cell-035-figure-04-part-11-additional-comparison-among-our-replicated-and-extension-.png",
+    "sha256": "4219bba1159d4fe1ca90d00784845c9a9cde0dfda3db8b4cd0a8fa336f44bba6"
+  },
+  {
     "notebook": "notebooks/02_exploratory_analysis.ipynb",
     "cell_number": 14,
     "figure_in_cell": 1,

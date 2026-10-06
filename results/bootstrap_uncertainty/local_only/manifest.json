@@ -1,0 +1,24 @@
+{
+  "models": [
+    "Linear replication",
+    "Elastic Net replication",
+    "Feedforward replication",
+    "Our replicated GAN",
+    "Extension LSTM",
+    "Transformer",
+    "Equal-weight LSTM\u2013Transformer combination"
+  ],
+  "original_paper_included": false,
+  "full_test_replicates": 10000,
+  "full_test_blocks": [
+    6,
+    12,
+    24
+  ],
+  "rolling_replicates": 2000,
+  "rolling_block": 6,
+  "local_pair_family": 21,
+  "regime_uncertainty_computed": false,
+  "training_performed": false,
+  "seed": 20261006
+}

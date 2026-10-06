@@ -8,7 +8,7 @@ Historical variants retain their historical labels and results; the completed re
 
 | Notebook | Saved figures |
 |---|---:|
-| [012_bootstrap_sharpe_uncertainty](012_bootstrap_sharpe_uncertainty/) | 7 |
+| [012_bootstrap_sharpe_uncertainty](012_bootstrap_sharpe_uncertainty/) | 11 |
 | 01_data_preparation | 0 |
 | [02_exploratory_analysis](02_exploratory_analysis/) | 12 |
 | [03_linear_baseline](03_linear_baseline/) | 2 |
@@ -38,6 +38,10 @@ Zero means no embedded PNG figure was present in the saved notebook, not that a 
 | 012_bootstrap_sharpe_uncertainty | 21 | Part 7 — Dependence diagnostic: independent months versus blocks | [Figure](012_bootstrap_sharpe_uncertainty/cell-021-figure-01-part-7-dependence-diagnostic-independent-months-versus-blocks.png) |
 | 012_bootstrap_sharpe_uncertainty | 32 | Rolling figures and interpretation | [Figure](012_bootstrap_sharpe_uncertainty/cell-032-figure-01-rolling-figures-and-interpretation.png) |
 | 012_bootstrap_sharpe_uncertainty | 32 | Rolling figures and interpretation | [Figure](012_bootstrap_sharpe_uncertainty/cell-032-figure-02-rolling-figures-and-interpretation.png) |
+| 012_bootstrap_sharpe_uncertainty | 35 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-035-figure-01-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
+| 012_bootstrap_sharpe_uncertainty | 35 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-035-figure-02-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
+| 012_bootstrap_sharpe_uncertainty | 35 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-035-figure-03-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
+| 012_bootstrap_sharpe_uncertainty | 35 | Part 11 — Additional comparison among our replicated and extension models | [Figure](012_bootstrap_sharpe_uncertainty/cell-035-figure-04-part-11-additional-comparison-among-our-replicated-and-extension-.png) |
 | 02_exploratory_analysis | 14 | 6. Cross-Sectional Number of Stock Observations Through Time | [Figure](02_exploratory_analysis/cell-014-figure-01-6-cross-sectional-number-of-stock-observations-through-time.png) |
 | 02_exploratory_analysis | 18 | 7. Monthly Stock Return Distribution | [Figure](02_exploratory_analysis/cell-018-figure-01-7-monthly-stock-return-distribution.png) |
 | 02_exploratory_analysis | 33 | 10. Selected Firm-Characteristic Distributions | [Figure](02_exploratory_analysis/cell-033-figure-01-10-selected-firm-characteristic-distributions.png) |
