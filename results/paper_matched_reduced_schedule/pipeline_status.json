@@ -1,0 +1,10 @@
+{
+  "stage": "complete",
+  "updated_unix": 1791248052.29823,
+  "notebooks": [
+    "08_reduced_schedule_comparison",
+    "09_reduced_schedule_oos",
+    "10_regime_analysis"
+  ],
+  "message": "All three notebooks executed without errors; exports, tables, figures, and answers saved."
+}

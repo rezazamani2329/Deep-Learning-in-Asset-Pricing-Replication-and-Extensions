@@ -1,0 +1,54 @@
+{
+  "config": {
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50
+    ],
+    "epochs": [
+      256,
+      64,
+      1024
+    ],
+    "learning_rate": 0.001,
+    "sdf_hidden": [
+      64,
+      64
+    ],
+    "sdf_macro_dim": 4,
+    "conditional_macro_dim": 32,
+    "macro_features": 178,
+    "firm_features": 46,
+    "instruments": 8,
+    "dropout": 0.05,
+    "transformer_d_model": 32,
+    "transformer_heads": 4,
+    "transformer_layers": 2,
+    "transformer_feedforward": 64,
+    "sub_epoch": 4,
+    "ignore_epoch": 64,
+    "adversary_selection": "author_training_score_post_update_checkpoint_final_pass",
+    "sdf_selection": "highest_validation_raw_sharpe_after_ignore_epoch",
+    "stage1_selection": "lowest_validation_unconditional_loss_after_ignore_epoch",
+    "sharpe_ddof": 0,
+    "ensemble": "average_raw_weights_then_gross_normalize",
+    "device": "cpu"
+  },
+  "inputs": {
+    "/Users/reza/Desktop/mfe-term_3/deep_learning1/Deep-Learning-in-Asset-Pricing_-Replication-project/results/macro/macro_lstm_input.parquet": "fff2fef68d5e82f72094535172b5b03ddf0641c17f85dc172544c413c941e0eb",
+    "/Users/reza/Desktop/mfe-term_3/deep_learning1/project /datasets/char/Char_train.npz": "a6504799775ddbd488b2a6f4b1f24f3454495b6c3ae310e04e2bbe632023a1a5",
+    "/Users/reza/Desktop/mfe-term_3/deep_learning1/project /datasets/char/Char_valid.npz": "c846b393b3cdab2ab87073a67a7d0b81be7fb5c04cba9881a9202561ba39ba0b",
+    "/Users/reza/Desktop/mfe-term_3/deep_learning1/project /datasets/char/Char_test.npz": "c138aba1b443cf9516293c854dba3c779ae00f0558fc078b00af3217d3368086",
+    "/Users/reza/Desktop/mfe-term_3/deep_learning1/Deep-Learning-in-Asset-Pricing_-Replication-project/src/models/transformer_gan_paper.py": "27f525edb23ce489a0b5ec805c01e50e5b27b06413c1addf730d63f00d27dda9"
+  },
+  "python": "3.14.6 | packaged by Anaconda, Inc. | (main, Jul  9 2026, 14:30:20) [Clang 20.1.8 ]",
+  "torch": "2.14.0",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5"
+}

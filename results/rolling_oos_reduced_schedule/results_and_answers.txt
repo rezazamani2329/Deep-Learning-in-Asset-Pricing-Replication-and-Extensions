@@ -1,0 +1,29 @@
+### Executed results and answers
+
+**Q1 — Persistence across windows:** The Transformer has higher trailing annualized Sharpe in **36.6%** of the **265** complete 36-month windows and **19.9%** of the **241** complete 60-month windows. Mean annualized Sharpe differences (Transformer minus matched LSTM) are **-0.524** and **-0.567**. Full-test monthly Sharpe is **0.3045** versus **0.4593**. The window comparison table identifies positive and negative periods and the dates of the largest differences; overlapping-window counts are descriptive.
+
+**Q2 — Return and risk:** LSTM terminal wealth is **4.553**, with annualized volatility **3.87%** and maximum drawdown **-11.14%**. Transformer terminal wealth is **3.450**, with annualized volatility **4.82%** and maximum drawdown **-15.35%**. These are hypothetical compounded gross strategy results under the stated assumptions. Sharpe superiority should be read alongside volatility, drawdown, and the rolling risk figures.
+
+**Q3 — Co-movement:** Full-test return correlation is **0.2920**. The 36-month correlation ranges from **-0.289** to **0.545**; the 60-month range is **-0.169** to **0.468**. The models share information but their exposure and relative performance vary over time. Correlation alone does not establish diversification benefits after costs.
+
+**Q4 — Meaning and next code:** Code 08 reduced-schedule experiment established the fixed-budget architecture comparison. Code 09 describes its evolution through time without retraining, test-based tuning, or claiming independent statistical significance. Code **10** will read `results/rolling_oos/factors/test_factor_returns.csv` and join monthly recession/expansion and high/low volatility labels. It should compare the same matched pair, retain the exact 300-month test calendar, report regime sample sizes, and keep the historical Code 07 reference separately labelled.
+
+For descriptive recession analysis, use NBER labels and state that they are retrospective. For prospective volatility labels, use lagged trailing market volatility and a threshold calibrated on training data, rather than a test-sample median. Code 10 should use monthly market returns from the cached Fama–French data, not either model's own factor volatility to define market regimes. Code 09's rolling diagnostics help identify time variation; Code 10 will investigate whether that variation is associated with economic states. Neither code should choose a model using selected favourable test periods.
+
+Saved artifacts include all trailing metrics, Sharpe differences, full-test performance, wealth and drawdown paths, correlations, four figures, input hashes, and the dated test-return handoff file.
+
+
+### All-model Sharpe comparison (monthly)
+split                                                              source  train  validation   test
+LS                                                Our saved model returns 2.0290      0.7696 0.4064
+EN                                                Our saved model returns 1.1254      1.0378 0.4115
+FFN                                               Our saved model returns 0.6597      0.8519 0.5695
+GAN–LSTM original                                 Our saved model returns 2.2235      1.1854 0.6119
+GAN–LSTM reduced schedule                         Our saved model returns 1.3076      0.7501 0.4593
+GAN–Transformer reduced schedule                  Our saved model returns 1.0490      0.5887 0.3045
+LS (paper)                        Published benchmark recorded in Code 07 1.8000      0.5800 0.4200
+EN (paper)                        Published benchmark recorded in Code 07 1.3700      1.1500 0.5000
+FFN (paper)                       Published benchmark recorded in Code 07 0.4500      0.4200 0.4400
+GAN–LSTM (paper)                  Published benchmark recorded in Code 07 2.6800      1.4300 0.7500
+
+All 18 saved model/split Sharpe ratios were verified against monthly returns. The paper benchmarks are recorded values verified against the authors' repository in the accompanying review. The table reports the observed ordering across all six models; assess the two matched-budget models separately when attributing differences to architecture. Different budgets prevent interpreting the original-versus-Transformer comparison as an isolated architecture test. Paper rolling performance is unavailable without the original monthly factor series for those models.

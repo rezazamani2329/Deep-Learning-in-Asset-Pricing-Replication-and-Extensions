@@ -1,0 +1,10 @@
+model,split,months,monthly_sharpe,verified
+gan_lstm_matched,test,300,0.3113357858483131,True
+gan_lstm_matched,train,240,1.2083318021636775,True
+gan_lstm_matched,validation,60,0.4196825422909821,True
+gan_transformer,test,300,0.4414003744652172,True
+gan_transformer,train,240,1.2837169540323525,True
+gan_transformer,validation,60,0.6514727418955581,True
+gan_lstm_code07_reference,test,300,0.6108669037705023,True
+gan_lstm_code07_reference,train,240,2.2188781787781564,True
+gan_lstm_code07_reference,validation,60,1.1754891095883981,True

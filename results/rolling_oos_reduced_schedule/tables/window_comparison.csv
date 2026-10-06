@@ -1,0 +1,3 @@
+window_months,complete_windows,first_window_end,last_window_end,transformer_higher_fraction,mean_sharpe_difference,minimum_sharpe_difference,minimum_difference_end,maximum_sharpe_difference,maximum_difference_end
+36,265,1994-12-01,2016-12-01,0.3660377358490566,-0.5244101774117622,-2.793024318864055,1998-12-01,1.5074405063702359,2007-05-01
+60,241,1996-12-01,2016-12-01,0.1991701244813278,-0.5665436276188959,-2.1689607606995454,1999-07-01,1.1625422405204069,2008-09-01

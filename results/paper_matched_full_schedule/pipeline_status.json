@@ -1,0 +1,6 @@
+{
+  "stage": "failed",
+  "updated_unix": 1791247229.946385,
+  "error": "",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/reza/Desktop/mfe-term_3/deep_learning1/Deep-Learning-in-Asset-Pricing_-Replication-project/scripts/finish_full_schedule_pipeline.py\", line 57, in <module>\n    time.sleep(30)\n    ~~~~~~~~~~^^^^\nKeyboardInterrupt\n"
+}

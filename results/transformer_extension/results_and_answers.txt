@@ -1,0 +1,12 @@
+### Executed results
+The matched LSTM ensemble has **0.3113** test monthly Sharpe; the Transformer ensemble has **0.4414**. The Transformer is higher by **0.1301** in this fixed-budget run. The larger Code 07 reference has **0.6109**.
+
+**Q1 — Causal state construction:** Passed. Both Transformer encoders return the required 4/32-dimensional states. Future perturbations do not affect earlier states, and full-sequence outputs agree with prefix-only outputs. The objective, gradient, normalization, calendar, and checkpoint reload checks also passed.
+
+**Q2 — Performance:** The Transformer is higher on the untouched 1992–2016 test period for this experiment. This is an observed comparison, not a statistical significance claim or evidence that either architecture always wins. No test-based tuning or seed selection was performed.
+
+**Q3 — Stability and similarity:** Test correlation is **0.5799**. Individual LSTM seed Sharpes range from **0.2073** to **0.3133**; Transformer seeds range from **0.3216** to **0.4207**. Three seeds give an initial sensitivity check, not a confidence interval. The saved member table reports every seed.
+
+**Q4 — Interpretation and next codes:** This run isolates the macro encoder architecture under a matched budget and validates the end-to-end pricing pipeline. It does not reproduce the full nine-seed training schedule or prove real-time macro-data availability. Code **09** will read `transformer_lstm_comparison.csv`, keep only `split == 'test'`, and compare 36/60-month rolling Sharpe and volatility, cumulative performance, drawdowns, and correlations. Code **10** will use the same test returns for recession/expansion and volatility regimes. Use a training-calibrated volatility threshold and lagged market volatility for prospective labels; NBER recession labels are retrospective descriptive labels. Do not optimize models or regime thresholds on test performance.
+
+The primary pair for Codes 09–10 is `gan_lstm_matched` versus `gan_transformer`. The `gan_lstm_code07_reference` column is optional and must retain its different-budget label. Dates are month starts; returns use decimal units; each model has 240 train, 60 validation, and 300 test observations. Preserve the same return definition and gross-normalization convention across all three notebooks.

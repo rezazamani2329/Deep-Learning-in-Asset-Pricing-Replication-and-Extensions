@@ -1,409 +1,79 @@
-# Deep Learning in Asset Pricing — Replication Project
+# Deep Learning in Asset Pricing: Replication and Extensions
 
-## Overview
+This project replicates the asset-pricing framework of Luyang Chen, Markus Pelger, and Jason Zhu and extends it with Transformer macroeconomic encoders, rolling-window evaluation, economic regime analysis, and architecture combinations.
 
-This repository contains a replication and extension of the paper **“Deep Learning in Asset Pricing”** by Luyang Chen, Markus Pelger, and Jason Zhu.
+## Team
 
-The project studies how deep learning can be used to estimate nonlinear asset-pricing models from a large set of firm-level characteristics and macroeconomic information.
+Reza Zamani, Hrafnhildur Lif Jonsdottir, Paraj Goyal, and Elouan Bahri
 
-The central idea is to learn a **stochastic discount factor (SDF)** directly from data while incorporating the economic restriction implied by the no-arbitrage condition.
+UC Berkeley, Master of Financial Engineering
 
-This project will progressively reproduce the main components of the original methodology, beginning with data preparation and benchmark models and then moving toward neural-network, recurrent-network, and adversarial asset-pricing models.
+Professor: Ali Kakhbod
 
----
-## Authors
+## Original paper and model
 
-**Reza Zamani**
+[Deep Learning in Asset Pricing](https://arxiv.org/abs/1904.00745) estimates a stochastic discount factor (SDF) using firm characteristics and macroeconomic history. LSTM encoders summarize economic conditions. A feedforward network maps firm characteristics and economic states to portfolio weights. An adversarial network constructs instruments that expose pricing errors, while the pricing network learns to reduce those errors.
 
+The paper appeared in *Management Science*, 70(2), 714–750, DOI [10.1287/mnsc.2023.4695](https://doi.org/10.1287/mnsc.2023.4695). The [authors' implementation](https://github.com/LouisChen1992/Deep_Learning_Asset_Pricing) provides the reference conventions.
 
-**Hrafnhildur Líf**
+## Replication and extension notebooks
 
+| Code | Notebook | Purpose |
+|---|---|---|
+| 01–06 | Existing notebooks in `notebooks/` | Data preparation, exploration, linear benchmarks, feedforward SDF, LSTM states, and adversarial model |
+| 07 | [Replication results](notebooks/07_results_replication.ipynb) | Compare saved models with the original paper, including Sharpe, risk, and characteristic importance |
+| 08 | [Matched reduced-schedule comparison](notebooks/08_reduced_schedule_comparison.ipynb) | Train nine LSTM and nine Transformer seeds under shared author-style conventions and a reduced training budget |
+| 09 | [Rolling evaluation](notebooks/09_reduced_schedule_oos.ipynb) | Compare saved factors over complete 36- and 60-month windows |
+| 10 | [Economic regimes](notebooks/10_regime_analysis.ipynb) | Compare expansion/recession and high/low market volatility |
+| 11 | [Consolidated comparisons](notebooks/11_consolidated_results_comparison.ipynb) | Combine paper benchmarks, replication, architecture, seeds, risk, rolling windows, regimes, and a fixed 50/50 blend |
 
-**Elouan Bahri**
+Matching `.py` files provide the notebook code as Python scripts. Earlier exploratory Transformer and rolling notebooks remain available. Full-schedule notebooks are preparation for a longer experiment and do **not** represent a completed full-schedule result. The saved full-schedule notebook retains an interrupted-run output for provenance.
 
+## Current results and interpretation
 
-**Paraj**
+The chronological samples are training 1967–1986, validation 1987–1991, and test 1992–2016. The table reports **monthly** test Sharpe. Saved local factors use population standard deviation (`ddof=0`), consistent with the authors' utility. Annualized Sharpe equals monthly Sharpe multiplied by the square root of 12.
 
-UC Berkeley
-Master of Financial Engineering
+| Portfolio | Monthly test Sharpe |
+|---|---:|
+| Original paper GAN, Table I | 0.750 |
+| Our historical Code 07 GAN replication | 0.612 |
+| New LSTM, reduced schedule | 0.459 |
+| New Transformer, reduced schedule | 0.304 |
+| Fixed 50/50 architecture blend | 0.463 |
 
-Research interests include quantitative finance, asset pricing, machine learning, deep learning, portfolio management, and systematic investment strategies.
+The new matched experiment uses nine seeds per architecture and the shortened **16/4/48** schedule with four optimizer passes and checkpoint warm-up of 4 epochs. The reference selected specification uses **256/64/1024** and warm-up of 64. Consequently, the new experiment is an extension under a reduced budget, not an exact reproduction of the original training schedule or its hyperparameter search. Historical replication and paper results are contextual comparisons with different procedures.
 
-## Reference Paper
+Rolling windows evaluate fixed saved models; they do not retrain the models each month. Regime comparisons are descriptive, with only 26 recession months in the test sample. Overlapping windows and previously examined test results do not establish statistical significance or universal architecture superiority.
 
-**Chen, L., Pelger, M., & Zhu, J.**
+## Run and inspect
 
-**Deep Learning in Asset Pricing**
+From the repository root:
 
-*Management Science*, Volume 70, Issue 2, pp. 714–750.
-
-DOI: `10.1287/mnsc.2023.4695`
-
-The original paper develops a deep-learning framework that combines:
-
-* Firm-level characteristics
-* Macroeconomic information
-* Nonlinear neural networks
-* Recurrent neural networks for economic states
-* No-arbitrage asset-pricing restrictions
-* Adversarial learning for constructing informative test assets
-
----
-
-## Project Objectives
-
-The main objectives of this replication are to:
-
-1. Reconstruct the asset-pricing data pipeline used in the paper.
-2. Build benchmark linear asset-pricing models.
-3. Estimate nonlinear stochastic discount factors using neural networks.
-4. Incorporate macroeconomic information through recurrent neural networks.
-5. Implement the adversarial asset-pricing framework.
-6. Evaluate the models using both statistical and economic performance measures.
-7. Compare the replication results with the findings reported in the original paper.
-8. Explore possible extensions and robustness checks.
-
----
-
-## Economic Framework
-
-The project is based on the fundamental no-arbitrage condition
-
-$$
-E_t[M_{t+1}R_{i,t+1}] = 0,
-$$
-
-where
-
-* \(M_{t+1}\) is the stochastic discount factor,
-* \(R_{i,t+1}\) represents asset returns, and
-* the conditional expectation is based on information available at time \(t\).
-
-The stochastic discount factor can be represented through a portfolio of asset returns,
-
-$$
-M_{t+1}
-=
-1-
-\sum_{i=1}^{N_t}
-\omega_{i,t}R_{i,t+1},
-$$
-
-where the portfolio weights are learned as nonlinear functions of firm characteristics and aggregate economic information:
-
-$$
-\omega_{i,t}
-=
-g_{\theta}(X_{i,t},H_t).
-$$
-
-Here,
-
-* \(X_{i,t}\) represents firm-specific characteristics,
-* \(H_t\) represents the state of the economy, and
-* \(g_{\theta}\) is a neural network parameterized by \(\theta\).
-
----
-
-## Model Architecture
-
-The full replication will be developed incrementally.
-
-### 1. Benchmark Models
-
-Traditional asset-pricing and linear models will provide benchmarks against which the deep-learning models can be evaluated.
-
-### 2. Feedforward Neural Network
-
-A feedforward neural network will learn nonlinear relationships between firm characteristics and SDF portfolio weights.
-
-Conceptually,
-
-```text
-Firm Characteristics
-        |
-        v
-Feedforward Neural Network
-        |
-        v
-SDF Portfolio Weights
-        |
-        v
-Stochastic Discount Factor
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+jupyter notebook notebooks/11_consolidated_results_comparison.ipynb
 ```
 
-### 3. Macroeconomic State Network
+For the extension pipeline, run Code 08 before Codes 09, 10, and 11. Code 08 retrains models, whereas the later codes consume saved returns and diagnostics. Inspect the reduced-schedule notebooks for the configuration before starting training. Raw datasets and model checkpoints are excluded from Git and must be supplied locally to reproduce training.
 
-Time-series information about the economy will be incorporated using a recurrent neural-network architecture.
+## Saved outputs
 
-```text
-Macroeconomic Variables
-          |
-          v
-        LSTM
-          |
-          v
-Hidden Economic State
-          |
-          +------------------+
-                             |
-Firm Characteristics        |
-          |                  |
-          +------------------+
-                  |
-                  v
-          Neural Network
-                  |
-                  v
-          SDF Portfolio Weights
-```
+- `src/models/`: Transformer and matched adversarial-model implementations.
+- `scripts/`: helpers for completing and consolidating training pipelines.
+- `results/paper_matched_reduced_schedule/`: completed matched architecture experiment.
+- `results/rolling_oos_reduced_schedule/`: paper comparisons and rolling evaluations.
+- `results/regime_analysis/`: economic regime diagnostics.
+- `results/consolidated_comparison/`: consolidated tables, figures, and direct author-factor comparisons.
+- `paper/asset_pricing_extensions_draft.tex`: research-paper draft with figures and comparisons.
 
-### 4. Adversarial Network
+## Presentations
 
-The full model introduces an adversarial network that searches for conditioning functions and test assets that expose the largest pricing errors.
+All three presentations are saved in [`presentation/`](presentation/):
 
-The SDF network attempts to minimize these pricing errors while the adversarial network identifies the most informative moment conditions.
+1. [Original-paper presentation](presentation/01_Original_Paper.pptx)
+2. [Our replication presentation](presentation/02_Our_Replication.pptx)
+3. [Combined replication and extensions, Codes 08–11](presentation/03_Combined_Replication_and_Extensions_08_11.pptx)
 
-This creates a minimax learning problem similar in spirit to a Generative Adversarial Network.
-
----
-
-## Replication Roadmap
-
-The project will be developed in the following stages:
-
-### Phase 1 — Data Construction
-
-* Collect stock-return data
-* Collect firm-level characteristics
-* Collect macroeconomic variables
-* Merge stock, characteristic, and macro data
-* Handle missing observations
-* Normalize characteristics
-* Construct training, validation, and test samples
-* Verify the data against descriptive statistics from the paper
-
-### Phase 2 — Exploratory Analysis
-
-* Examine the cross-section of stock returns
-* Analyze characteristic distributions
-* Study missing-data patterns
-* Examine macroeconomic variables
-* Investigate temporal and cross-sectional variation
-
-### Phase 3 — Linear Benchmarks
-
-* Linear SDF models
-* Traditional factor-model benchmarks
-* Characteristic-based linear specifications
-* Out-of-sample evaluation
-
-### Phase 4 — Feedforward Neural-Network SDF
-
-* Construct the neural-network SDF
-* Define the asset-pricing loss
-* Train the model
-* Tune hyperparameters
-* Evaluate out-of-sample performance
-
-### Phase 5 — Macro State Model
-
-* Construct macroeconomic time-series inputs
-* Implement the LSTM
-* Estimate latent economic states
-* Combine macro states with firm characteristics
-* Evaluate the incremental contribution of macroeconomic information
-
-### Phase 6 — Adversarial Asset-Pricing Model
-
-* Construct the adversarial network
-* Generate conditional test assets
-* Implement the minimax objective
-* Develop alternating training procedures
-* Evaluate pricing errors and portfolio performance
-
-### Phase 7 — Replication and Robustness
-
-* Compare results with the original paper
-* Analyze SDF portfolio performance
-* Evaluate pricing errors
-* Evaluate explained variation
-* Study feature importance
-* Analyze economic states
-* Perform robustness checks
-
----
-
-## Repository Structure
-
-The intended project structure is:
-
-```text
-Deep-Learning-in-Asset-Pricing_-Replication-project/
-│
-├── README.md
-├── requirements.txt
-├── .gitignore
-│
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── external/
-│
-├── notebooks/
-│   ├── 01_data_preparation.ipynb
-│   ├── 02_exploratory_analysis.ipynb
-│   ├── 03_linear_baseline.ipynb
-│   ├── 04_feedforward_sdf.ipynb
-│   ├── 05_lstm_macro_state.ipynb
-│   ├── 06_gan_asset_pricing.ipynb
-│   └── 07_results_replication.ipynb
-│
-├── src/
-│   ├── data/
-│   ├── models/
-│   ├── training/
-│   └── evaluation/
-│
-├── results/
-│   ├── figures/
-│   └── tables/
-│
-└── paper/
-    └── notes/
-```
-
-The structure may evolve as the replication progresses.
-
----
-
-## Evaluation
-
-Model performance will be evaluated using both statistical and economic criteria.
-
-Key metrics will include:
-
-* Out-of-sample pricing errors
-* Explained variation
-* Sharpe ratio of the learned SDF portfolio
-* Cross-sectional predictive performance
-* Stability across time periods
-* Performance across different market conditions
-
-Additional diagnostics will be added as the project develops.
-
----
-
-## Technology Stack
-
-The project will primarily use:
-
-```text
-Python
-NumPy
-pandas
-PyTorch
-scikit-learn
-SciPy
-statsmodels
-Matplotlib
-Jupyter Notebook
-Git / GitHub
-```
-
-Additional libraries may be introduced as required.
-
----
-
-## Reproducibility
-
-The project is designed to maintain a reproducible workflow.
-
-The general pipeline will follow:
-
-```text
-Raw Data
-   |
-   v
-Data Cleaning
-   |
-   v
-Feature Construction
-   |
-   v
-Train / Validation / Test Split
-   |
-   v
-Benchmark Models
-   |
-   v
-Deep Learning Models
-   |
-   v
-Model Evaluation
-   |
-   v
-Replication Tables and Figures
-```
-
-Random seeds, model configurations, preprocessing rules, and evaluation procedures will be documented whenever possible.
-
-Large proprietary or licensed datasets will not be committed directly to the repository.
-
----
-
-## Current Status
-
-**Work in Progress**
-
-The project is currently in the initial replication stage.
-
-Current development sequence:
-
-```text
-[ ] Project setup
-[ ] Data acquisition
-[ ] Data cleaning and preprocessing
-[ ] Exploratory data analysis
-[ ] Linear benchmark
-[ ] Feedforward neural-network SDF
-[ ] LSTM macroeconomic state model
-[ ] Adversarial asset-pricing model
-[ ] Out-of-sample evaluation
-[ ] Comparison with original paper
-[ ] Robustness analysis
-[ ] Final replication results
-```
-
----
-
-## Potential Extensions
-
-After completing the core replication, possible extensions include:
-
-* Alternative neural-network architectures
-* Transformer-based macroeconomic state representations
-* Alternative characteristic sets
-* Alternative normalization procedures
-* Different training and validation windows
-* Transaction-cost adjustments
-* Portfolio turnover analysis
-* Regime-dependent performance
-* Interpretability and feature-attribution analysis
-* Comparison with modern machine-learning asset-pricing models
-
-These extensions will be considered only after establishing a reliable baseline replication.
-
----
-
-## Disclaimer
-
-This repository is an **independent academic replication project**.
-
-It is not the official implementation of Chen, Pelger, and Zhu and is not affiliated with the original authors or their institutions.
-
-The goal is to understand, reproduce, and evaluate the methodology presented in the research paper.
-
----
-
-
+The combined deck contains 30 slides, with 10 on previous work and 20 on new results. It includes the team and professor, editable charts and tables, and model explanations. A [PDF for review](presentation/03_Combined_Replication_and_Extensions_08_11.pdf) accompanies the editable PowerPoint.

@@ -1,0 +1,22 @@
+### Executed results and answers
+
+**Q1 — Business cycle:** Transformer minus LSTM conditional monthly Sharpe is **-0.3351** in recessions and **-0.1131** in expansions. A positive difference means the Transformer is higher. There are **26 recession months** and **274 expansion months**. The short recession sample is especially sensitive to a few observations.
+
+**Q2 — Market volatility:** The difference is **-0.2399** in high-volatility months and **-0.0186** in low-volatility months. Labels use previous-12-month market volatility and the fixed training median **0.039783**. Neither current/future market returns nor test-distribution thresholds define prospective volatility labels.
+
+**Q3 — Full-period context:** Code 08 reduced schedule compares the architectures under matched author conventions; Code 09 shows how their test performance changes across rolling windows; Code 10 groups that same realized performance by economic labels. The saved train/validation/test table compares all models with the original paper. Published unconditional full-test Sharpe is **not** a paper recession or high-volatility benchmark: the paper does not supply a corresponding Transformer/regime table.
+
+**Q4 — Interpretation:** Regime results describe associations with economic conditions, not a causal mechanism, an independent significance test, or a regime-timing strategy. NBER labels are retrospective. The model and regime rules remain fixed across test months. Nine seeds reduce initialization dependence but do not create nine independent market histories. The inherited return convention, omitted trading costs, framework differences from TensorFlow, and lack of the original full hyperparameter search remain relevant limitations.
+
+All model returns, monthly labels, regime sample counts, performance tables, source hashes, and figures are saved. These three notebooks together form an architecture comparison, temporal diagnostics, and economic interpretation; their extensions are distinguished from the published replication.
+
+
+Conditional monthly Sharpe
+regime                            Expansion  High volatility  Low volatility  Recession
+model                                                                                  
+EN                                 0.445040         0.270670        0.719193   0.254153
+FFN                                0.569644         0.536982        0.695996   0.569607
+GAN–LSTM original                  0.636939         0.479894        0.841285   0.455282
+GAN–LSTM reduced schedule          0.482550         0.417369        0.549426   0.263809
+GAN–Transformer reduced schedule   0.369464         0.177494        0.530793  -0.071265
+LS                                 0.407070         0.350117        0.525039   0.403751

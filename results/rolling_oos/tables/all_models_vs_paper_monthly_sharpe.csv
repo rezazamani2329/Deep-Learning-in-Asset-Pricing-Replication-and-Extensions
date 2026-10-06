@@ -1,0 +1,11 @@
+model,source,train,validation,test
+LS,Our saved model returns,2.0248107476430213,0.7631482671364472,0.4057141467775029
+EN,Our saved model returns,1.1230500129220258,1.0291534629194867,0.41082202054873623
+FFN,Our saved model returns,0.6583481519577362,0.8448202754514279,0.5685705919451174
+GAN–LSTM original,Our saved model returns,2.2188781787781564,1.1754891095883981,0.6108669037705023
+GAN–LSTM matched,Our saved model returns,1.2083318021636775,0.4196825422909821,0.3113357858483131
+GAN–Transformer,Our saved model returns,1.2837169540323525,0.6514727418955581,0.4414003744652172
+LS (paper),Published benchmark recorded in Code 07,1.8,0.58,0.42
+EN (paper),Published benchmark recorded in Code 07,1.37,1.15,0.5
+FFN (paper),Published benchmark recorded in Code 07,0.45,0.42,0.44
+GAN–LSTM (paper),Published benchmark recorded in Code 07,2.68,1.43,0.75

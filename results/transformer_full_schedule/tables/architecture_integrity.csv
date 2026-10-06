@@ -1,0 +1,9 @@
+architecture,check,passed
+LSTM,sdf_macro_encoder causal/prefix,True
+LSTM,cond_macro_encoder causal/prefix,True
+LSTM,unconditional,True
+LSTM,conditional,True
+Transformer,sdf_macro_encoder causal/prefix,True
+Transformer,cond_macro_encoder causal/prefix,True
+Transformer,unconditional,True
+Transformer,conditional,True

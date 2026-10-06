@@ -1,0 +1,7 @@
+model,train,validation,test
+LS,2,4,5
+EN,4,2,4
+FFN,6,3,2
+GAN–LSTM original,1,1,1
+GAN–LSTM reduced schedule,3,5,3
+GAN–Transformer reduced schedule,5,6,6

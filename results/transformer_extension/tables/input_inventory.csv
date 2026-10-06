@@ -1,0 +1,4 @@
+split,months,slots,active_stock_months,start,end
+train,240,3686,336113,1967-01-01,1986-12-01
+validation,60,3347,132167,1987-01-01,1991-12-01
+test,300,7141,750275,1992-01-01,2016-12-01

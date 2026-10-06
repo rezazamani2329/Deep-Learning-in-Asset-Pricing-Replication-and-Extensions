@@ -1,0 +1,4 @@
+split,lstm_transformer_correlation
+train,0.7192033604857511
+validation,0.3194730358379461
+test,0.5799288523788785

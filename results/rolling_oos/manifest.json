@@ -1,0 +1,20 @@
+{
+  "source_sha256": "95d7da62696e20f167e23459d8c5e7074a6a187826ad5303824dff3c347532a4",
+  "performance_sha256": "7cda65a58899e247b9deb1820f2820de3b5d277dbb291913f25fcaaacb39ba7c",
+  "windows": [
+    36,
+    60
+  ],
+  "test_months": 300,
+  "test_start": "1992-01",
+  "test_end": "2016-12",
+  "primary_models": {
+    "gan_lstm_matched": "LSTM (matched)",
+    "gan_transformer": "Transformer"
+  },
+  "ddof": 1,
+  "rolling_scope": "test only, trailing complete windows",
+  "python": "3.14.6 | packaged by Anaconda, Inc. | (main, Jul  9 2026, 14:30:20) [Clang 20.1.8 ]",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5"
+}

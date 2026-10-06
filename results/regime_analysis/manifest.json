@@ -1,0 +1,15 @@
+{
+  "input_sha256": {
+    "results/rolling_oos_reduced_schedule/factors/all_model_test_factor_returns.csv": "f60f326ce3c9f1f9c25fd72da5bc3bb27526c60afe05cde4a678ae12998c4871",
+    "results/rolling_oos_reduced_schedule/tables/all_models_vs_paper_monthly_sharpe.csv": "138c189d154de998d1f3f7cb09ae77a2f27cdb59685bd4c51629e3450939f0a0",
+    "data/external/usrec_fred.csv": "cbabfc63463a9012f9b8cb232916d998b4c0c464213ba46f15f081adef3f297d",
+    "data/external/fama_french_3_monthly.csv": "79e7061c16f2be3f624a04fb219e7291d4b0138457b7fb0e4eed5eb09494ce24"
+  },
+  "volatility_window": 12,
+  "volatility_lag": 1,
+  "threshold": 0.03978298225775727,
+  "threshold_sample": "1967\u20131986 training only",
+  "sharpe_ddof": 0,
+  "recession_source": "https://fred.stlouisfed.org/series/USREC",
+  "recession_convention": "month following peak through trough"
+}

@@ -1,0 +1,21 @@
+family,regime,model,months,monthly_sharpe
+business_cycle,Expansion,Official GAN,274,0.8415527295482107
+business_cycle,Expansion,GAN–LSTM original,274,0.6369389024395264
+business_cycle,Expansion,GAN–LSTM reduced schedule,274,0.48255000459893865
+business_cycle,Expansion,GAN–Transformer reduced schedule,274,0.3694641571012271
+business_cycle,Expansion,50/50 blend,274,0.5166768103926237
+business_cycle,Recession,Official GAN,26,0.3242622599960669
+business_cycle,Recession,GAN–LSTM original,26,0.4552820549166305
+business_cycle,Recession,GAN–LSTM reduced schedule,26,0.2638092097367939
+business_cycle,Recession,GAN–Transformer reduced schedule,26,-0.07126490791701726
+business_cycle,Recession,50/50 blend,26,0.07603477147784816
+volatility,High volatility,Official GAN,123,0.5978965708099294
+volatility,High volatility,GAN–LSTM original,123,0.4798942220977571
+volatility,High volatility,GAN–LSTM reduced schedule,123,0.4173692027462805
+volatility,High volatility,GAN–Transformer reduced schedule,123,0.17749370596812905
+volatility,High volatility,50/50 blend,123,0.34499977804082216
+volatility,Low volatility,Official GAN,177,1.0033998143630958
+volatility,Low volatility,GAN–LSTM original,177,0.8412852320598638
+volatility,Low volatility,GAN–LSTM reduced schedule,177,0.5494257658435895
+volatility,Low volatility,GAN–Transformer reduced schedule,177,0.5307930945028319
+volatility,Low volatility,50/50 blend,177,0.6838817856989177
