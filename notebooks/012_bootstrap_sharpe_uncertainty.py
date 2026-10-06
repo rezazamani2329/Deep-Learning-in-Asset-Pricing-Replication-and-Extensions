@@ -34,6 +34,9 @@
 # **Rolling extension:** Part 10 analyzes all complete 36- and 60-month windows with 2,000 paired bootstrap draws each, six-month primary blocks, and December-endpoint sensitivity. Seven named figures are saved in PNG and PDF.
 #
 # **Viewing the results:** Outputs are expanded, and table columns wrap to fit the page. Scroll down the notebook normally to read all results; there are no intentional scrolling boxes inside result cells. Run the first display-settings cell if your Jupyter session needs to reapply the layout.
+#
+#
+# **Complete inline results:** Saved tables, answers, and figures now appear as ordinary notebook content immediately after their calculation cells. Calculation outputs are retained but hidden to avoid duplication. This includes Part 5, Part 6, and Parts 10–11. After a future rerun, run `python3 scripts/expand_012_results.py` from the repository root to refresh these inline result blocks.
 
 # %%
 # Display complete results without internal output scrolling.
