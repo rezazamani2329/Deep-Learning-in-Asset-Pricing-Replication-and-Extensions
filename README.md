@@ -16,7 +16,7 @@ An academic study of how economic pricing restrictions, macroeconomic sequence m
 
 ## Presentations and research draft
 
-This README combines the original-paper presentation, our replication, the Codes 08–11 deck, and the updated Codes 08–012 presentation. The earlier files remain available for comparison.
+This README combines the original-paper presentation, our replication, the Codes 08–11 deck, and the updated Codes 08–012 presentations. The earlier files remain available for comparison.
 
 | Presentation | Coverage | Files |
 |---|---|---|
@@ -24,8 +24,22 @@ This README combines the original-paper presentation, our replication, the Codes
 | 2. Our replication | Data reconstruction, benchmark methods, Codes 01–07, paper comparisons, rankings, validation checks, and implementation challenges | [PowerPoint](presentation/02_Our_Replication.pptx) |
 | 3. Replication and extensions | Paper recap followed by Codes 08–11: architecture, seeds, rolling performance, regimes, risk, and combinations | [PowerPoint](presentation/03_Combined_Replication_and_Extensions_08_11.pptx), [PDF](presentation/03_Combined_Replication_and_Extensions_08_11.pdf) |
 | 4. Updated research presentation | Original paper, replication, Codes 08–012, bootstrap methods, rolling uncertainty, local-model comparisons, and original Code 012 figures | [PowerPoint](presentation/04_Asset_Pricing_Replication_Extensions_and_Uncertainty.pptx), [PDF](presentation/04_Asset_Pricing_Replication_Extensions_and_Uncertainty.pdf) |
+| 5. Sectioned presentation (latest) | Eight numbered parts, two main-paper slides, two replication slides, four extension sections, combined comparisons, and summary | [PowerPoint](presentation/05_Asset_Pricing_Replication_and_Extensions.pptx), [PDF](presentation/05_Asset_Pricing_Replication_and_Extensions.pdf) |
 
-The third deck contains 30 slides: 10 summarize previous work and 20 cover the extensions. The updated fourth deck contains 39 slides and retains the team names and Professor Ali Kakhbod. Its title is **Asset Pricing with Deep Learning: Replication, Extensions and Uncertainty**. The research draft is available as [LaTeX source](paper/asset_pricing_extensions_draft.tex).
+The third deck contains 30 slides: 10 summarize previous work and 20 cover the extensions. The updated fourth deck contains 39 slides and retains the team names and Professor Ali Kakhbod. The latest fifth deck is titled **Asset Pricing with Deep Learning: Replication and Extensions**. It contains 38 slides organized as follows:
+
+| Part | Topic | Slides |
+|---|---|---|
+| 1 | Main paper | 3–4 |
+| 2 | Replication | 5–6 |
+| 3 | Transformer | 7–12 |
+| 4 | Rolling windows | 13–17 |
+| 5 | Regime change | 18–22 |
+| 6 | Uncertainty | 23–30 |
+| 7 | Combination and combined results | 31–37 |
+| 8 | Summary | 38 |
+
+The extension sections begin with their own title slides, and slide titles and footers identify the current part. The research draft is available as [LaTeX source](paper/asset_pricing_extensions_draft.tex).
 
 ## Purpose and research questions
 
@@ -395,7 +409,7 @@ Run Code 08 before Codes 09, 10, and 11 when rebuilding the extension pipeline. 
 | `results/notebook_figures/` | Figure archive exported from all saved notebooks, including historical variants |
 | `results/readme/figures/` | Earlier overview figures used in this README |
 | `paper/` | LaTeX research draft |
-| `presentation/` | Four presentations, including the new Codes 08–012 deck, and available review PDFs |
+| `presentation/` | Five presentations, including the latest sectioned Codes 08–012 deck, and available review PDFs |
 | `slides/` | Earlier working revisions of the Codes 08–11 presentation |
 
 This is an independent academic replication and extension project. It is not the official implementation of the original authors.
