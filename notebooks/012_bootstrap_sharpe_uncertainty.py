@@ -32,6 +32,19 @@
 # and [arch circular-block documentation](https://arch.readthedocs.io/en/stable/bootstrap/timeseries-bootstraps.html).
 #
 # **Rolling extension:** Part 10 analyzes all complete 36- and 60-month windows with 2,000 paired bootstrap draws each, six-month primary blocks, and December-endpoint sensitivity. Seven named figures are saved in PNG and PDF.
+#
+# **Viewing the results:** Outputs are expanded, and table columns wrap to fit the page. Scroll down the notebook normally to read all results; there are no intentional scrolling boxes inside result cells. Run the first display-settings cell if your Jupyter session needs to reapply the layout.
+
+# %%
+# Display complete results without internal output scrolling.
+from IPython.display import display, HTML
+import pandas as pd
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_colwidth', None)
+pd.set_option('display.expand_frame_repr', False)
+display(HTML('<style>\n/* Code 012: expand saved and newly executed results in classic Notebook and JupyterLab. */\n.output_scroll, .output_subarea, .output_area, .jp-OutputArea-output,\n.jp-OutputArea-child, .jp-OutputArea, .jp-RenderedHTMLCommon,\n.jp-mod-outputsScrolled .jp-OutputArea, .jp-mod-outputsScrolled .jp-Cell-outputArea {\n    max-height: none !important; height: auto !important; overflow: visible !important;\n}\n.output_scroll { box-shadow: none !important; }\n.jp-OutputArea-output img, .output_png img {\n    max-width: 100% !important; height: auto !important;\n}\ntable.dataframe {\n    width: 100% !important; max-width: 100% !important;\n    table-layout: fixed !important; font-size: 12px !important;\n}\ntable.dataframe th, table.dataframe td {\n    white-space: normal !important; overflow-wrap: anywhere !important;\n    padding: 7px 4px !important; vertical-align: top !important;\n}\n</style>'))
+
 
 # %% [markdown]
 # ## Part 1 — Identify and validate the comparison sample
