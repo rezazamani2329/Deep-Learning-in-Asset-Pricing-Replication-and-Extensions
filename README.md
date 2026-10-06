@@ -1,51 +1,276 @@
 # Deep Learning in Asset Pricing: Replication and Extensions
 
-This project replicates the asset-pricing framework of Luyang Chen, Markus Pelger, and Jason Zhu and extends it with Transformer macroeconomic encoders, rolling-window evaluation, economic regime analysis, and architecture combinations.
+An academic study of how economic pricing restrictions, macroeconomic sequence models, and adversarial learning shape portfolio performance. We reproduce the original framework, compare our results with the authors, and extend the analysis to **LSTM versus Transformer, rolling windows, economic regimes, and combinations**.
 
-## Team
+## Team and course
 
-Reza Zamani, Hrafnhildur Lif Jonsdottir, Paraj Goyal, and Elouan Bahri
+| Role | Name |
+|---|---|
+| Team member | Reza Zamani |
+| Team member | Hrafnhildur Lif Jonsdottir |
+| Team member | Paraj Goyal |
+| Team member | Elouan Bahri |
+| Professor | Ali Kakhbod |
 
-UC Berkeley, Master of Financial Engineering
+**Group 7, UC Berkeley, Master of Financial Engineering.**
 
-Professor: Ali Kakhbod
+## Three presentations, one research project
 
-## Original paper and model
+This README brings together the questions, methods, evidence, and limitations from all three presentations.
 
-[Deep Learning in Asset Pricing](https://arxiv.org/abs/1904.00745) estimates a stochastic discount factor (SDF) using firm characteristics and macroeconomic history. LSTM encoders summarize economic conditions. A feedforward network maps firm characteristics and economic states to portfolio weights. An adversarial network constructs instruments that expose pricing errors, while the pricing network learns to reduce those errors.
-
-The paper appeared in *Management Science*, 70(2), 714–750, DOI [10.1287/mnsc.2023.4695](https://doi.org/10.1287/mnsc.2023.4695). The [authors' implementation](https://github.com/LouisChen1992/Deep_Learning_Asset_Pricing) provides the reference conventions.
-
-## Replication and extension notebooks
-
-| Code | Notebook | Purpose |
+| Presentation | Coverage | Files |
 |---|---|---|
-| 01–06 | Existing notebooks in `notebooks/` | Data preparation, exploration, linear benchmarks, feedforward SDF, LSTM states, and adversarial model |
-| 07 | [Replication results](notebooks/07_results_replication.ipynb) | Compare saved models with the original paper, including Sharpe, risk, and characteristic importance |
-| 08 | [Matched reduced-schedule comparison](notebooks/08_reduced_schedule_comparison.ipynb) | Train nine LSTM and nine Transformer seeds under shared author-style conventions and a reduced training budget |
-| 09 | [Rolling evaluation](notebooks/09_reduced_schedule_oos.ipynb) | Compare saved factors over complete 36- and 60-month windows |
-| 10 | [Economic regimes](notebooks/10_regime_analysis.ipynb) | Compare expansion/recession and high/low market volatility |
-| 11 | [Consolidated comparisons](notebooks/11_consolidated_results_comparison.ipynb) | Combine paper benchmarks, replication, architecture, seeds, risk, rolling windows, regimes, and a fixed 50/50 blend |
+| 1. Original paper | Economic motivation, SDF, LSTM/FFN/adversarial architecture, published findings, critical assessment, and suggested improvements | [PowerPoint](presentation/01_Original_Paper.pptx) |
+| 2. Our replication | Data reconstruction, benchmark methods, Codes 01–07, paper comparisons, rankings, validation checks, and implementation challenges | [PowerPoint](presentation/02_Our_Replication.pptx) |
+| 3. Replication and extensions | Paper recap followed by Codes 08–11: architecture, seeds, rolling performance, regimes, risk, and combinations | [PowerPoint](presentation/03_Combined_Replication_and_Extensions_08_11.pptx), [PDF](presentation/03_Combined_Replication_and_Extensions_08_11.pdf) |
 
-Matching `.py` files provide the notebook code as Python scripts. Earlier exploratory Transformer and rolling notebooks remain available. Full-schedule notebooks are preparation for a longer experiment and do **not** represent a completed full-schedule result. The saved full-schedule notebook retains an interrupted-run output for provenance.
+The third deck contains 30 slides: 10 summarize previous work and 20 cover the extensions. The research draft is available as [LaTeX source](paper/asset_pricing_extensions_draft.tex).
 
-## Current results and interpretation
+## Purpose and research questions
 
-The chronological samples are training 1967–1986, validation 1987–1991, and test 1992–2016. The table reports **monthly** test Sharpe. Saved local factors use population standard deviation (`ddof=0`), consistent with the authors' utility. Annualized Sharpe equals monthly Sharpe multiplied by the square root of 12.
+The original question is whether a model trained to satisfy asset-pricing restrictions can learn a useful stochastic discount factor from firm characteristics and macroeconomic history. Our project first checks the replication, then examines how changing the sequence architecture affects performance across time and economic conditions.
 
-| Portfolio | Monthly test Sharpe |
-|---|---:|
-| Original paper GAN, Table I | 0.750 |
-| Our historical Code 07 GAN replication | 0.612 |
-| New LSTM, reduced schedule | 0.459 |
-| New Transformer, reduced schedule | 0.304 |
-| Fixed 50/50 architecture blend | 0.463 |
+| Question | Approach | Evidence |
+|---|---|---|
+| Can we reproduce the original model rankings and portfolio performance? | Reconstruct the data pipeline and estimate linear, penalized, feedforward, and adversarial models | Codes 01–07, published Table I, Fama–French checks, author-factor correlation |
+| Does Transformer improve on LSTM at a shared training budget? | Replace both macro encoders, retain common economic outputs and training conventions, and train nine seeds per architecture | Code 08, split Sharpe and seed diagnostics |
+| Does one full-test Sharpe conceal changes over time? | Evaluate fixed saved models over complete 36- and 60-month windows | Code 09, rolling Sharpe, volatility, correlations, and drawdowns |
+| Where do models perform differently? | Partition test months by business cycle and lagged market volatility | Code 10, conditional return/risk and Sharpe |
+| How do architecture, rolling windows, and regimes interact? | Group rolling windows by their ending-month regime and compare all portfolios | Code 11, endpoint-regime tables |
+| Does combining the architectures help? | Average saved LSTM and Transformer portfolio returns with fixed 50/50 weights | Code 11, split, regime, and rolling blend comparisons |
 
-The new matched experiment uses nine seeds per architecture and the shortened **16/4/48** schedule with four optimizer passes and checkpoint warm-up of 4 epochs. The reference selected specification uses **256/64/1024** and warm-up of 64. Consequently, the new experiment is an extension under a reduced budget, not an exact reproduction of the original training schedule or its hyperparameter search. Historical replication and paper results are contextual comparisons with different procedures.
+## Original paper: economic foundation
 
-Rolling windows evaluate fixed saved models; they do not retrain the models each month. Regime comparisons are descriptive, with only 26 recession months in the test sample. Overlapping windows and previously examined test results do not establish statistical significance or universal architecture superiority.
+**Luyang Chen, Markus Pelger, and Jason Zhu, “Deep Learning in Asset Pricing.”** Published in *Management Science*, 70(2), 714–750. [Paper](https://arxiv.org/abs/1904.00745), [DOI](https://doi.org/10.1287/mnsc.2023.4695), [authors’ implementation](https://github.com/LouisChen1992/Deep_Learning_Asset_Pricing).
 
-## Run and inspect
+The central object is the **stochastic discount factor**, not a return forecast alone. For excess returns, the economic restriction is
+
+$$
+E_t[M_{t+1}R^e_{i,t+1}]=0.
+$$
+
+The SDF takes the portfolio form
+
+$$
+M_{t+1}=1-\sum_i\omega_{i,t}R^e_{i,t+1}.
+$$
+
+Portfolio weights depend on firm characteristics and hidden macroeconomic states. Conditional instruments expose pricing errors through moments of the form $E[M_{t+1}R^e_{i,t+1}g_{i,t}]=0$. The pricing network minimizes those errors, while the adversary searches for instruments that make remaining errors large.
+
+### Model structure
+
+| Component | Inputs | Function and output |
+|---|---|---|
+| SDF macro encoder | History of 178 macro series | LSTM creates 4 pricing states |
+| Pricing-weight network | 46 firm characteristics and pricing states | Two hidden layers of 64 units produce stock portfolio weights |
+| Portfolio/SDF construction | Stock weights and excess returns | Forms the factor return and stochastic discount factor |
+| Instrument macro encoder | Same macro history, separate encoder | LSTM creates 32 instrument states |
+| Adversarial conditional network | Firm characteristics and instrument states | Produces 8 bounded instruments to expose pricing errors |
+
+Training proceeds through an unconditional SDF stage, an instrument-learning stage, and a conditional SDF stage. Validation criteria select checkpoints. Ensembles reduce sensitivity to initialization. **46** denotes firm characteristics; **64** denotes hidden units. A retention probability of **0.95** corresponds to a dropout probability of **0.05**.
+
+### Strengths, concerns, and motivation for extensions
+
+The original presentation emphasizes the economic objective, nonlinear cross-sectional interactions, learned macro states, and adversarial test instruments. It also raises questions about tradability, transaction costs, missing-characteristic filters, model interpretation, and uncertainty around performance differences.
+
+Our rolling and regime analyses address the concern that a 25-year aggregate test statistic can conceal variation. Transformer is an additional architecture experiment. Transaction-cost adjustment, expanding-window refitting, imputation robustness, economic-state interpretation, and formal uncertainty estimates remain future work.
+
+## Data and replication methodology
+
+The replication uses the authors’ released panel rather than independently reconstructing raw CRSP/Compustat data. It contains 46 firm characteristics and 178 macroeconomic inputs. The replication presentation describes these as 124 FRED-MD series, 46 cross-sectional characteristic medians, and 8 Welch–Goyal predictors. Characteristics are ranked cross-sectionally within each month. Excess returns use the one-month Treasury-bill benchmark.
+
+| Sample | Calendar | Months | Role |
+|---|---|---:|---|
+| Training | January 1967–December 1986 | 240 | Estimate parameters and preprocessing statistics |
+| Validation | January 1987–December 1991 | 60 | Tune choices and select checkpoints |
+| Test | January 1992–December 2016 | 300 | Evaluate saved models |
+
+Data checks align all 600 calendar months, resolve two-digit macro dates, use training-sample macro scaling, and reconstruct histories from released asset slots. Complete-case filtering and the lack of original stock identifiers limit what can be inferred about coverage and tradability.
+
+### Replicated approaches
+
+| Approach | Implementation role |
+|---|---|
+| LS | Linear no-arbitrage benchmark using 92 managed characteristic factors |
+| EN | Penalized linear benchmark on the same managed factors, tuned on validation |
+| FFN | Feedforward return-prediction benchmark whose forecasts form portfolio weights |
+| GAN with LSTM | Economic pricing-moment model with macro encoders and adversarial instruments |
+| Fama–French tangency portfolios | External benchmark checks independent of neural-network implementation |
+
+The historical replication and the later matched extension implementation are distinct experiments. The extension audit aligns bounded instruments, observation-count weighting, macro dropout, optimizer passes, checkpoint criteria, raw-weight ensemble construction, and the Sharpe convention more closely with the author implementation. These changes mean Code 07 versus new LSTM is not a controlled architecture comparison.
+
+## Replication results versus published results
+
+All entries below are **monthly Sharpe ratios**. Local values are recomputed from saved returns using population standard deviation (`ddof=0`). Published values are reported Table I benchmarks.
+
+| Model | Paper train | Our train | Paper validation | Our validation | Paper test | Our test |
+| --- | --- | --- | --- | --- | --- | --- |
+| LS | 1.800 | 2.029 | 0.580 | 0.770 | 0.420 | 0.406 |
+| EN | 1.370 | 1.125 | 1.150 | 1.038 | 0.500 | 0.412 |
+| FFN | 0.450 | 0.660 | 0.420 | 0.852 | 0.440 | 0.570 |
+| GAN | 2.680 | 2.224 | 1.430 | 1.185 | 0.750 | 0.612 |
+
+Sources: [comparison CSV](results/consolidated_comparison/tables/all_models_vs_paper.csv) and [Code 07](notebooks/07_results_replication.ipynb). Earlier slides used slightly different standard-deviation conventions; the GAN test value displayed as 0.611 there rounds to 0.612 under the current convention.
+
+GAN remains first across the four main replicated models. Training rankings match the paper. Validation swaps FFN and LS, while test swaps FFN and EN. Reproducing the ranking does not imply reproducing the numerical level.
+
+| Validation check | Our result | Reference |
+|---|---:|---|
+| FF-3 monthly test Sharpe | 0.196 | Paper: 0.190 |
+| FF-5 monthly test Sharpe | 0.223 | Paper: 0.220 |
+| Code 07 versus authors’ GAN test-return correlation | 0.800 | Direct monthly factor comparison |
+| Leading characteristics | ST_REV, SUV, r12_2 | Same leading signals reported in the replication comparison |
+
+The leading signals correspond to short-term reversal, standard unexplained volume, and momentum. These checks support economic similarity, while the GAN Sharpe gap and differing benchmark rankings remain visible.
+
+## Code 08: LSTM versus Transformer
+
+The extension replaces **both** LSTM macro encoders with causal Transformer encoders. The economic output dimensions, pricing objective, input panel, calendars, seeds, and common training budget remain aligned between the two new architectures.
+
+| Setting | New LSTM | New Transformer |
+|---|---|---|
+| Temporal representation | Recurrent hidden state | Causal self-attention |
+| Macro inputs | 178 | 178 |
+| Pricing / instrument states | 4 / 32 | 4 / 32 |
+| Transformer settings | Not applicable | 2 layers, 4 heads, model width 32 |
+| Seeds | 42–50, nine members | 42–50, nine members |
+| Ensemble construction | Average raw stock weights, then monthly gross normalization | Same |
+
+### Training scope
+
+| Setting | Audited author specification | Completed matched experiment |
+|---|---|---|
+| Stage 1 / 2 / 3 schedule | 256 / 64 / 1024 | 16 / 4 / 48 |
+| Optimizer passes | 4 | 4 |
+| Checkpoint warm-up | 64 | 4 |
+| Seeds per architecture | 9 | 9 |
+| Framework | Author TensorFlow implementation | PyTorch port |
+
+All 18 new members completed under the reduced budget. A full-schedule experiment was interrupted and is not a completed benchmark. The reduced run follows the selected author-style conventions with shortened training; it does not reproduce the full schedule, the entire hyperparameter search, or identical random draws.
+
+### Train, validation, and test performance
+
+| Portfolio | Train | Validation | Test |
+| --- | --- | --- | --- |
+| Paper GAN | 2.680 | 1.430 | 0.750 |
+| Code 07 GAN | 2.224 | 1.185 | 0.612 |
+| New LSTM | 1.308 | 0.750 | 0.459 |
+| Transformer | 1.049 | 0.589 | 0.304 |
+| 50/50 blend | 1.414 | 0.915 | 0.463 |
+
+![Monthly Sharpe across all three samples](results/readme/figures/split_sharpe.png)
+
+The paper row is its rounded published GAN benchmark. Rolling and regime figures below use the separately saved authors’ monthly GAN factor series, which reproduces the published test Sharpe to rounding. New LSTM outperforms Transformer in all three samples at the shared reduced budget. The historical Code 07 GAN also exceeds both new ensembles, but its different implementation/training procedure prevents attributing that gap to architecture alone.
+
+### Return and risk explain the gap
+
+The new LSTM has mean monthly test return of approximately **0.51%**, annualized volatility of **3.87%**, and maximum drawdown of **−11.14%**. Transformer has approximately **0.42%**, **4.82%**, and **−15.35%**. Its lower Sharpe combines a lower mean return with greater volatility. These are gross saved-factor results, without transaction costs.
+
+![Saved model wealth and drawdowns](results/consolidated_comparison/figures/wealth_and_drawdown.png)
+
+This figure covers the six local models in Code 11; it does not include the direct author-factor series or the blend. [Underlying risk table](results/consolidated_comparison/tables/all_models_test_risk.csv).
+
+## Code 09: rolling-window comparison
+
+Each window evaluates the returns of a **fixed saved model**. There is no monthly retraining or expanding-window refit. A 36-month window produces 265 complete observations, starting in December 1994. A 60-month window produces 241, starting in December 1996. Both end in December 2016.
+
+Rolling Sharpe is **annualized**. The table averages the Sharpe values of overlapping windows; it is not the full-test Sharpe.
+
+| Portfolio | 36-month mean | 60-month mean |
+| --- | --- | --- |
+| Authors’ GAN | 3.638 | 3.199 |
+| Code 07 GAN | 2.890 | 2.504 |
+| New LSTM | 1.992 | 1.795 |
+| Transformer | 1.467 | 1.228 |
+| 50/50 blend | 2.166 | 1.871 |
+
+![Authors, replication, and extensions over rolling windows](results/readme/figures/rolling_sharpe.png)
+
+Source: [rolling series](results/consolidated_comparison/tables/official_extended_rolling_series.csv), [summary](results/consolidated_comparison/tables/official_extended_rolling_summary.csv).
+
+Transformer exceeds new LSTM in **36.6%** of complete 36-month windows and **19.9%** of complete 60-month windows. LSTM has a higher mean in both. The 36-month Transformer median is slightly higher, showing that the mean and median answer different distributional questions.
+
+## Code 10: economic regimes
+
+We examine two separate partitions of the test months.
+
+| Partition | Groups | Test months | Construction |
+|---|---|---|---|
+| Business cycle | Expansion / recession | 274 / 26 | Retrospective NBER labels |
+| Market volatility | High / low | 123 / 177 | Previous-12-month market volatility, using a training-calibrated cutoff |
+
+Conditional Sharpe uses only the returns in the labeled months, with population standard deviation. The following values are **monthly**.
+
+| Portfolio | Expansion | Recession | High volatility | Low volatility |
+| --- | --- | --- | --- | --- |
+| Authors’ GAN | 0.842 | 0.324 | 0.598 | 1.003 |
+| Code 07 GAN | 0.637 | 0.455 | 0.480 | 0.841 |
+| New LSTM | 0.483 | 0.264 | 0.417 | 0.549 |
+| Transformer | 0.369 | -0.071 | 0.177 | 0.531 |
+| 50/50 blend | 0.517 | 0.076 | 0.345 | 0.684 |
+
+![Conditional Sharpe across economic regimes](results/readme/figures/regime_sharpe.png)
+
+Source: [direct author and local regime comparison](results/consolidated_comparison/tables/official_extended_regime_comparison.csv).
+
+New LSTM exceeds Transformer within each partition. Transformer has negative recession Sharpe in this sample. Code 07 exceeds the authors’ GAN in recession months despite a lower full-test Sharpe. That finding rests on only 26 months and is descriptive. NBER labels are retrospective and do not define a real-time trading signal.
+
+## Code 11: combinations and consolidated evidence
+
+### Architecture within rolling windows and regimes
+
+A conditional recession Sharpe uses only recession returns. A rolling window classified by its **ending-month** regime uses every return in that window, including expansion returns. These measures can rank models differently.
+
+![Rolling windows classified by endpoint regime](results/readme/figures/rolling_endpoint_regimes.png)
+
+For 36-month recession-ending windows, Transformer’s mean annualized rolling Sharpe is **1.409**, slightly above new LSTM’s **1.383**. At 60 months, LSTM leads **1.893 versus 1.775**. This does not contradict the recession-only result because the underlying return samples differ. [Complete endpoint-regime table](results/consolidated_comparison/tables/official_extended_endpoint_regimes.csv).
+
+### Fixed 50/50 architecture blend
+
+The blend averages the saved LSTM and Transformer **portfolio returns** with constant 50/50 weights. This differs from averaging raw stock weights within each architecture’s nine-seed ensemble. It is an illustrative diversification exercise created after examining test outcomes, with no additional gross-exposure normalization or validation of a new trading rule.
+
+Its monthly Sharpe is **1.414 / 0.915 / 0.463** in training / validation / test. Test-return correlation between the architectures is **0.292**. Averaging lowers volatility, but full-test Sharpe improves only slightly over LSTM’s **0.459**. [Blend split table](results/consolidated_comparison/tables/architecture_blend_split_comparison.csv), [regime table](results/consolidated_comparison/tables/architecture_blend_regime_comparison.csv).
+
+![Correlation of the six local model factors](results/consolidated_comparison/figures/correlations.png)
+
+This correlation figure covers the six local models. The separate [five-portfolio correlation CSV](results/consolidated_comparison/tables/official_extended_correlations.csv) includes the authors’ GAN and fixed blend.
+
+## Answers and contribution
+
+| Question | Current answer | What the evidence supports |
+|---|---|---|
+| Did we replicate the main ordering? | GAN stays first; some benchmark positions differ | Qualitative ranking replication, with a numerical GAN performance gap |
+| Did Transformer improve overall Sharpe? | No, under the completed matched reduced schedule | LSTM 0.459 versus Transformer 0.304 monthly test Sharpe |
+| Is performance stable across time? | No, relative performance varies across windows | Rolling evaluation adds information beyond aggregate test Sharpe |
+| Do regimes matter? | Yes, returns and risk differ across economic partitions | Descriptive conditional comparisons, particularly sensitive in recession |
+| Can rankings reverse in combined scenarios? | Yes, for 36-month recession-ending windows | Endpoint-window classification answers a different question from recession-only returns |
+| Does the blend help? | Slightly in full test, more in some rolling/regime comparisons | Diversification illustration, not an independently validated strategy |
+
+**What we add to the original paper:** a matched reduced-budget comparison of two macro sequence architectures, time-varying evaluation of fixed factors, conditional economic-state comparisons, and a combined analysis linking architecture to rolling windows and regimes. The fixed blend adds a simple diversification comparison. These extensions complement the replication rather than replace its economic objective.
+
+## Limitations and next experiments
+
+The findings do not establish universal Transformer inferiority or statistical significance. The new models use reduced training, windows overlap, recession samples are small, and test results have been examined repeatedly. No net-of-cost performance, independent holdout validation, or real-time macro-vintage assessment is complete.
+
+The next matched experiment would train both architectures with nine seeds under the full audited schedule, benchmark GPU runtime, and refresh Codes 09–11 using those factors. Further robustness work includes transaction costs, expanding-window refits, block-bootstrap uncertainty, imputation alternatives, and interpretation of hidden economic states. These are proposed experiments, not current results.
+
+## Notebook guide and reproducibility
+
+| Code | Notebook | Role |
+|---|---|---|
+| 01 | [Data preparation](notebooks/01_data_preparation.ipynb) | Calendar alignment, panel construction, and preprocessing |
+| 02 | [Exploration](notebooks/02_exploratory_analysis.ipynb) | Data distributions and coverage |
+| 03 | [Linear benchmarks](notebooks/03_linear_baseline.ipynb) | LS and EN |
+| 04 | [Feedforward model](notebooks/04_feedforward_sdf.ipynb) | Nonlinear benchmark |
+| 05 | [LSTM macro states](notebooks/05_lstm_macro_state.ipynb) | Macroeconomic sequence inputs |
+| 06 | [Adversarial model](notebooks/06_GAN.ipynb) | GAN pricing framework |
+| 07 | [Replication comparisons](notebooks/07_results_replication.ipynb) | Saved model and original-paper checks |
+| 08 | [Matched reduced-schedule training](notebooks/08_reduced_schedule_comparison.ipynb) | Nine-seed LSTM and Transformer ensembles |
+| 09 | [Reduced-schedule rolling evaluation](notebooks/09_reduced_schedule_oos.ipynb) | Complete rolling windows |
+| 10 | [Regime analysis](notebooks/10_regime_analysis.ipynb) | Conditional economic comparisons |
+| 11 | [Consolidated results](notebooks/11_consolidated_results_comparison.ipynb) | Results, combinations, and interpretation |
+
+Earlier exploratory Transformer/rolling notebooks and full-schedule preparation notebooks remain available. The full-schedule notebook retains an interrupted-run output for provenance. Use the reduced-schedule path for the completed extension evidence. Direct author-factor comparison CSVs support the paper and combined presentation alongside notebook outputs.
 
 From the repository root:
 
@@ -56,24 +281,19 @@ python -m pip install -r requirements.txt
 jupyter notebook notebooks/11_consolidated_results_comparison.ipynb
 ```
 
-For the extension pipeline, run Code 08 before Codes 09, 10, and 11. Code 08 retrains models, whereas the later codes consume saved returns and diagnostics. Inspect the reduced-schedule notebooks for the configuration before starting training. Raw datasets and model checkpoints are excluded from Git and must be supplied locally to reproduce training.
+Run Code 08 before Codes 09, 10, and 11 when rebuilding the extension pipeline. Code 08 trains models; later codes load saved returns and diagnostics. Matching `.py` scripts are available for Codes 07–11. Raw data and model checkpoints are excluded from Git and must be supplied locally to reproduce training. Saved CSVs and figures allow inspection of reported results without retraining.
 
-## Saved outputs
+| Directory | Contents |
+|---|---|
+| `notebooks/` | Data, model, replication, and extension notebooks |
+| `src/models/` | Transformer and matched adversarial implementations |
+| `scripts/` | Pipeline completion helpers |
+| `results/paper_matched_reduced_schedule/` | Completed matched architecture experiment and seed diagnostics |
+| `results/rolling_oos_reduced_schedule/` | Rolling evaluations and benchmark comparisons |
+| `results/regime_analysis/` | Labels, sample sizes, conditional metrics, and figures |
+| `results/consolidated_comparison/` | Consolidated results, direct author factors, blend, and endpoint regimes |
+| `results/readme/figures/` | Figures used in this research overview |
+| `paper/` | LaTeX research draft |
+| `presentation/` | Three PowerPoint decks and final review PDF |
 
-- `src/models/`: Transformer and matched adversarial-model implementations.
-- `scripts/`: helpers for completing and consolidating training pipelines.
-- `results/paper_matched_reduced_schedule/`: completed matched architecture experiment.
-- `results/rolling_oos_reduced_schedule/`: paper comparisons and rolling evaluations.
-- `results/regime_analysis/`: economic regime diagnostics.
-- `results/consolidated_comparison/`: consolidated tables, figures, and direct author-factor comparisons.
-- `paper/asset_pricing_extensions_draft.tex`: research-paper draft with figures and comparisons.
-
-## Presentations
-
-All three presentations are saved in [`presentation/`](presentation/):
-
-1. [Original-paper presentation](presentation/01_Original_Paper.pptx)
-2. [Our replication presentation](presentation/02_Our_Replication.pptx)
-3. [Combined replication and extensions, Codes 08–11](presentation/03_Combined_Replication_and_Extensions_08_11.pptx)
-
-The combined deck contains 30 slides, with 10 on previous work and 20 on new results. It includes the team and professor, editable charts and tables, and model explanations. A [PDF for review](presentation/03_Combined_Replication_and_Extensions_08_11.pdf) accompanies the editable PowerPoint.
+This is an independent academic replication and extension project. It is not the official implementation of the original authors.
