@@ -1,5 +1,7 @@
 # Asset Pricing with Deep Learning: Replication, Extensions and Uncertainty
 
+Repository: [Deep-Learning-in-Asset-Pricing-Replication-and-Extensions](https://github.com/rezazamani2329/Deep-Learning-in-Asset-Pricing-Replication-and-Extensions).
+
 An academic study of how economic pricing restrictions, macroeconomic sequence models, and adversarial learning shape portfolio performance. We reproduce the original framework, compare our results with the authors, and extend the analysis to **LSTM versus Transformer, rolling windows, economic regimes, portfolio combinations, and bootstrap uncertainty**. The completed extension evidence comes from a reduced training schedule. Codes 09–012 reuse saved returns without retraining.
 
 
