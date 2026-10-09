@@ -1,0 +1,244 @@
+Complete presenter notes for the latest main presentation
+October 9, 2026
+
+Organized by PowerPoint slide number, not inherited footer number. Detailed regime and uncertainty notes are preparation material rather than a script to read in full during a 15-minute talk.
+
+SLIDE 1: Deep learning in Asset Pricing
+
+Opening: We study Chen, Pelger and Zhu's deep-learning asset-pricing framework and extend its evaluation. Introduce Group 7 and Professor Ali Kakhbod. Our question is whether the model remains useful when we change the macro encoder and examine performance across time and economic conditions. Transition: explain the agenda.
+
+
+
+SLIDE 2: Agenda
+
+Roadmap: Start with the paper's economic question and model architecture. Explain the replication as our benchmark, then discuss Transformer, rolling windows, regimes and uncertainty. Finish with the combined scorecard and architecture blend. The final deck integrates replication evidence in the comparisons rather than in a separate section.
+
+
+
+SLIDE 3: The paper
+
+Explain: The SDF prices assets through the restriction that its product with excess returns has zero conditional expectation. Firm characteristics describe stocks, while macroeconomic history describes the economy. The paper combines these inputs with economic pricing restrictions. Finding: the slide reports monthly test Sharpe of 0.75 for GAN versus 0.19 for FF3. Monthly units matter throughout this comparison. Source: original-paper results summarized in our replication materials.
+
+The SDF is an economic weighting of future payoffs, with greater relevance for payoffs delivered when they are especially valuable. For excess returns, the pricing condition is E[M times R excess | information] = 0. The model learns weights through these pricing moments rather than directly maximizing realized test Sharpe. The portfolio Sharpe is a useful performance summary, but it does not by itself establish that every asset is correctly priced.
+Question: Why include macro data? Answer: Identical firm characteristics can have different implications in different economic states. The macro encoder provides state information to the firm-level network.
+Transition: The next slide shows how the paper connects these economic restrictions to trainable neural networks.
+
+SLIDE 4: Model Architecture
+
+Explain the learning path: The SDF macro LSTM compresses 178 macro series into four states. The feedforward network combines these states with 46 characteristics to generate stock weights. Weighted subsequent excess returns determine a factor and M = 1 minus that factor. Pricing errors propagate gradients through both networks. A separate macro encoder produces 32 states for eight conditional instruments. Training first fits unconditional pricing, then freezes the pricing model while the adversary finds difficult moments, and finally freezes the adversary while the pricing model reduces those errors. End-to-end learning connects economic loss to learned representations and portfolio weights.
+
+Presenter walkthrough: Begin with information available at month t. Feed the history of macro variables to the SDF encoder. Combine its four learned states with each stock's 46 characteristics. The two 64-unit feedforward layers output a weight for each stock. Subsequent excess returns enter the training pricing moments, with the learned factor F(t+1) equal to the sum of weight times excess return. The SDF is M(t+1) = 1 - F(t+1).
+The adversary uses a separate encoder with 32 macro states and combines these with firm characteristics to produce eight instruments. It tries to identify conditional moments that the pricing network handles poorly. The pricing network then tries to reduce those errors. Freeze one side while training the other.
+Backpropagation connects the loss to the weight network and macro encoder, so the state representation learns to serve the economic objective. The adversary has its own learning path. This is the end-to-end learning process.
+Question: Does the model see next month's return when generating a weight? Answer: Future realized returns enter the training loss, while weight inputs must contain only information available at the decision date.
+
+SLIDE 5: Extensions
+
+Transition: We now move from the original framework to our extensions. Emphasize that the extensions include one architecture change and additional evaluations of saved returns.
+
+
+
+SLIDE 6: From the paper to our extensions
+
+Explain: LS and Elastic Net provide linear baselines, FFN provides a nonlinear prediction baseline, and GAN applies economic pricing restrictions with an adversary. We preserve the GAN framework and change the macro encoder in Code 08. Codes 09 through 012 examine time variation, economic states, combinations and uncertainty. These evaluations reuse saved returns. The goal is to assess robustness, rather than infer superiority from a single Sharpe ratio.
+
+Distinguish the experiments: The historical replication uses nine GAN members with seeds 42 through 50 and nominal stage counts 256, 64 and 1024. It differs from author implementation conventions, including optimizer passes and checkpoint rules. The completed extension run trains nine LSTM and nine Transformer members with counts 16, 4 and 48, four optimizer passes and validation-based pricing checkpoints after a shortened warm-up. The extension audit also aligns instruments and ensemble construction more closely with the authors.
+Consequently, Code 07 replication versus Code 08 LSTM is not a controlled comparison of training length alone. Code 08 LSTM versus Transformer is the matched architecture comparison. Codes 09 through 012 reuse saved return series.
+Question: What is genuinely new? Answer: The Transformer changes the encoder architecture, while rolling, regime and bootstrap analyses provide additional evidence about robustness. Portfolio blending illustrates diversification across the two architectures.
+
+SLIDE 7: Extension
+
+Transition: The first extension changes how the model reads macroeconomic history. Introduce attention as an alternative to recurrent memory.
+
+
+
+SLIDE 8: Extension 1: Transformer instead of LSTM
+
+Explain: The LSTM updates a recurrent state month by month. The Transformer projects the macro inputs into representations, adds positional information and uses attention over available history. A causal mask prevents access to future months. We replace both macro encoders with two-layer, four-head Transformers while keeping output dimensions of four and 32. We retrain the LSTM with the same nine seeds and reduced schedule. Attention may capture distant relationships, but the performance benefit is an empirical question. Source: Code 08 and src/models/transformer_gan_paper.py.
+
+Attention compares learned representations of different months and assigns weights to their relevance. Positional information distinguishes time order. The causal mask permits a month to attend only to information available up to that month. Both the SDF and conditional macro encoders change, while the economic output dimensions remain four and 32.
+A seed controls random initialization and random draws. Nine seeds produce nine members per architecture, not nine different economic model classes. Their ensemble reduces dependence on a single initialization.
+Question: Why did Transformer not improve Sharpe? Answer: We observe lower mean return and higher volatility under this budget. Possible explanations include limited macro training history, architecture tuning and insufficient training, but this experiment does not identify the cause. Equal budgets control effort rather than guarantee equal convergence.
+
+SLIDE 9: Transformer: train, validation and test results
+
+Read: The table shows test-period outcomes, with monthly Sharpe and monthly mean return but annual volatility. LSTM has Sharpe 0.459 and Transformer 0.304. Transformer has lower mean return and higher volatility, with a deeper maximum drawdown. Finding: attention does not improve the observed test outcome in this run. The equal reduced budget controls training effort, but cannot establish what would happen under the full author schedule. Do not interpret the title as additional evidence beyond the displayed metrics. Source: Code 08 saved results.
+
+Use the full-test results to explain the arithmetic. Monthly Sharpe is average monthly excess return divided by monthly return standard deviation. The LSTM earns roughly 0.51 percent monthly, while Transformer earns roughly 0.42 percent. Annual volatility is about 3.9 percent versus 4.8 percent, so Transformer loses on both return and risk in this sample.
+Question: Is LSTM conclusively better? Answer: It is better in the observed point estimate. The paired bootstrap interval discussed later includes zero, so the superiority claim remains statistically unresolved. The architecture comparison uses the reduced schedule, not the full audited author schedule.
+
+SLIDE 10: Extension 2: Rolling window
+
+Transition: A full-period Sharpe can conceal variation. We next examine shorter stretches of the same saved return series.
+
+
+
+SLIDE 11: Extension 2: rolling-window evaluation
+
+Explain: Calculate Sharpe within each complete 36-month and 60-month test window and advance the endpoint by one month. The 300 test months give 265 and 241 windows respectively. These are evaluations of fixed models, not rolling retraining. Adjacent windows share most observations, so their estimates are dependent. The exercise reveals when performance strengthens or weakens. Source: Codes 09 and 012.
+
+There are 300 test months. Complete windows are counted as T minus window length plus one. For 36 months, 300 - 36 + 1 = 265. For 60 months, 300 - 60 + 1 = 241. The longer horizon needs 24 additional months before its first estimate, producing 24 fewer windows.
+Question: Are we retraining each month? Answer: No. We recalculate performance using fixed saved strategies. Retraining at each endpoint would be a separate rolling training experiment.
+Transition: Compare how the same portfolio's estimated performance changes with time and horizon.
+
+SLIDE 12: Rolling results: 36- and 60-month Sharpe
+
+Read: Each curve is annualized rolling Sharpe. Compare the same window lengths and dates across models. The mean rolling values shown favor the paper factor and our replicated GAN, followed by the extension LSTM and Transformer. The 60-month curves smooth short-term changes. A mean of rolling Sharpe ratios differs from one full-period Sharpe, and their annualized units differ from monthly values elsewhere. Source: saved rolling series and summaries.
+
+Annualized Sharpe equals monthly Sharpe multiplied by square root of 12 under the reporting convention used here. Our replicated GAN's mean annualized 36-month rolling value of 2.89 is approximately 0.83 monthly. Its full-test monthly value is about 0.61. The remaining difference comes from averaging ratios across windows instead of forming a single ratio from the entire test sample.
+Question: Does a larger rolling value mean that rolling improves the portfolio? Answer: No. The portfolio is unchanged. Only the performance horizon and aggregation change. Compare models within a column using consistent units.
+
+SLIDE 13: Rolling: paired Sharpe differences
+
+Read: Each panel compares two models using a paired annualized Sharpe difference. Positive values favor the first named model. The shaded band is a pointwise 95 percent basic bootstrap interval. A band crossing zero leaves that window's ordering unresolved. The bands do not provide simultaneous coverage across all dates. The 36- and 60-month comparisons illustrate how both ranking and precision change over time. Source: Code 012 rolling_difference_uncertainty figure.
+
+Pairing matters: Resampling the same months for both models preserves their co-movement. A model-gap interval is more directly relevant to a ranking than visually comparing separate model intervals. Positive differences favor the first named portfolio, and negative differences favor the second.
+A band above zero supports the first model locally. A band below zero supports the second. A band containing zero leaves the ranking unresolved in that window. Pointwise 95 percent coverage does not imply a 95 percent probability that the entire time path lies inside all bands.
+
+SLIDE 14: Extension 3: Economic Regimes
+
+Transition: Time variation motivates a closer look at economic conditions. We evaluate recessions versus expansions and high versus low volatility.
+
+Suggested introduction: We now ask whether the same portfolio works differently in economic conditions that matter for investors. The original macro encoders should capture state dependence, so regime evaluation offers a useful diagnostic.
+Clarify immediately that this is an evaluation extension. We do not train separate expansion and recession networks. A difference in conditional Sharpe shows state-dependent realized portfolio performance, rather than proving a structural causal mechanism.
+
+SLIDE 15: Extension 3: economic regimes
+
+Explain: We group the saved test returns into 274 expansion and 26 recession months using NBER labels. Volatility groups contain 123 high and 177 low months, based on lagged twelve-month market volatility and a threshold set using training data. Lagging the volatility measure avoids future information. NBER classifications serve as retrospective evaluation labels. These groups do not involve separate regime-trained models. Source: Codes 10 and 012.
+
+Detailed process: Start with the same 300 monthly test returns for every portfolio. Attach a business-cycle label and a volatility label to each month. For each group, compute the mean return and its standard deviation using only the months in that group, then calculate monthly conditional Sharpe. Expansion and recession partition the test sample, as do high and low volatility. They are separate classifications, and they need not select identical months.
+Business-cycle definition: NBER labels identify 274 expansion months and 26 recession months. These are 91.3 percent and 8.7 percent of the sample. Recession observations can come from distinct episodes separated by years. They are not a single contiguous 26-month investment period. The labels describe the economy retrospectively, and this analysis does not claim that all final NBER labels were observable in real time.
+Volatility definition: Use a market-volatility estimate based on the past twelve months. Compare it with a threshold determined from training data. The saved test classification gives 123 high-volatility months, or 41 percent, and 177 low-volatility months, or 59 percent. Lagging the estimate and fixing the threshold before the test period avoids using future returns to set the volatility label.
+Why this matters: Aggregate performance can hide weak results during stress. A strategy with a high full-test Sharpe may still deliver poorly precisely when investors need it. The two groupings ask different questions: business-cycle weakness and financial-market turbulence are related but not identical.
+Interpretation limits: Twenty-six recession months provide much less information than 274 expansion months. Estimates can depend strongly on a few returns. Recession or volatility labels do not randomize exposure, so this comparison does not identify the causal effect of recessions on a model. Sharpe also combines changes in average return and dispersion, and should be read with those components where available.
+Question: Is this a recession-specific model? Answer: No. The same saved portfolio is evaluated in different groups. Question: Can I compare these Sharpe values to the rolling column? Answer: These are monthly group Sharpe ratios. Rolling values elsewhere are annualized unless explicitly converted.
+Transition: Having defined the groups, compare the model values within each group rather than across inconsistent units.
+
+SLIDE 16: Regime results: every model struggles in bad times
+
+Read: Compare monthly conditional Sharpe within each economic group. The Transformer recession value is approximately minus 0.07. Our replicated GAN has approximately 0.46 in recessions versus 0.32 for the author factor. That difference rests on only 26 recession months, so avoid a strong superiority claim. The displayed comparisons show weaker performance in difficult conditions. They assess portfolio performance by state, rather than directly proving conditional pricing restrictions hold. Source: Code 012 regime tables.
+
+Detailed reading of LSTM versus Transformer: In expansions, monthly Sharpe is approximately 0.48 for LSTM and 0.37 for Transformer, a gap of 0.11. In recessions, the values are approximately 0.26 and -0.07, a gap of 0.33. In high volatility, they are approximately 0.42 and 0.18, a gap of 0.24. In low volatility, they are approximately 0.55 and 0.53, a much smaller gap of 0.02.
+Interpretation: The architecture values are similar in calm markets but separate more strongly during stress. This accompanies the lower full-test Transformer Sharpe. It does not establish why Transformer struggles, nor whether the conditional gaps are statistically significant. These regime charts report descriptive point estimates without a regime-specific confidence interval on this slide.
+Our replicated GAN versus the author factor: The recession values are approximately 0.46 versus 0.32. Describe this as a higher observed recession Sharpe for our replication. Avoid saying it conclusively improves the original paper, because the group is small and the implementations differ.
+Negative Sharpe: A value of -0.07 indicates a negative average excess return relative to its standard deviation in the selected recession sample. It does not mean a 7 percent loss, nor does it by itself tell us the cumulative loss. Sharpe is a dimensionless ratio.
+Small-sample caution: The recession sample has only 26 months. Relative to the expansion sample, its mean and standard deviation are less precisely estimated. One unusual month can materially change the ratio. A positive point estimate does not guarantee positive expected performance.
+Scientific interpretation: The macro encoder's purpose is to represent economic state, but a regime Sharpe comparison tests an investment outcome. It does not directly test all conditional pricing moments or prove that hidden states correspond to named economic regimes.
+Suggested wording: All displayed models have weaker Sharpe in recessions than expansions and in high volatility than low volatility. In our matched architecture comparison, LSTM has stronger observed stress-period performance. Further testing is needed to establish the precision and persistence of these gaps.
+Question: Why can Transformer lead recession-ending rolling windows later? Answer: Those windows include earlier expansion months. Recession-only Sharpe uses just recession observations. They measure different samples.
+
+SLIDE 17: Extension 4: Uncertainty
+
+Transition: The rankings so far are point estimates. We now measure their sampling uncertainty.
+
+Suggested introduction: A ranking is not enough. We have observed returns from one historical period, and the estimated Sharpe could change in another sample. Extension 4 quantifies this sampling uncertainty for fixed saved portfolios.
+Separate two issues: uncertainty about an individual Sharpe and uncertainty about the difference between two Sharpes. For deciding which model is better, the paired difference is the relevant object.
+
+SLIDE 18: Extension 4: how sure are we? Bootstrap uncertainty
+
+Explain: Resample paired blocks of monthly test returns so every model receives the same sampled months and dependence within blocks is retained. Full-test comparisons use 10,000 replicates with twelve-month blocks. Rolling-window uncertainty uses 2,000 replicates and six-month blocks. Confidence intervals assess sampling variability of fixed saved strategies. They do not capture all uncertainty from retraining, seed selection or model search. Compare the interval for the paired gap directly, since overlapping individual intervals alone do not resolve significance. Source: Code 012.
+
+Detailed bootstrap procedure: First compute each portfolio's monthly Sharpe on the actual test data. Select contiguous blocks of months from that history, wrapping at the sample boundary in a circular block bootstrap. Combine sampled blocks to obtain a resampled history of the required length. Use exactly the same month indices for every model. Recompute each Sharpe and each paired difference. Repeat many times to obtain distributions of these estimates.
+Why blocks: Financial returns can have time dependence. Sampling independent individual months breaks dependence within nearby observations. Blocks retain dependence within the selected segment, although no block choice can perfectly reproduce every feature of the original series.
+Why paired sampling: When both models perform well in the same month, that co-movement matters for the variability of their difference. Pairing retains it. Independently bootstrapping each model would lose this relationship and answer a less useful question.
+Full-test configuration: Code 012 uses 10,000 replicates and twelve-month blocks as the primary full-test specification, with six- and twenty-four-month choices for sensitivity. Sensitivity describes dependence on the procedure, and should not be used to choose whichever method gives a favorable result.
+Rolling configuration: Each complete 36- or 60-month window receives its own bootstrap calculation using 2,000 replicates and six-month blocks. The rolling exercise therefore differs from the full-test settings. The main slide simplifies the process, so state this distinction if asked.
+Confidence interpretation: A frequentist 95 percent confidence procedure aims for nominal coverage over repeated samples under its assumptions. Do not describe one realized interval as a 95 percent probability that a fixed true parameter lies inside it. In practice, use it to describe the range of values consistent with the uncertainty procedure.
+Basic interval: If theta-hat is the observed statistic and q-low and q-high are bootstrap quantiles, the basic interval reflects the bootstrap quantiles around the observed estimate: [2 times theta-hat minus q-high, 2 times theta-hat minus q-low]. This differs from a percentile interval that directly uses bootstrap quantiles.
+What this does not measure: We bootstrap saved returns, not new training runs. The intervals do not fully represent initialization uncertainty, hyperparameter search, test-informed model selection or future structural changes. Blocks also do not make a small recession sample large.
+Question: Do overlapping individual intervals mean there is no significant difference? Answer: Not necessarily. Directly bootstrap the paired Sharpe difference. Correlation between model returns affects its uncertainty.
+Transition: Read model-level rolling bands first, then use the paired-difference table for the ranking question.
+
+SLIDE 19: Uncertainty: paper and replication
+
+Read: Lines are annualized rolling Sharpe for the author factor and our replicated GAN, with separate pointwise confidence bands. Wide bands indicate imprecise estimates within a limited window. When a band includes zero, positive population Sharpe remains unresolved under this procedure. Individual bands answer a different question from paired model-gap intervals. Source: Code 012 rolling_model_uncertainty figure.
+
+Figure walkthrough: Identify the author-factor and replication panels, then the 36- and 60-month columns. The line is observed annualized Sharpe within the corresponding rolling window. The shaded region is its pointwise 95 percent basic interval. The zero line is the reference for positive versus negative Sharpe.
+A band wholly above zero provides evidence of positive Sharpe within that particular window under the bootstrap specification. A band crossing zero leaves positivity unresolved. It does not mean the realized portfolio had zero performance or that the model necessarily failed.
+Window length trade-off: Sixty months usually provide more observations but mix a longer range of economic conditions. Thirty-six months respond more quickly to local changes but can be noisy. Greater length does not guarantee a narrower interval at every endpoint.
+Important distinction: This figure measures uncertainty around each model's own Sharpe. It does not directly determine whether the author factor beats our replication. Their estimates share return dates and can be correlated. The paired comparison uses this dependence explicitly.
+Coverage limit: The bands are pointwise, not simultaneous across every time endpoint. A small number of apparently positive or negative windows should not be interpreted as independent discoveries. Overlapping windows share most returns.
+Question: Why can the band extend below zero while the line is positive? Answer: The point estimate is positive, but resampled histories produce sufficiently different means or volatilities that the interval extends below zero.
+Transition: Apply the same reading rule to the extension-model panels.
+
+SLIDE 20: Uncertainty: extension models
+
+Read: These panels show separate rolling confidence bands for the extension LSTM, Transformer and equal-weight combination. Sampling uncertainty varies across dates and window lengths. For model differences, refer to slide 21 in this final deck or the paired rolling comparisons on slide 13. The visible reference to slide 15 is inherited from an earlier version. Keep pointwise coverage distinct from simultaneous model-pair intervals. Source: Code 012 rolling_model_uncertainty figure.
+
+Figure walkthrough: Locate the LSTM, Transformer and equal-weight blend panels for both window lengths. Read the level of each line as realized annualized rolling Sharpe and the width of its band as sampling uncertainty under the rolling bootstrap. Distinguish high estimated performance from precisely estimated performance.
+Several intervals include zero. This indicates uncertainty about the sign of the population Sharpe represented by each window. It does not establish that these models are equal to each other. A model can have an interval containing zero yet differ from another model in a paired comparison, or have positive individual Sharpe without being distinguishable from a competitor.
+The blend is the fixed equal-weight average of saved LSTM and Transformer portfolio returns. Its band describes the uncertainty of this particular fixed combination. It does not search for optimal weights or show the benefit of blending on a fresh sample.
+Slide-reference clarification: The figure retains an earlier reference to slide 15. In the current main presentation, the full-test paired comparison is on slide 21 and the paired rolling chart is on slide 13. Direct the audience to those slides.
+Question: Does a narrower band mean a higher Sharpe? Answer: No. Interval width concerns precision, while the line concerns the estimate. A strategy can have a low but precisely estimated Sharpe.
+Transition: The next table puts uncertainty directly on the model gaps.
+
+SLIDE 21: Uncertainty: paired Sharpe differences
+
+Read: All gaps are monthly Sharpe differences, first model minus second. Paper minus replication is 0.138 and LSTM minus Transformer is 0.155. Their basic and simultaneous intervals include zero. The LSTM minus blend gap is approximately minus 0.004 and is also unresolved. Simultaneous intervals account for the declared family of pair comparisons. The results do not establish equivalence, and do not overturn the observed point estimates. Source: Code 012 paired full-test intervals.
+
+Detailed table reading: The statistic is monthly Sharpe of model A minus monthly Sharpe of model B. Positive values favor A, negative values favor B. These are dimensionless Sharpe differences, not percentage-return differences.
+Paper GAN minus replication: The observed gap is 0.138. The 95 percent basic interval is [-0.037, 0.256] and the simultaneous interval is [-0.148, 0.425]. Both include zero. The author factor leads in the observed full-test estimate, but this procedure leaves the gap statistically unresolved.
+LSTM minus Transformer: The observed gap is 0.155. The basic interval is [-0.049, 0.365] and simultaneous interval is [-0.132, 0.441]. The higher observed LSTM Sharpe therefore does not establish a clear full-test advantage at these interval levels.
+LSTM minus equal-weight blend: The observed difference is about -0.004. The basic interval is [-0.132, 0.119] and simultaneous interval is [-0.290, 0.283]. The blend's point estimate is slightly higher, but both signs remain compatible with these intervals. Reversing the subtraction reverses the endpoints: a blend-minus-LSTM basic interval is approximately [-0.119, 0.132]. The slide 25 interval [-0.13, 0.12] is a rounded presentation summary and should not be treated as exact directional endpoints.
+Basic versus simultaneous: A basic interval addresses one comparison at its stated level. The simultaneous procedure aims to cover the declared family of pairwise differences together, accounting for the fact that many comparisons can produce an apparently favorable gap by chance. Its wider ranges reflect that stronger coverage requirement. Do not interpret it as simultaneous coverage across all rolling dates.
+Family distinction: The main five-portfolio comparison includes ten model pairs. The additional local-model analysis includes seven local portfolios and twenty-one pairs, requiring its own calibration. The three rows shown here are selected summaries from the main comparison, not the full family.
+Decision rule: Entirely above zero supports A. Entirely below zero supports B. Including zero means the ranking remains unresolved. Failure to resolve a gap does not prove equality, equivalence or absence of an economically meaningful difference.
+Question: Why show point estimates if the gaps are unresolved? Answer: They describe the historical outcome. Confidence intervals indicate how cautiously we should generalize it. Both pieces are useful.
+Transition: Combine these limits with the regime and rolling results before reaching an overall conclusion.
+
+SLIDE 22: Combined
+
+Transition: Combine the architecture, time, regime and uncertainty evidence in one scorecard. Keep units consistent when comparing columns.
+
+
+
+SLIDE 23: All extensions together: one scorecard
+
+Read: Test, expansion, recession and volatility-group Sharpe values are monthly. Rolling 36-month entries are means of annualized rolling Sharpe. Our replicated GAN leads the displayed local portfolios, while LSTM leads Transformer in the full test sample. The architecture-gap intervals still include zero. The paper-factor row uses the authors' return series for our additional evaluations, so these intervals and regime estimates are our calculations rather than all published paper results. The pointwise ranking is conditional on this sample and training design. Source: Codes 07 through 012 and saved author factor.
+
+Column walkthrough: Test Sharpe is monthly and spans all 300 test months. Expansion, recession and volatility columns are monthly conditional ratios. Rolling 36m is the average annualized Sharpe over 265 overlapping three-year windows. Do not rank columns by their numerical size as if they share a common scale and sample.
+Example: Our replication's rolling 2.89 divided by square root of 12 is approximately 0.83 monthly. This remains different from 0.61 full-test Sharpe because averaging window ratios differs from using one full-period mean and standard deviation. Rolling evaluation does not alter the portfolio.
+Read the displayed local ranking: Replicated GAN has the strongest point estimates among the five displayed portfolios we trained or combined. The table excludes some linear and feedforward baselines, so avoid extending that statement to every model in the project. Its recession value also exceeds the displayed author-factor value, subject to the small sample.
+Read the architecture comparison: LSTM exceeds Transformer in each conditional column shown, with the smallest difference in low volatility. The blend improves low-volatility Sharpe relative to LSTM but falls below LSTM in recession and high-volatility groups. Diversification benefits vary by state.
+Confidence limits: Individual 95 percent intervals cannot establish the significance of each pairwise gap. Refer to slide 21. Additional regime columns are descriptive point estimates. The paper row uses author returns for our additional evaluations, rather than implying that every displayed statistic came from the published article.
+Question: Does the combined table prove GAN is best everywhere? Answer: It summarizes this sample and these displayed metrics. Rolling rankings can change, intervals can overlap zero and implementation conventions differ.
+
+SLIDE 24: Combination:  rolling results by regime and uncertainty
+
+Explain: The first comparison groups rolling windows by the economic regime at their endpoint. A recession-ending window contains earlier months from other states, so it differs from Sharpe computed only on recession months. Transformer leads among recession-ending three-year windows, while LSTM leads among five-year windows. The bootstrap verdict counts describe pointwise window comparisons with substantial overlap, not independent tests. Finding: architecture rankings depend on horizon and economic context. Source: Codes 11 and 012.
+
+Left figure: Select windows whose final month has a recession label. All months inside that window contribute to its Sharpe, including expansion months. LSTM and Transformer have mean annualized values of about 1.38 and 1.41 for 36-month windows, and 1.89 and 1.78 for 60-month windows. Thus Transformer leads slightly over three years, and LSTM leads over five. This differs from the recession-only ratios on slide 23.
+Right figure: Calculate a paired bootstrap interval for LSTM Sharpe minus Transformer Sharpe within each complete rolling window. Blue means the interval is entirely above zero, gray means it includes zero, and yellow means it is entirely below zero.
+Thirty-six months: There are 265 windows. Blue represents 39, or 39 / 265 times 100 = 14.7 percent. Gray represents 226, or 85.3 percent. Yellow represents zero.
+Sixty months: There are 241 windows. Blue represents 45, or 45 / 241 times 100 = 18.7 percent. Gray represents 196, or 81.3 percent. Yellow represents zero.
+Interpretation: LSTM receives statistical support in a minority of windows, Transformer in none, and most comparisons remain unresolved. Gray does not mean equal realized Sharpe. It means uncertainty is too large to resolve the gap with this procedure.
+Dependence: Adjacent windows overlap. These counts are descriptive summaries of pointwise verdicts, not independent tests or a probability that LSTM will win in the future. No simultaneous correction across all time endpoints is implied.
+
+SLIDE 25: Combining the two architectures: a 50/50 blend
+
+Explain: The blend averages the two saved portfolio return series using fixed equal weights. Return correlation of about 0.29 allows volatility to fall to roughly 1.01 percent monthly. Its monthly Sharpe is about 0.463, only 0.004 above LSTM. The gap interval includes zero, so evidence for an improvement remains weak. We designed this illustration after observing test results, which requires validation on a fresh holdout before making a predictive claim. Source: Codes 11 and 012.
+
+Figure reading: Each category compares monthly Sharpe for LSTM, Transformer and their return blend. Categories are full test, expansion, recession, high volatility and low volatility. The blend's full-test Sharpe is about 0.463, versus LSTM 0.459 and Transformer 0.304. Regime outcomes show that blending does not improve every condition.
+Calculation: Blend return in each month is 0.5 times LSTM return plus 0.5 times Transformer return. Blend Sharpe is calculated from the resulting series, not from averaging the two individual Sharpes. Its mean is the average of the two means, while volatility depends on both individual volatilities and their covariance.
+The correlation of about 0.29 permits volatility to fall to 1.01 percent monthly, versus 1.12 percent and 1.39 percent. Lower volatility is an observed diversification benefit. Because Transformer has lower mean return, the combination also lowers the mean relative to LSTM, leaving only a small Sharpe gain.
+Sharpe gain: 0.463 - 0.459 = +0.004. This is a ratio difference, not a 0.4 percent return improvement. The slide's approximate interval includes zero, so superiority remains unresolved. For precise subtraction directions, use the clarification in slide 21's notes.
+Question: Is the blend better? Answer: It has slightly higher observed full-test Sharpe and lower volatility, but no statistically established Sharpe advantage. It is a test-informed illustration that needs a fresh holdout.
+
+SLIDE 26: Summary: findings and next steps
+
+Closing: We contribute a common-budget Transformer comparison and evaluate saved portfolios across rolling windows, economic regimes and bootstrap uncertainty. LSTM has higher observed test Sharpe than Transformer, but paired intervals leave the advantage unresolved. Combining architectures reduces observed volatility with little Sharpe improvement. Next steps include the full author training schedule on GPU, a fresh holdout, transaction-cost evaluation and uncertainty across training runs. Invite questions about the distinction between economic learning and performance evaluation.
+
+Closing statement: We retain the economic pricing framework while changing the macro encoder and broadening performance evaluation. The evidence supports a higher observed LSTM Sharpe under the completed matched budget. It does not establish a universal architecture ranking. Combining models reduces observed risk, with little reliable Sharpe gain.
+Research priorities: Complete the full audited schedule for both architectures on suitable hardware. Evaluate choices on a new holdout. Estimate turnover and transaction costs using actual portfolio weights. Examine variation across independent training runs, since fixed-return bootstraps do not capture all learning uncertainty.
+Question: Why not conclude that Transformer is worse? Answer: The observed result favors LSTM, but it comes from one sample, reduced training and statistically unresolved gaps. That is a useful finding with a defined scope.
+
+SLIDE 27: Appendix - Github Repo
+
+Repository: The GitHub link contains the replication and extension code, saved results, figures and presentations. Point the audience to Codes 08 through 012 for the new experiments. Repository URL: https://github.com/rezazamani2329/Deep-Learning-in-Asset-Pricing-Replication-and-Extensions.
+
+
+
+SLIDE 28: Closing discussion
+
+Closing discussion: This final slide is blank in the supplied deck. Use it as a pause for questions. Suggested topics include why causal attention did not improve observed Sharpe, how rolling evaluation differs from retraining, and why an interval containing zero leaves superiority unresolved.
+

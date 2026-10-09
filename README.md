@@ -42,6 +42,13 @@ The 20-slide talk is titled **Deep Learning in Asset Pricing: Replication and Mo
 
 In the detailed fifth deck, the extension sections begin with their own title slides, and slide titles and footers identify the current part. The research draft is available as [LaTeX source](paper/asset_pricing_extensions_draft.tex).
 
+## Presenter notes and learning process
+
+Separate notes for every slide of the latest main presentation include detailed explanations of economic regimes and bootstrap uncertainty, figure interpretation, questions and answers, and transitions.
+
+- [Complete presenter notes (PDF)](presentation/Final_Presentation_Complete_Presenter_Notes.pdf) and [text version](presentation/Final_Presentation_Complete_Presenter_Notes.txt).
+- [Project end-to-end learning process (PDF)](presentation/Project_End_to_End_Learning_Process.pdf) and [text version](presentation/Project_End_to_End_Learning_Process.txt), covering data, networks, economic loss, adversarial training, checkpoint selection, ensembles and extension evaluation.
+
 ## Purpose and research questions
 
 The original question is whether a model trained to satisfy asset-pricing restrictions can learn a useful stochastic discount factor from firm characteristics and macroeconomic history. Our project first checks the replication, then examines how changing the sequence architecture affects performance across time and economic conditions.
